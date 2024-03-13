@@ -11,5 +11,5 @@ interface IImage {
 }
 
 export default function Icon(args: IImage) {
-  return <Image {...args}></Image>;
+  return <Image {...args} alt="icon"></Image>;
 }
