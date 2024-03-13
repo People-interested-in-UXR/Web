@@ -1,4 +1,4 @@
-export const HEADER = {
+export const NAV = {
   HOME: "HOME",
   ABOUT_US: "ABOUT_US",
   MEMBERS: "MEMBERS",

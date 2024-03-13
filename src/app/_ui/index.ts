@@ -7,6 +7,7 @@ import {
   Input,
   Checkbox,
   Logo,
+  Icon,
 } from "./_atomics";
 
 export {
@@ -19,4 +20,5 @@ export {
   Input,
   Checkbox,
   Logo,
+  Icon,
 };

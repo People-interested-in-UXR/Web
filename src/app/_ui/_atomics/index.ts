@@ -1,7 +1,7 @@
 import Chip from "./Chip";
 import Toast from "./Toast";
-import Logo from "./Logo";
 import { Button, SocialLogin } from "./Button";
 import { Input, Checkbox } from "./Form";
+import { Logo, Icon } from "./Icon";
 
-export { Chip, Toast, Button, SocialLogin, Input, Checkbox, Logo };
+export { Chip, Toast, Button, SocialLogin, Input, Checkbox, Logo, Icon };
