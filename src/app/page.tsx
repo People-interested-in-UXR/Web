@@ -1,6 +1,7 @@
 import { HTMLAttributes } from "react";
 import { Container, PIXRHeader, Section, PIXRFooter } from "./_containers";
 import Image from "next/image";
+import { Icon } from "./_ui";
 
 const Banner = ({ children }: HTMLAttributes<HTMLElement>) => {
   return (
@@ -71,7 +72,7 @@ export default function Home() {
             </div>
             <div className="flex gap-8">
               <div className="flex gap-8">
-                <div className="rounded-3xl bg-white text-default p-6 flex flex-col items-center gap-2">
+                <div className="rounded-3xl bg-white text-default h-fit flex flex-col items-center gap-2 p-6">
                   <Image
                     width={140}
                     height={140}
@@ -80,12 +81,17 @@ export default function Home() {
                   />
                   <div className="flex justify-between w-[223.5px]">
                     <p className="text-default h3-700-20">북 스터디</p>
-                    <button className="text-primary-red text-xl">
-                      &#10140;
+                    <button className="text-btn-default text-xl hover:text-btn-hover ">
+                      <Icon
+                        src={"/icon/right_arrow.svg"}
+                        alt={"오른쪽 화살표 모양"}
+                        height={20}
+                        width={24.5}
+                      />
                     </button>
                   </div>
                 </div>
-                <div className="rounded-3xl bg-white text-default p-6 flex flex-col items-center gap-2">
+                <div className="rounded-3xl bg-white text-default h-fit flex flex-col items-center gap-2 p-6">
                   <Image
                     width={140}
                     height={140}
@@ -94,14 +100,19 @@ export default function Home() {
                   />
                   <div className="flex justify-between w-[223.5px]">
                     <p className="text-default h3-700-20">아티클 스터디</p>
-                    <button className="text-primary-red text-xl">
-                      &#10140;
+                    <button className="text-btn-default text-xl hover:text-btn-hover ">
+                      <Icon
+                        src={"/icon/right_arrow.svg"}
+                        alt={"오른쪽 화살표 모양"}
+                        height={20}
+                        width={24.5}
+                      />
                     </button>
                   </div>
                 </div>
               </div>
               <div className="flex gap-8">
-                <div className="rounded-3xl bg-white text-default p-6 flex flex-col items-center gap-2">
+                <div className="rounded-3xl bg-white text-default h-fit flex flex-col items-center gap-2 p-6">
                   <Image
                     width={140}
                     height={140}
@@ -110,12 +121,17 @@ export default function Home() {
                   />
                   <div className="flex justify-between w-[223.5px]">
                     <p className="text-default h3-700-20">오프라인 정기모임</p>
-                    <button className="text-primary-red text-xl">
-                      &#10140;
+                    <button className="text-btn-default text-xl hover:text-btn-hover ">
+                      <Icon
+                        src={"/icon/right_arrow.svg"}
+                        alt={"오른쪽 화살표 모양"}
+                        height={20}
+                        width={24.5}
+                      />
                     </button>
                   </div>
                 </div>
-                <div className="rounded-3xl bg-white text-default p-6 flex flex-col items-center gap-2">
+                <div className="rounded-3xl bg-white text-default h-fit flex flex-col items-center gap-2 p-6">
                   <Image
                     width={140}
                     height={140}
@@ -124,8 +140,13 @@ export default function Home() {
                   />
                   <div className="flex justify-between w-[223.5px]">
                     <p className="text-default h3-700-20">컨퍼런스 / 세미나</p>
-                    <button className="text-primary-red text-xl">
-                      &#10140;
+                    <button className="text-btn-default text-xl hover:text-btn-hover ">
+                      <Icon
+                        src={"/icon/right_arrow.svg"}
+                        alt={"오른쪽 화살표 모양"}
+                        height={20}
+                        width={24.5}
+                      />
                     </button>
                   </div>
                 </div>
