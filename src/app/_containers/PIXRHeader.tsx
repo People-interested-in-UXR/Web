@@ -1,3 +1,4 @@
+"use client";
 import { Header, Logo } from "../_ui";
 import { NAV } from "../utils/consts";
 

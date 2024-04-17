@@ -80,7 +80,7 @@ export default function Home() {
                     alt={"북 스터디 이미지"}
                   />
                   <div className="flex justify-between w-[223.5px]">
-                    <p className="text-default h3-700-20">북 스터디</p>
+                    <p className="text-default h3-700-20 ">북 스터디</p>
                     <button className="text-btn-default text-xl hover:text-btn-hover ">
                       <Icon
                         src={"/icon/right_arrow.svg"}
