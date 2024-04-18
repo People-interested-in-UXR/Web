@@ -1,10 +1,23 @@
 "use client";
 import { Container, PIXRHeader } from "@/app/_containers";
-import { useState } from "react";
+import { Icon } from "@/app/_ui";
+import { useEffect, useRef, useState } from "react";
 
 export default function Page({}) {
+  const profileRef = useRef(null);
   const [fileName, setFileName] = useState("");
   const [name, setName] = useState("");
+  const [job, setJob] = useState("");
+  const [introduce, setIntroduce] = useState("");
+  const [email, setEmail] = useState("");
+  const [sns, setSns] = useState("");
+
+  useEffect(() => {
+    if (profileRef.current) {
+      console.log(profileRef.current);
+    }
+  }, [fileName, profileRef]);
+
   return (
     <Container>
       <PIXRHeader />
@@ -14,6 +27,7 @@ export default function Page({}) {
             Members에 등록할 프로필을 만들어 볼까요?
           </h1>
           <div className="flex flex-col w-full px-[84px] gap-6">
+            {/* 프로필 사진 */}
             <div className="flex flex-col items-start w-full gap-2">
               <div className="b2-600-16 text-default gap-2">
                 프로필 사진 <span className="text-primary-red">*</span>
@@ -22,9 +36,11 @@ export default function Page({}) {
                 className={`${fileName ? "border-teriary" : "border-secondary"} w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center`}
               >
                 <div
-                  className={`${fileName ? "text-default" : "text-muted"} b2-400-16`}
+                  className={`${fileName ? "text-default" : "text-muted"} b2-400-16 flex w-[260px]`}
                 >
-                  {fileName ? fileName : "사진을 선택해주세요"}
+                  <p className="truncate">
+                    {fileName ? fileName : "사진을 선택해주세요"}
+                  </p>
                 </div>
                 <label
                   htmlFor="photo"
@@ -33,30 +49,139 @@ export default function Page({}) {
                   사진 가져오기
                 </label>
                 <input
+                  ref={profileRef}
                   type="file"
                   id="photo"
                   className="hidden"
-                  onChange={(event) =>
+                  onChange={(event) => {
+                    console.log(event.currentTarget.files);
                     setFileName(
                       event.currentTarget.value.split("\\")[
                         event.currentTarget.value.split("\\").length - 1
                       ]
-                    )
-                  }
+                    );
+                  }}
                 />
               </div>
             </div>
+            {/* 성함 */}
             <div className="flex flex-col items-start w-full gap-2">
               <label htmlFor="name" className="b2-600-16 text-default gap-2">
                 성함 <span className="text-primary-red">*</span>
               </label>
 
               <input
+                id={"name"}
                 type="text"
-                className={`${name ? "border-teriary" : "border-secondary"} b2-400-16 w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center h-[58px] outline-none`}
+                className={`${name ? "border-teriary" : "border-secondary"} b2-400-16 w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center h-[58px] outline-none placeholder:text-muted`}
                 placeholder="홍길동"
                 onChange={(event) => setName(event.currentTarget.value)}
               />
+            </div>
+            {/* 직함 */}
+            <div className="flex flex-col items-start w-full gap-2 relative">
+              <label htmlFor="job" className="b2-600-16 text-default gap-2">
+                직함 <span className="text-primary-red">*</span>
+              </label>
+
+              <div className="w-full relative flex items-center">
+                <select
+                  id={"job"}
+                  className={`${job ? "border-teriary" : "border-secondary text-muted"} b2-400-16 w-full border rounded-lg px-4 py-[11px]  h-[58px] outline-none appearance-none relative`}
+                  onChange={(event) => setJob(event.currentTarget.value)}
+                >
+                  <option className="text-muted" value="">
+                    담장 직군을 선택해 주세요
+                  </option>
+                  <option value="pm/po">PM/PO</option>
+                  <option value="designer">UX/UI Designer</option>
+                  <option value="researcher">UX Researcher</option>
+                </select>
+                <div className="absolute right-4">
+                  <Icon
+                    src={"/icon/common/bottom_point_arrows.svg"}
+                    alt={"bottom pointer arrow"}
+                    height={20}
+                    width={20}
+                  />
+                </div>
+              </div>
+            </div>
+            {/* 자기소개 */}
+            <div className="flex flex-col items-start w-full gap-2">
+              <label
+                htmlFor="introduce"
+                className="b2-600-16 text-default gap-2"
+              >
+                자기소개 <span className="text-primary-red">*</span>{" "}
+                <span className="ml-2">({introduce.length}/100)</span>
+              </label>
+
+              <textarea
+                id={"introduce"}
+                className={`${introduce ? "border-teriary" : "border-secondary"} b2-400-16 w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center h-[104px] outline-none resize-none placeholder:text-muted`}
+                placeholder="자신을 제일 잘 나타낼 수 있는 한 줄 소개룰 작성해주세요~"
+                maxLength={100}
+                onChange={(event) => setIntroduce(event.currentTarget.value)}
+              />
+            </div>
+            {/* 이메일 */}
+            <div className="relative flex flex-col items-start w-full gap-2">
+              <label
+                htmlFor="name"
+                className="b2-600-16 text-default gap-1 flex flex-col items-start"
+              >
+                <p>이메일</p>
+                <p className="c1-400-12 text-sub">
+                  입력 시 네트워킹, 커피챗, 모임 소식 등을 받을 수 있어요
+                </p>
+              </label>
+
+              <div className="relative w-full flex items-center">
+                {!email && (
+                  <div className="absolute pl-2">
+                    <Icon
+                      src={"/icon/common/email.svg"}
+                      alt={"email icon"}
+                      height={36}
+                      width={36}
+                    />
+                  </div>
+                )}
+                <input
+                  id={"name"}
+                  type="email"
+                  className={`${email ? "border-teriary pl-4" : "border-secondary pl-12"} b2-400-16 w-full border rounded-lg pr-4 py-[11px] bg-white flex justify-between items-center h-[58px] outline-none placeholder:text-muted`}
+                  placeholder="piiuxr.official@gmail.com"
+                  onChange={(event) => setEmail(event.currentTarget.value)}
+                />
+              </div>
+            </div>
+            {/* 대표 SNS */}
+            <div className="relative flex flex-col items-start w-full gap-2">
+              <label htmlFor="name" className="b2-600-16 text-default ">
+                대표 SNS
+              </label>
+
+              <div className="relative w-full flex items-center">
+                {!sns && (
+                  <div className="absolute pl-2">
+                    <Icon
+                      src={"/icon/common/sns.svg"}
+                      alt={"sns icon"}
+                      height={36}
+                      width={36}
+                    />
+                  </div>
+                )}
+                <input
+                  id={"name"}
+                  type="sns"
+                  className={`${sns ? "border-teriary pl-4" : "border-secondary pl-12"} b2-400-16 w-full border rounded-lg pr-4 py-[11px] bg-white flex justify-between items-center h-[58px] outline-none placeholder:text-muted`}
+                  placeholder="링크드인, 브런치, 페이스북 등 기타 SNS 주소"
+                  onChange={(event) => setSns(event.currentTarget.value)}
+                />
+              </div>
             </div>
           </div>
         </div>
