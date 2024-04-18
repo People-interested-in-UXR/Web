@@ -14,9 +14,9 @@ export default function Page({}) {
   const [sns, setSns] = useState("");
 
   return (
-    <Container>
+    <Container className="h-screen bg-default flex flex-col w-full">
       <PIXRHeader />
-      <div className="w-full h-calc-header bg-default flex justify-center items-center">
+      <div className="w-full  bg-default flex justify-center mt-12">
         <div className="flex flex-col justify-center text-center gap-8">
           <h1 className="text-brown-900 h1-700-32">
             Members에 등록할 프로필을 만들어 볼까요?
