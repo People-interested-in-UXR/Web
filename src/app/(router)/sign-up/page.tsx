@@ -1,10 +1,11 @@
 "use client";
 import { Container, PIXRHeader } from "@/app/_containers";
 import { Icon } from "@/app/_ui";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 export default function Page({}) {
-  const profileRef = useRef(null);
+  const [profile, setProfile] = useState("");
   const [fileName, setFileName] = useState("");
   const [name, setName] = useState("");
   const [job, setJob] = useState("");
@@ -12,21 +13,42 @@ export default function Page({}) {
   const [email, setEmail] = useState("");
   const [sns, setSns] = useState("");
 
-  useEffect(() => {
-    if (profileRef.current) {
-      console.log(profileRef.current);
-    }
-  }, [fileName, profileRef]);
-
   return (
     <Container>
       <PIXRHeader />
       <div className="w-full h-calc-header bg-default flex justify-center items-center">
-        <div className="flex flex-col justify-center text-center gap-10">
+        <div className="flex flex-col justify-center text-center gap-8">
           <h1 className="text-brown-900 h1-700-32">
             Members에 등록할 프로필을 만들어 볼까요?
           </h1>
-          <div className="flex flex-col w-full px-[84px] gap-6">
+          {profile && (
+            <div className="flex items-center flex-col gap-4">
+              <h2 className="text-sub b2-400-16">
+                입력하신 정보는 Members에서 이렇게 보여요!
+              </h2>
+              <div className="w-[182px] bg-secondary p-1 rounded-2xl">
+                <Image
+                  src={"/sample.png"}
+                  alt={"profile image"}
+                  width={182}
+                  height={160}
+                  className="rounded-xl"
+                />
+                <div>
+                  <div>
+                    <span>홍길동</span>
+                    <span>UX Researcher</span>
+                  </div>
+                  <p className="w-full truncate overflow-hidden">
+                    안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경
+                    입니다.만약에 더 작성하게 되면 ... 처리로 줄여야 할 것
+                    같은데 몇자까지?
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+          <div className="flex flex-col w-full px-[84px] gap-6 mt-2">
             {/* 프로필 사진 */}
             <div className="flex flex-col items-start w-full gap-2">
               <div className="b2-600-16 text-default gap-2">
@@ -49,12 +71,15 @@ export default function Page({}) {
                   사진 가져오기
                 </label>
                 <input
-                  ref={profileRef}
                   type="file"
                   id="photo"
                   className="hidden"
                   onChange={(event) => {
-                    console.log(event.currentTarget.files);
+                    if (event.currentTarget.files) {
+                      setProfile(
+                        URL.createObjectURL(event.currentTarget.files[0])
+                      );
+                    }
                     setFileName(
                       event.currentTarget.value.split("\\")[
                         event.currentTarget.value.split("\\").length - 1
