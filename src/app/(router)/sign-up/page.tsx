@@ -9,6 +9,7 @@ export default function Page({}) {
   const [fileName, setFileName] = useState("");
   const [name, setName] = useState("");
   const [job, setJob] = useState("");
+  const [jobToggle, setJobToggle] = useState(false);
   const [introduce, setIntroduce] = useState("");
   const [email, setEmail] = useState("");
   const [sns, setSns] = useState("");
@@ -71,7 +72,10 @@ export default function Page({}) {
               </div>
             </div>
           )}
-          <form className="flex flex-col w-full px-[84px] gap-6 mt-2">
+          <form
+            className="flex flex-col w-full px-[84px] gap-6 mt-2"
+            onSubmit={(event) => event.preventDefault()}
+          >
             {/* 프로필 사진 */}
             <div className="flex flex-col items-start w-full gap-2">
               <div className="b2-600-16 text-default gap-2">
@@ -124,6 +128,7 @@ export default function Page({}) {
                 className={`${name ? "border-teriary" : "border-secondary"} b2-400-16 w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center h-[58px] outline-none placeholder:text-muted`}
                 placeholder="홍길동"
                 onChange={(event) => setName(event.currentTarget.value)}
+                maxLength={16}
               />
             </div>
             {/* 직함 */}
@@ -132,8 +137,57 @@ export default function Page({}) {
                 직함 <span className="text-primary-red">*</span>
               </label>
 
-              <div className="w-full relative flex items-center">
-                <select
+              <div className="w-full relative flex items-center flex-col">
+                <div className="w-full">
+                  <input
+                    id="job"
+                    type="text"
+                    name="job"
+                    className="hidden"
+                    // value={job}
+                  />
+                  <div
+                    className={`${job ? "border-teriary" : "border-secondary"} bg-white w-full  border rounded-lg p-4 flex justify-between`}
+                    onClick={(event) => {
+                      setJobToggle((prev) => !prev);
+                    }}
+                  >
+                    {job ? (
+                      <div>{job}</div>
+                    ) : (
+                      <div className="text-muted b2-400-16">
+                        담당 직군을 선택해 주세요.
+                      </div>
+                    )}
+
+                    <Icon
+                      src={"/icon/common/bottom_point_arrows.svg"}
+                      alt={"bottom pointer arrow"}
+                      className={`transition ${jobToggle ? "rotate-180" : ""}`}
+                      height={20}
+                      width={20}
+                    />
+                  </div>
+                </div>
+                {jobToggle && (
+                  <ul className="w-full rounded-lg bg-white grid grid-cols-1 divide-y divide-muted mt-2 border border-muted">
+                    {["UX Researcher", "Product Designer", "PO/PM"].map(
+                      (el, index) => (
+                        <button
+                          key={index}
+                          className="p-4 text-start w-full hover:bg-muted hover:text-sub active:bg-brown-800 active:text-accent b2-400-16 active:rounded-lg"
+                          onClick={() => {
+                            setJob(el);
+                            setJobToggle((prev) => !prev);
+                          }}
+                        >
+                          <li className="w-full">{el}</li>
+                        </button>
+                      )
+                    )}
+                  </ul>
+                )}
+                {/* <select
                   id={"job"}
                   className={`${job ? "border-teriary" : "border-secondary text-muted"} b2-400-16 w-full border rounded-lg px-4 py-[11px]  h-[58px] outline-none appearance-none relative`}
                   onChange={(event) => setJob(event.currentTarget.value)}
@@ -144,15 +198,15 @@ export default function Page({}) {
                   <option value="pm/po">PM/PO</option>
                   <option value="designer">UX/UI Designer</option>
                   <option value="researcher">UX Researcher</option>
-                </select>
-                <div className="absolute right-4">
+                </select> */}
+                {/* <div className="absolute right-4">
                   <Icon
                     src={"/icon/common/bottom_point_arrows.svg"}
                     alt={"bottom pointer arrow"}
                     height={20}
                     width={20}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
             {/* 자기소개 */}
@@ -231,6 +285,19 @@ export default function Page({}) {
                 />
               </div>
             </div>
+            <button
+              className={`mt-16 w-full p-4 text-muted bg-brown-600 rounded-2xl h4-600-18 ${
+                ![fileName, name, job, introduce].every((value) => value)
+                  ? "text-muted bg-brown-600"
+                  : "text-white bg-btn-default"
+              }`}
+              type="submit"
+              disabled={
+                ![fileName, name, job, introduce].every((value) => value)
+              }
+            >
+              등록하기
+            </button>
           </form>
         </div>
       </div>
