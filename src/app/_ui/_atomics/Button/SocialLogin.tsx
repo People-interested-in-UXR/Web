@@ -1,3 +1,3 @@
 export default function SocialLogin({}) {
-  return <main></main>;
+  return <button></button>;
 }

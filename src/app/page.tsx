@@ -1,7 +1,9 @@
-import { HTMLAttributes } from "react";
-import { Container, PIXRHeader, Section, PIXRFooter } from "./_containers";
+import Link from "next/link";
 import Image from "next/image";
-import { Icon } from "./_ui";
+
+import { HTMLAttributes, ReactNode } from "react";
+import { Container, PIXRHeader, Section, PIXRFooter } from "./_containers";
+import { Button, Icon } from "./_ui";
 
 const Banner = ({ children }: HTMLAttributes<HTMLElement>) => {
   return (
@@ -14,6 +16,41 @@ const Banner = ({ children }: HTMLAttributes<HTMLElement>) => {
 const OrganizationRule = ({ children }: HTMLAttributes<HTMLElement>) => {
   return (
     <div className="py-20 flex justify-center items-center">{children}</div>
+  );
+};
+
+interface IGrid {
+  imageSrc: string;
+  imageAlt: string;
+  children: ReactNode;
+}
+const Grid = ({ imageSrc, imageAlt, children }: IGrid) => {
+  return (
+    <div className="w-full h-full">
+      <Link
+        className="rounded-3xl bg-white text-default h-fit flex flex-col items-center gap-2 p-6 group hover:bg-muted hover:border-primary-red hover:border-2 border-2 border-white"
+        href={"#"}
+      >
+        <Image
+          width={140}
+          height={140}
+          src={imageSrc}
+          alt={imageAlt}
+          className="group-hover:scale-[1.2]"
+        />
+        <div className="flex justify-between w-[223.5px]">
+          <p className="text-default h3-700-20 ">{children}</p>
+          <button className="text-btn-default text-xl hover:text-btn-hover ">
+            <Icon
+              src={"/icon/common/right_arrow.svg"}
+              alt={"링크 클릭을 위한 오른쪽 화살표 모양"}
+              height={20}
+              width={24.5}
+            />
+          </button>
+        </div>
+      </Link>
+    </div>
   );
 };
 
@@ -48,11 +85,9 @@ export default function Home() {
                   있어면 돼요.
                 </li>
               </ul>
-              <div className="">
-                <button className="bg-btn-default hover:bg-btn-hover text-accent h4-600-18 px-10 py-4 rounded-2xl">
-                  모임 참여하기
-                </button>
-              </div>
+              <Link href={"/sign-in"}>
+                <Button>모임 참여하기</Button>
+              </Link>
             </div>
             <div>
               <Image
@@ -68,88 +103,42 @@ export default function Home() {
           <div className="flex flex-col items-center gap-16">
             <div className="flex flex-col text-center gap-4">
               <h2 className="h1-700-32 text-title">우리 모임 운영 방식</h2>
-              <div className="b1-500-20 text-sub">설명란</div>
+              <div className="b1-500-20 text-sub">
+                <p>
+                  온라인에서 주기적으로 북스터디 / 아티클 스터디 / 자유 토론
+                  세션을 열고있어요.
+                </p>
+                <p>
+                  또한 오프라인 네트워킹 모임과 컨퍼런스도 진행하고 있으니
+                  자유롭게 참여해요.
+                </p>
+              </div>
             </div>
             <div className="flex gap-8">
               <div className="flex gap-8">
-                <div className="rounded-3xl bg-white text-default h-fit flex flex-col items-center gap-2 p-6">
-                  <Image
-                    width={140}
-                    height={140}
-                    src={"/home/book.png"}
-                    alt={"북 스터디 이미지"}
-                  />
-                  <div className="flex justify-between w-[223.5px]">
-                    <p className="text-default h3-700-20 ">북 스터디</p>
-                    <button className="text-btn-default text-xl hover:text-btn-hover ">
-                      <Icon
-                        src={"/icon/right_arrow.svg"}
-                        alt={"오른쪽 화살표 모양"}
-                        height={20}
-                        width={24.5}
-                      />
-                    </button>
-                  </div>
-                </div>
-                <div className="rounded-3xl bg-white text-default h-fit flex flex-col items-center gap-2 p-6">
-                  <Image
-                    width={140}
-                    height={140}
-                    src={"/home/article.png"}
-                    alt={"아티클 스터디 이미지"}
-                  />
-                  <div className="flex justify-between w-[223.5px]">
-                    <p className="text-default h3-700-20">아티클 스터디</p>
-                    <button className="text-btn-default text-xl hover:text-btn-hover ">
-                      <Icon
-                        src={"/icon/right_arrow.svg"}
-                        alt={"오른쪽 화살표 모양"}
-                        height={20}
-                        width={24.5}
-                      />
-                    </button>
-                  </div>
-                </div>
+                <Grid imageSrc={"/home/book.png"} imageAlt={"북 스터디 이미지"}>
+                  북 스터디
+                </Grid>
+                <Grid
+                  imageSrc={"/home/article.png"}
+                  imageAlt={"아티클 스터디 이미지"}
+                >
+                  아티클 스터디
+                </Grid>
               </div>
               <div className="flex gap-8">
-                <div className="rounded-3xl bg-white text-default h-fit flex flex-col items-center gap-2 p-6">
-                  <Image
-                    width={140}
-                    height={140}
-                    src={"/home/meeting.png"}
-                    alt={"오프라인 정기모임 이미지"}
-                  />
-                  <div className="flex justify-between w-[223.5px]">
-                    <p className="text-default h3-700-20">오프라인 정기모임</p>
-                    <button className="text-btn-default text-xl hover:text-btn-hover ">
-                      <Icon
-                        src={"/icon/right_arrow.svg"}
-                        alt={"오른쪽 화살표 모양"}
-                        height={20}
-                        width={24.5}
-                      />
-                    </button>
-                  </div>
-                </div>
-                <div className="rounded-3xl bg-white text-default h-fit flex flex-col items-center gap-2 p-6">
-                  <Image
-                    width={140}
-                    height={140}
-                    src={"/home/conference.png"}
-                    alt={"컨퍼런스 / 세미나 이미지"}
-                  />
-                  <div className="flex justify-between w-[223.5px]">
-                    <p className="text-default h3-700-20">컨퍼런스 / 세미나</p>
-                    <button className="text-btn-default text-xl hover:text-btn-hover ">
-                      <Icon
-                        src={"/icon/right_arrow.svg"}
-                        alt={"오른쪽 화살표 모양"}
-                        height={20}
-                        width={24.5}
-                      />
-                    </button>
-                  </div>
-                </div>
+                <Grid
+                  imageSrc={"/home/meeting.png"}
+                  imageAlt={"오프라인 정기모임 이미지"}
+                >
+                  오프라인 정기모임
+                </Grid>
+                <Grid
+                  imageSrc={"/home/conference.png"}
+                  imageAlt={"컨퍼런스 / 세미나 이미지"}
+                >
+                  컨퍼런스 / 세미나
+                </Grid>
               </div>
             </div>
           </div>
@@ -159,16 +148,12 @@ export default function Home() {
             <h2 className="h1-700-32">스폰서 모집</h2>
             <div className="flex flex-col items-center text-sub b1-500-20">
               <p>PIXR은 업계 네트워킹 활성화를 위해 후원을 받고 있어요</p>
-              <p>
-                후원비는 대관비, 모임 유지비 등으로 더 많은 리서치 활성화에
-                도움이 됩니다
-              </p>
+              <p>후원비는 대관비, 모임 유지비 등 비영리 활동에만 사용해요.</p>
+              <p>여러분의 관심은 UXR 커뮤니티 활성화에 도움이 되어요.</p>
             </div>
           </div>
           <div className="">
-            <button className="bg-btn-default hover:bg-btn-hover text-accent h4-600-18 px-10 py-4 rounded-2xl">
-              모임 참여하기
-            </button>
+            <Button>후원 문의하기</Button>
           </div>
         </Sponser>
       </Section>

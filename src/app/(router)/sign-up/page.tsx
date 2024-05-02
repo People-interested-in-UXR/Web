@@ -16,39 +16,62 @@ export default function Page({}) {
   return (
     <Container className="h-screen bg-default flex flex-col w-full">
       <PIXRHeader />
-      <div className="w-full  bg-default flex justify-center mt-12">
-        <div className="flex flex-col justify-center text-center gap-8">
+      <div className="w-full  bg-default flex justify-center">
+        <div className="flex flex-col justify-center text-center gap-8 my-12">
           <h1 className="text-brown-900 h1-700-32">
             Members에 등록할 프로필을 만들어 볼까요?
           </h1>
+          {/* 샘플 프로필 이미지 */}
           {profile && (
             <div className="flex items-center flex-col gap-4">
               <h2 className="text-sub b2-400-16">
                 입력하신 정보는 Members에서 이렇게 보여요!
               </h2>
-              <div className="w-[182px] bg-secondary p-1 rounded-2xl">
+              <div className="relative w-[182px] bg-secondary p-1 rounded-2xl">
+                <div className="absolute z-10 right-2 top-2">
+                  {email && (
+                    <Icon
+                      src={"/icon/common/email.svg"}
+                      alt={"email icon"}
+                      height={18}
+                      width={18}
+                    />
+                  )}
+                  {sns && (
+                    <Icon
+                      src={"/icon/common/sns.svg"}
+                      alt={"sns icon"}
+                      height={18}
+                      width={18}
+                    />
+                  )}
+                </div>
                 <Image
-                  src={"/sample.png"}
+                  src={profile}
                   alt={"profile image"}
                   width={182}
                   height={160}
                   className="rounded-xl"
                 />
-                <div>
-                  <div>
-                    <span>홍길동</span>
-                    <span>UX Researcher</span>
+                <div className="p-2 text-sub">
+                  <div className="flex gap-2 items-center">
+                    <span className="text-title font-bold text-[10px]">
+                      {name ? name : "홍길동"}
+                    </span>
+                    <span className="font-semibold text-[8px]">
+                      {job ? job : "UX Researcher"}
+                    </span>
                   </div>
-                  <p className="w-full truncate overflow-hidden">
-                    안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경
-                    입니다.만약에 더 작성하게 되면 ... 처리로 줄여야 할 것
-                    같은데 몇자까지?
-                  </p>
+                  <div className="flex text-[8px] mt-1">
+                    <div className="text-start w-full break-words line-clamp-2 text-sub">
+                      {introduce}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           )}
-          <div className="flex flex-col w-full px-[84px] gap-6 mt-2">
+          <form className="flex flex-col w-full px-[84px] gap-6 mt-2">
             {/* 프로필 사진 */}
             <div className="flex flex-col items-start w-full gap-2">
               <div className="b2-600-16 text-default gap-2">
@@ -77,7 +100,7 @@ export default function Page({}) {
                   onChange={(event) => {
                     if (event.currentTarget.files) {
                       setProfile(
-                        URL.createObjectURL(event.currentTarget.files[0])
+                        URL?.createObjectURL(event.currentTarget.files[0])
                       );
                     }
                     setFileName(
@@ -208,7 +231,7 @@ export default function Page({}) {
                 />
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </Container>

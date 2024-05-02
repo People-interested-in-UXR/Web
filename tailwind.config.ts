@@ -8,7 +8,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      height: {
+        "calc-header": "calc(100vh - 95px)",
+      },
       backgroundColor: {
+        default: "#F7F6F5",
+        muted: "#F0EDEB",
+        secondary: "#D9D2CE",
+        teriary: "#575452",
+      },
+      borderColor: {
         default: "#F7F6F5",
         muted: "#F0EDEB",
         secondary: "#D9D2CE",

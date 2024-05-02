@@ -1,4 +1,4 @@
-import { Header, Footer } from "./_components";
+import { Header, Footer, Form } from "./_components";
 import {
   Chip,
   Toast,
@@ -21,4 +21,5 @@ export {
   Checkbox,
   Logo,
   Icon,
+  Form,
 };
