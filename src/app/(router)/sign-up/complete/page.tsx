@@ -30,7 +30,7 @@ const ProfileCard = () => (
         <span className="h3-700-20 text-title">홍길동</span>
         <span className="b2-600-16 ">UX Researcher</span>
       </div>
-      <div className="flex text-[8px] mt-1">
+      <div className="flex text-[8px] mt-2">
         <div className="b2-400-16  w-full break-words line-clamp-2 text-sub">
           안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
           더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?
