@@ -12,8 +12,8 @@ const PIXRHeader = ({}) => {
       </Link>
 
       <div className="flex gap-16 b2-400-16 items-center">
-        <div>{NAV.HOME}</div>
-        <div>{NAV.ABOUT_US}</div>
+        <Link href={"/"}>{NAV.HOME}</Link>
+        <Link href={"/about-us"}>{NAV.ABOUT_US}</Link>
         <div>{NAV.MEMBERS}</div>
         <div>{NAV.SCHEDULE}</div>
         <div>{NAV.MEETUPS}</div>
