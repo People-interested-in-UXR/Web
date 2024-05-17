@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={pretandard.className}>{children}</body>
+      <body className={pretandard.className + " relative"}>{children}</body>
     </html>
   );
 }

@@ -11,6 +11,10 @@
     @apply font-bold text-[32px] leading-[140%];
   }
 
+  .h1-700-20 {
+    @apply font-bold text-[20px] leading-[140%];
+  }
+
   .h2-700-24 {
     @apply font-bold text-[24px] leading-[140%];
   }
@@ -25,6 +29,10 @@
 
   .b1-500-20 {
     @apply font-medium text-[20px] leading-[150%];
+  }
+
+  .b1-500-12 {
+    @apply font-medium text-[12px] leading-[150%];
   }
 
   .b1-400-20 {

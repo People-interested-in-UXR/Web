@@ -2,25 +2,135 @@
 import Link from "next/link";
 import { Header, Logo } from "../_ui";
 import { NAV } from "../utils/consts";
+import { ReactNode, useEffect, useState } from "react";
+import Image from "next/image";
+import { createPortal } from "react-dom";
+
+interface IPIXRHeaderNavList {
+  type: "common" | "auth";
+  href: string;
+  children: ReactNode;
+}
+const PIXRHeaderNavList = ({
+  type,
+  href = "",
+  children,
+}: IPIXRHeaderNavList) => {
+  return (
+    <Link href={href}>
+      {type === "common" ? (
+        <li className="p-2 rounded-lg hover:bg-secondary hover:text-accent">
+          {children}
+        </li>
+      ) : (
+        <li className="text-primary-red b2-600-16 hover:bg-primary-red hover:text-white p-2 rounded-lg">
+          {children}
+        </li>
+      )}
+    </Link>
+  );
+};
 
 const PIXRHeader = ({}) => {
+  const [showModal, setShowModal] = useState(false);
+
+  // Resize
+  // TODO: 메모리 최적화 하기
+  useEffect(() => {
+    const handleResize = (event: UIEvent) => {
+      const target = event?.currentTarget as Window;
+      if (target?.innerWidth >= 1280 && showModal) return setShowModal(false);
+      // 1280px 이상일 때 모달이 켜져 있으면 끄기
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [showModal]);
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
+
   return (
     <Header>
-      <Link href={"/"} className="flex items-center gap-4">
+      <div className="flex items-center gap-4 w-full ">
         <Logo theme="light" />
-        <p className="h3-700-20 ">UX 리서치에 관심 있는 사람</p>
-      </Link>
-
-      <div className="flex gap-16 b2-400-16 items-center">
-        <Link href={"/"}>{NAV.HOME}</Link>
-        <Link href={"/about-us"}>{NAV.ABOUT_US}</Link>
-        <div>{NAV.MEMBERS}</div>
-        <div>{NAV.SCHEDULE}</div>
-        <div>{NAV.MEETUPS}</div>
-        <div>{NAV.ARCHIVE}</div>
-        <div>{NAV.BOARD}</div>
-        <div className="text-primary-red b2-600-16">{NAV.SIGN_UP}</div>
+        <p className="md:h3-700-20 b3-400-14 text-sub">
+          UX 리서치에 관심 있는 사람
+        </p>
       </div>
+
+      {/* Desktop */}
+      <nav className="w-full flex items-center max-md:hidden">
+        <ul className="flex justify-between w-full b2-400-16 items-center max-xl:hidden">
+          <li>
+            <Link href={"/"}>{NAV.HOME}</Link>
+          </li>
+          <li>
+            <Link href={"/about-us"}>{NAV.ABOUT_US}</Link>
+          </li>
+          <li>{NAV.MEMBERS}</li>
+          <li>{NAV.SCHEDULE}</li>
+          <li>{NAV.MEETUPS}</li>
+          <li>{NAV.ARCHIVE}</li>
+          <li>{NAV.BOARD}</li>
+          <li className="text-primary-red b2-600-16">{NAV.SIGN_UP}</li>
+        </ul>
+      </nav>
+      {/* Mobile */}
+      {!showModal && (
+        <Image
+          className="xl:hidden cursor-pointer"
+          src={"/icon/common/collapse.svg"}
+          alt={"헤더 네비게이션 아이콘"}
+          width={24}
+          height={24}
+          onClick={openModal}
+        />
+      )}
+      {showModal &&
+        createPortal(
+          <div
+            className="xl:hidden top-0 fixed w-full h-full bg-brown-800 bg-opacity-60"
+            // onClick={closeModal}
+            onClick={closeModal}
+          >
+            {/* Modal Menu */}
+            <nav
+              className="fixed min-w-[216px] max-w-[400px] h-full bg-white z-20  right-0"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <ul className="p-4 gap-4 flex flex-col text-sub b2-400-16 ">
+                <PIXRHeaderNavList type="auth" href="">
+                  {NAV.SIGN_UP}
+                </PIXRHeaderNavList>
+                <PIXRHeaderNavList type="common" href="/">
+                  {NAV.HOME}
+                </PIXRHeaderNavList>
+                <PIXRHeaderNavList type="common" href="/about-us">
+                  {NAV.ABOUT_US}
+                </PIXRHeaderNavList>
+                <PIXRHeaderNavList type="common" href="">
+                  {NAV.MEMBERS}
+                </PIXRHeaderNavList>
+                <PIXRHeaderNavList type="common" href="">
+                  {NAV.SCHEDULE}
+                </PIXRHeaderNavList>
+                <PIXRHeaderNavList type="common" href="">
+                  {NAV.MEETUPS}
+                </PIXRHeaderNavList>
+                <PIXRHeaderNavList type="common" href="">
+                  {NAV.ARCHIVE}
+                </PIXRHeaderNavList>
+                <PIXRHeaderNavList type="common" href="">
+                  {NAV.BOARD}
+                </PIXRHeaderNavList>
+              </ul>
+            </nav>
+          </div>,
+          document.body
+        )}
     </Header>
   );
 };

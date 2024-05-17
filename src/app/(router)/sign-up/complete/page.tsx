@@ -45,6 +45,20 @@ export default function Page({}) {
     <Container className="h-screen bg-default flex flex-col w-full">
       <PIXRHeader />
       <div className="flex items-center flex-col gap-4 mt-10">
+        {/* <div className="absolute flex justify-between w-[640px] rounded-2xl bg-brown-900 text-accent items-center px-6 py-[17px] mt-6">
+          <div>회원가입이 완료되었습니다.</div>
+          <button className="flex text-btn-default cursor-pointer">
+            <div>Members 바로가기</div>
+            <Icon
+              src={"/icon/common/bottom_point_arrows_red.svg"}
+              alt={"bottom pointer arrow"}
+              className="rotate-[270deg] fill-btn-default"
+              height={20}
+              width={20}
+            />
+          </button>
+        </div> */}
+
         <div className="flex flex-col items-center gap-8">
           <Icon
             src={"/icon/common/firecracker.svg"}

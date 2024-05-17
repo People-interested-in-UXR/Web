@@ -1,23 +1,25 @@
+import { getProperty } from "@/app/_domain/pages";
+import { Page } from "@/app/utils/types/notion/page";
 import { Client, iteratePaginatedAPI } from "@notionhq/client";
+import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export async function GET(request: Request) {
+  console.log(request);
   const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
-  const { results } = await notion.databases.query({
+  const { results }: QueryDatabaseResponse = await notion.databases.query({
     database_id: "2a3a7fdc75d64c4d8251c09354cd572d",
   });
+
+  const properties = getProperty(results);
 
   // const { results } = await notion.blocks.children.list({
   //   block_id: "fab39f5c0f64427c9c986d1fff2c23e9",
   // });
 
-  results.forEach((result: any) => {
-    console.log({
-      id: result.id,
-      ["날짜"]: result.properties["날짜"].date.start,
-      ["주제"]: result.properties["주제"].title[0].text.content,
-    });
-  });
+  // results.forEach((result: any) => {
+  //   console.log(result);
+  // });
 
   // results.forEach((result: any) => {
   //   if (result["paragraph"]) {
@@ -33,5 +35,5 @@ export async function GET(request: Request) {
   //   }
   // });
 
-  return Response.json(results);
+  return Response.json({ ...properties });
 }
