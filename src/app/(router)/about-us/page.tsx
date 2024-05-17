@@ -15,17 +15,17 @@ const Card = ({
   Description: ReactNode;
 }) => {
   return (
-    <div className="flex max-w-[900px] justify-between w-full items-center">
+    <div className="max-w-[900px] w-full break-keep text-pretty">
       {imagePosition === "left" ? (
-        <>
+        <div className="flex justify-between items-center max-sm:flex-col max-sm:gap-4">
           {Image}
           {Description}
-        </>
+        </div>
       ) : (
-        <>
+        <div className="flex justify-between items-center max-sm:flex-col-reverse max-sm:gap-4">
           {Description}
           {Image}
-        </>
+        </div>
       )}
     </div>
   );
@@ -33,15 +33,17 @@ const Card = ({
 
 const Description = ({ title = "", description = "", position = "" }) => (
   <div
-    className={`flex flex-col gap-4 ${position === "center" && "items-center"}`}
+    className={`flex flex-col gap-4 max-sm:w-full ${position === "center" && "items-center"}`}
   >
-    <h2 className="h1-700-32 text-title">{title}</h2>
-    <p className="b1-500-20 text-sub whitespace-pre-line">{description}</p>
+    <h2 className="sm:h1-700-32 h1-700-20 text-title">{title}</h2>
+    <p className="sm:b1-500-20 b1-500-12 text-sub whitespace-pre-line">
+      {description}
+    </p>
   </div>
 );
 
 const ProfileCard = () => (
-  <div className="relative w-[380px] h-[460px] bg-secondary p-2 rounded-3xl flex flex-col items-center drop-shadow-lg mt-10">
+  <div className="relative w-[380px] h-[460px] bg-secondary p-2 rounded-3xl flex flex-col items-center drop-shadow-lg">
     <div className="absolute z-10 right-4 top-6 grid grid-cols-1 gap-4">
       <Icon
         src={"/icon/common/email.svg"}
@@ -83,7 +85,7 @@ export default async function Page({}) {
     <Container>
       <PIXRHeader />
       {/* 모임 소개 */}
-      <div className="flex flex-col items-center w-full py-20 gap-16 bg-muted">
+      <div className="flex flex-col items-center w-full sm:py-20 py-8 gap-16 bg-muted sm:px-10 px-8">
         <Card
           imagePosition="right"
           Image={
@@ -143,7 +145,7 @@ export default async function Page({}) {
           }
         />
         <Card
-          imagePosition="right"
+          imagePosition="left"
           Image={
             <Image
               src={"/talk_about.png"}
@@ -169,7 +171,7 @@ export default async function Page({}) {
           description="우리 모임을 함께 만들어가는 사람들"
           position="center"
         />
-        <div className="grid grid-cols-3 justify-center gap-6">
+        <div className="grid xl:grid-cols-3 lg:grid-cols-2 justify-center sm:gap-6 gap-4 mt-8">
           <ProfileCard />
           <ProfileCard />
           <ProfileCard />

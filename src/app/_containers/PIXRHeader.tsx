@@ -64,18 +64,28 @@ const PIXRHeader = ({}) => {
       {/* Desktop */}
       <nav className="w-full flex items-center max-md:hidden">
         <ul className="flex justify-between w-full b2-400-16 items-center max-xl:hidden">
-          <li>
+          <li className="hover:text-muted active:text-default">
             <Link href={"/"}>{NAV.HOME}</Link>
           </li>
-          <li>
+          <li className="hover:text-muted active:text-default">
             <Link href={"/about-us"}>{NAV.ABOUT_US}</Link>
           </li>
-          <li>{NAV.MEMBERS}</li>
-          <li>{NAV.SCHEDULE}</li>
-          <li>{NAV.MEETUPS}</li>
-          <li>{NAV.ARCHIVE}</li>
-          <li>{NAV.BOARD}</li>
-          <li className="text-primary-red b2-600-16">{NAV.SIGN_UP}</li>
+          <li className="hover:text-muted active:text-default">
+            {NAV.MEMBERS}
+          </li>
+          <li className="hover:text-muted active:text-default">
+            {NAV.SCHEDULE}
+          </li>
+          <li className="hover:text-muted active:text-default">
+            {NAV.MEETUPS}
+          </li>
+          <li className="hover:text-muted active:text-default">
+            {NAV.ARCHIVE}
+          </li>
+          <li className="hover:text-muted active:text-default">{NAV.BOARD}</li>
+          <li className="text-primary-red hover:text-btn-hover b2-600-16">
+            {NAV.SIGN_UP}
+          </li>
         </ul>
       </nav>
       {/* Mobile */}
