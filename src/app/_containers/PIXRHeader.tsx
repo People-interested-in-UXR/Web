@@ -71,20 +71,22 @@ const PIXRHeader = ({}) => {
             <Link href={"/about-us"}>{NAV.ABOUT_US}</Link>
           </li>
           <li className="hover:text-muted active:text-default">
-            {NAV.MEMBERS}
+            <Link href={"/member"}>{NAV.MEMBERS}</Link>
           </li>
           <li className="hover:text-muted active:text-default">
-            {NAV.SCHEDULE}
+            <Link href={"/schedule"}>{NAV.SCHEDULE}</Link>
           </li>
           <li className="hover:text-muted active:text-default">
-            {NAV.MEETUPS}
+            <Link href={"/meet-up"}>{NAV.MEETUPS}</Link>
           </li>
           <li className="hover:text-muted active:text-default">
-            {NAV.ARCHIVE}
+            <Link href={"/archive"}>{NAV.ARCHIVE}</Link>
           </li>
-          <li className="hover:text-muted active:text-default">{NAV.BOARD}</li>
+          <li className="hover:text-muted active:text-default">
+            <Link href={"/board"}>{NAV.BOARD}</Link>
+          </li>
           <li className="text-primary-red hover:text-btn-hover b2-600-16">
-            {NAV.SIGN_UP}
+            <Link href={"/sign-up"}>{NAV.SIGN_UP}</Link>
           </li>
         </ul>
       </nav>
@@ -112,7 +114,7 @@ const PIXRHeader = ({}) => {
               onClick={(event) => event.stopPropagation()}
             >
               <ul className="p-4 gap-4 flex flex-col text-sub b2-400-16 ">
-                <PIXRHeaderNavList type="auth" href="">
+                <PIXRHeaderNavList type="auth" href="/sign-up">
                   {NAV.SIGN_UP}
                 </PIXRHeaderNavList>
                 <PIXRHeaderNavList type="common" href="/">
@@ -121,19 +123,19 @@ const PIXRHeader = ({}) => {
                 <PIXRHeaderNavList type="common" href="/about-us">
                   {NAV.ABOUT_US}
                 </PIXRHeaderNavList>
-                <PIXRHeaderNavList type="common" href="">
+                <PIXRHeaderNavList type="common" href="/member">
                   {NAV.MEMBERS}
                 </PIXRHeaderNavList>
-                <PIXRHeaderNavList type="common" href="">
+                <PIXRHeaderNavList type="common" href="/schedule">
                   {NAV.SCHEDULE}
                 </PIXRHeaderNavList>
-                <PIXRHeaderNavList type="common" href="">
+                <PIXRHeaderNavList type="common" href="/meet-up">
                   {NAV.MEETUPS}
                 </PIXRHeaderNavList>
-                <PIXRHeaderNavList type="common" href="">
+                <PIXRHeaderNavList type="common" href="/archive">
                   {NAV.ARCHIVE}
                 </PIXRHeaderNavList>
-                <PIXRHeaderNavList type="common" href="">
+                <PIXRHeaderNavList type="common" href="/board">
                   {NAV.BOARD}
                 </PIXRHeaderNavList>
               </ul>

@@ -2,6 +2,7 @@
 import { Container, PIXRHeader } from "@/app/_containers";
 import { Icon } from "@/app/_ui";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 export default function Page({}) {
@@ -14,12 +15,25 @@ export default function Page({}) {
   const [email, setEmail] = useState("");
   const [sns, setSns] = useState("");
 
+  const router = useRouter();
+
+  const jobs = [
+    "UX Researcher",
+    "Product Designer",
+    "PO/PM",
+    "Data Analyst",
+    "Developer",
+    "Maketer",
+    "Student",
+    "ect",
+  ];
+
   return (
     <Container className="h-screen bg-default flex flex-col w-full">
       <PIXRHeader />
       <div className="w-full  bg-default flex justify-center">
         <div className="flex flex-col justify-center text-center gap-8 my-12">
-          <h1 className="text-brown-900 h1-700-32">
+          <h1 className="text-brown-900 h1-700-32 break-keep text-pretty px-[84px]">
             Members에 등록할 프로필을 만들어 볼까요?
           </h1>
           {/* 샘플 프로필 이미지 */}
@@ -74,7 +88,10 @@ export default function Page({}) {
           )}
           <form
             className="flex flex-col w-full px-[84px] gap-6 mt-2"
-            onSubmit={(event) => event.preventDefault()}
+            onSubmit={(event) => {
+              event.preventDefault();
+              router.push("/sign-up/complete");
+            }}
           >
             {/* 프로필 사진 */}
             <div className="flex flex-col items-start w-full gap-2">
@@ -171,20 +188,18 @@ export default function Page({}) {
                 </div>
                 {jobToggle && (
                   <ul className="w-full rounded-lg bg-white grid grid-cols-1 divide-y divide-muted mt-2 border border-muted">
-                    {["UX Researcher", "Product Designer", "PO/PM"].map(
-                      (el, index) => (
-                        <button
-                          key={index}
-                          className="p-4 text-start w-full hover:bg-muted hover:text-sub active:bg-brown-800 active:text-accent b2-400-16 active:rounded-lg"
-                          onClick={() => {
-                            setJob(el);
-                            setJobToggle((prev) => !prev);
-                          }}
-                        >
-                          <li className="w-full">{el}</li>
-                        </button>
-                      )
-                    )}
+                    {jobs.map((el, index) => (
+                      <button
+                        key={index}
+                        className="p-4 text-start w-full hover:bg-muted hover:text-sub active:bg-brown-800 active:text-accent b2-400-16 active:rounded-lg"
+                        onClick={() => {
+                          setJob(el);
+                          setJobToggle((prev) => !prev);
+                        }}
+                      >
+                        <li className="w-full">{el}</li>
+                      </button>
+                    ))}
                   </ul>
                 )}
                 {/* <select
@@ -216,14 +231,14 @@ export default function Page({}) {
                 className="b2-600-16 text-default gap-2"
               >
                 자기소개 <span className="text-primary-red">*</span>{" "}
-                <span className="ml-2">({introduce.length}/100)</span>
+                <span className="ml-2">({introduce.length}/45)</span>
               </label>
 
               <textarea
                 id={"introduce"}
                 className={`${introduce ? "border-teriary" : "border-secondary"} b2-400-16 w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center h-[104px] outline-none resize-none placeholder:text-muted`}
                 placeholder="자신을 제일 잘 나타낼 수 있는 한 줄 소개룰 작성해주세요~"
-                maxLength={100}
+                maxLength={45}
                 onChange={(event) => setIntroduce(event.currentTarget.value)}
               />
             </div>
