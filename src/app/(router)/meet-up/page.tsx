@@ -1,7 +1,5 @@
 import { Container, PIXRHeader } from "@/app/_containers";
-import { Board, Card } from "@/app/_ui/_atomics/Board";
-import { ICard } from "@/app/_ui/_atomics/Board/Card";
-import { Fragment } from "react";
+import { Board } from "@/app/_ui/_atomics/Board";
 
 export default function Page({}) {
   const sample = [
@@ -42,7 +40,7 @@ export default function Page({}) {
     },
   ];
   return (
-    <Container className="h-screen bg-default flex flex-col w-full">
+    <Container className="h-full bg-default flex flex-col w-full">
       <PIXRHeader />
       <section className="flex flex-col items-center mt-10 gap-16">
         <Board

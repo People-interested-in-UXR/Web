@@ -1,9 +1,9 @@
-import { Container, PIXRHeader } from "@/app/_containers";
-import { Icon } from "@/app/_ui";
 import Image from "next/image";
+
 import { ReactNode } from "react";
 
-Image;
+import { Container, PIXRHeader } from "@/app/_containers";
+import { Description, ProfileCard } from "@/app/_ui/_atomics";
 
 const Card = ({
   imagePosition,
@@ -30,55 +30,6 @@ const Card = ({
     </div>
   );
 };
-
-const Description = ({ title = "", description = "", position = "" }) => (
-  <div
-    className={`flex flex-col gap-4 max-sm:w-full ${position === "center" && "items-center"}`}
-  >
-    <h2 className="sm:h1-700-32 h1-700-20 text-title">{title}</h2>
-    <p className="sm:b1-500-20 b1-500-12 text-sub whitespace-pre-line">
-      {description}
-    </p>
-  </div>
-);
-
-const ProfileCard = () => (
-  <div className="relative w-[380px] h-[460px] bg-secondary p-2 rounded-3xl flex flex-col items-center drop-shadow-lg">
-    <div className="absolute z-10 right-4 top-6 grid grid-cols-1 gap-4">
-      <Icon
-        src={"/icon/common/email.svg"}
-        alt={"email icon"}
-        height={36}
-        width={36}
-      />
-      <Icon
-        src={"/icon/common/sns.svg"}
-        alt={"sns icon"}
-        height={36}
-        width={36}
-      />
-    </div>
-    <Image
-      src={"/sample.png"}
-      alt={"profile image"}
-      width={364}
-      height={320}
-      className="rounded-3xl"
-    />
-    <div className="p-4 text-sub w-full">
-      <div className="flex gap-2 mt-2">
-        <span className="h3-700-20 text-title">홍길동</span>
-        <span className="b2-600-16 ">UX Researcher</span>
-      </div>
-      <div className="flex text-[8px] mt-2">
-        <div className="b2-400-16  w-full break-words line-clamp-2 text-sub">
-          안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
-          더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?
-        </div>
-      </div>
-    </div>
-  </div>
-);
 
 export default async function Page({}) {
   return (
@@ -165,19 +116,49 @@ export default async function Page({}) {
         />
       </div>
       {/* 운영진 */}
-      <div className="py-20 flex flex-col items-center w-full gap-4">
+      <div className="sm:py-20 py-8 flex flex-col items-center w-full gap-4">
         <Description
           title="운영진"
           description="우리 모임을 함께 만들어가는 사람들"
           position="center"
         />
         <div className="grid xl:grid-cols-3 lg:grid-cols-2 justify-center sm:gap-6 gap-4 mt-8">
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
+          <ProfileCard
+            name={"홍길동"}
+            job={"UX Researcher"}
+            introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
+          더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
+          />
+          <ProfileCard
+            name={"홍길동"}
+            job={"UX Researcher"}
+            introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
+          더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
+          />
+          <ProfileCard
+            name={"홍길동"}
+            job={"UX Researcher"}
+            introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
+          더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
+          />
+          <ProfileCard
+            name={"홍길동"}
+            job={"UX Researcher"}
+            introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
+          더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
+          />
+          <ProfileCard
+            name={"홍길동"}
+            job={"UX Researcher"}
+            introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
+          더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
+          />
+          <ProfileCard
+            name={"홍길동"}
+            job={"UX Researcher"}
+            introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
+          더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
+          />
         </div>
       </div>
     </Container>

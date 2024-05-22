@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        mobile: "375px",
+      },
       height: {
         "calc-header": "calc(100vh - 95px)",
       },
@@ -80,6 +83,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };
 export default config;
