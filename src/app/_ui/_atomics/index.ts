@@ -1,5 +1,5 @@
-import Toast from "./Toast";
-import { Button, SocialLogin } from "./Button";
+import Toast from "./Toast/Toast";
+import { Button, RegisterButton, SocialLogin } from "./Button";
 import { Input, Checkbox } from "./Form";
 import { Logo, Icon } from "./Icon";
 import { Description } from "./Description";
@@ -9,6 +9,7 @@ export {
   Toast,
   Button,
   SocialLogin,
+  RegisterButton,
   Input,
   Checkbox,
   Logo,

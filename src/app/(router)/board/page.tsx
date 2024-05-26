@@ -1,4 +1,5 @@
 import { Container, PIXRHeader } from "@/app/_containers";
+import { Icon, RegisterButton } from "@/app/_ui/_atomics";
 import { Board } from "@/app/_ui/_atomics/Board";
 import { IChip } from "@/app/_ui/_atomics/Board/Chip";
 
@@ -59,6 +60,15 @@ export default function Page({}) {
           chips={chipSamples}
           cards={cardSamples}
         />
+        <RegisterButton>
+          <Icon
+            src={"/icon/common/pencil.svg"}
+            alt={"plus icon"}
+            height={24}
+            width={24}
+          />
+          <span className="h4-600-18">글 작성하기</span>
+        </RegisterButton>
       </section>
     </Container>
   );

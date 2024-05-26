@@ -27,7 +27,7 @@ const Board = ({ title, description, chips, cards, profileCards }: IBoard) => {
       <Description title={title} description={description} position="center" />
       {chips && (
         <div className="w-full relative max-sm:mt-4">
-          <div className="flex  gap-4 mobile:justify-center mobile:flex-wrap max-mobile:px-4  max-mobile:overflow-x-scroll max-mobile:justify-start max-mobile:scrollbar-hide">
+          <div className="flex gap-4 sm:justify-center sm:flex-wrap max-sm:px-4  max-sm:overflow-x-scroll max-sm:justify-start max-sm:scrollbar-hide">
             {[...chips].map(({ category }, index) => (
               <Fragment key={index}>
                 <Chip
