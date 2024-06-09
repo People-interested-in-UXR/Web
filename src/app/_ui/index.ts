@@ -1,6 +1,5 @@
 import { Header, Footer, Form } from "./_components";
 import {
-  Chip,
   Toast,
   Button,
   SocialLogin,
@@ -13,7 +12,6 @@ import {
 export {
   Header,
   Footer,
-  Chip,
   Toast,
   Button,
   SocialLogin,
