@@ -1,4 +1,5 @@
 "use client";
+
 import { NAV } from "@/app/utils/consts";
 import Image from "next/image";
 import Link from "next/link";
