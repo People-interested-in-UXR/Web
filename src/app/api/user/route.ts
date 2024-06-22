@@ -1,8 +1,7 @@
 import { createClient } from "@/app/utils/supabase/supabase";
-import { NextApiRequest } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextApiRequest) {
+export async function GET(request: NextRequest) {
   const supabase = createClient();
   const { data, error } = await supabase.from("user").select("*");
 
