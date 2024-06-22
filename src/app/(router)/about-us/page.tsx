@@ -33,7 +33,7 @@ const Card = ({
 
 export default async function Page({}) {
   return (
-    <Container>
+    <Container className="h-full min-h-screen">
       <PIXRHeader />
       {/* 모임 소개 */}
       <div className="flex flex-col items-center w-full sm:py-20 py-8 gap-16 bg-muted sm:px-10 px-8">
@@ -125,39 +125,63 @@ export default async function Page({}) {
         <div className="grid xl:grid-cols-3 lg:grid-cols-2 justify-center sm:gap-6 gap-4 mt-8">
           <ProfileCard
             name={"홍길동"}
-            job={"UX Researcher"}
+            position={"UX Researcher"}
             introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
           더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
+            email={""}
+            profile={""}
+            secondary_email={""}
+            sns={""}
           />
           <ProfileCard
             name={"홍길동"}
-            job={"UX Researcher"}
+            position={"UX Researcher"}
             introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
           더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
+            email={""}
+            profile={""}
+            secondary_email={""}
+            sns={""}
           />
           <ProfileCard
             name={"홍길동"}
-            job={"UX Researcher"}
+            position={"UX Researcher"}
             introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
           더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
+            email={""}
+            profile={""}
+            secondary_email={""}
+            sns={""}
           />
           <ProfileCard
             name={"홍길동"}
-            job={"UX Researcher"}
+            position={"UX Researcher"}
             introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
           더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
+            email={""}
+            profile={""}
+            secondary_email={""}
+            sns={""}
           />
           <ProfileCard
             name={"홍길동"}
-            job={"UX Researcher"}
+            position={"UX Researcher"}
             introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
           더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
+            email={""}
+            profile={""}
+            secondary_email={""}
+            sns={""}
           />
           <ProfileCard
             name={"홍길동"}
-            job={"UX Researcher"}
+            position={"UX Researcher"}
             introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
           더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
+            email={""}
+            profile={""}
+            secondary_email={""}
+            sns={""}
           />
         </div>
       </div>

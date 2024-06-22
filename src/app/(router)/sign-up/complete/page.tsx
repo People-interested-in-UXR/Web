@@ -1,87 +1,54 @@
 import { Container, PIXRHeader } from "@/app/_containers";
-import { Icon, Toast } from "@/app/_ui";
-import Image from "next/image";
+import { Fireworks, Icon, ProfileCard, SignUpToast } from "@/app/_ui";
+import { User } from "@/app/utils/types/user/user";
+import { cookies } from "next/headers";
+import Link from "next/link";
 
-const ProfileCard = () => (
-  <div className="relative w-[380px] h-[460px] bg-secondary p-2 rounded-3xl flex flex-col items-center drop-shadow-lg mt-10">
-    <div className="absolute z-10 right-4 top-6 grid grid-cols-1 gap-4">
-      <Icon
-        src={"/icon/common/email.svg"}
-        alt={"email icon"}
-        height={36}
-        width={36}
-      />
-      <Icon
-        src={"/icon/common/sns.svg"}
-        alt={"sns icon"}
-        height={36}
-        width={36}
-      />
-    </div>
-    <Image
-      src={"/sample.png"}
-      alt={"profile image"}
-      width={364}
-      height={320}
-      className="rounded-3xl"
-    />
-    <div className="p-4 text-sub w-full">
-      <div className="flex gap-2 mt-2">
-        <span className="h3-700-20 text-title">홍길동</span>
-        <span className="b2-600-16 ">UX Researcher</span>
-      </div>
-      <div className="flex text-[8px] mt-2">
-        <div className="b2-400-16  w-full break-words line-clamp-2 text-sub">
-          안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
-          더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?
-        </div>
-      </div>
-    </div>
-  </div>
-);
+export default async function Page({}) {
+  const userData: User = await (
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/info`, {
+      method: "GET",
+      cache: "no-cache",
+      headers: {
+        Cookie: `_ui=${cookies().get("_ui")?.value}`,
+      },
+    })
+  ).json();
 
-export default function Page({}) {
   return (
-    <Container className="h-screen bg-default flex flex-col w-full">
+    <Container className="h-full bg-default flex flex-col w-full min-h-screen">
       <PIXRHeader />
-      <div className="flex items-center flex-col gap-4 mt-10">
+      <div className="flex items-center flex-col gap-4 my-10 px-4">
         <div className="flex flex-col items-center gap-8">
-          <Icon
-            src={"/icon/common/firecracker.svg"}
-            alt={"email icon"}
-            width={90}
-            height={120}
-            className=""
-          />
+          <Fireworks />
           <div className="flex items-center flex-col gap-4">
             <h1 className="h1-700-32 text-title">PIXR 가입완료!</h1>
             <div className="flex flex-col items-center b1-500-20 text-sub">
               <div className="">가입을 환영해요!</div>
-              <div>
+              <div className="text-center text-pretty break-keep">
                 이제 PIXR에서 UX research에 대해 자유롭게 이야기를 시작해보세요
               </div>
             </div>
           </div>
         </div>
 
-        <ProfileCard />
+        <ProfileCard {...userData} />
 
-        <div className="w-full relative flex justify-center">
-          {/* TODO: 동적으로 어떻게 할당하지..? */}
-          <Toast>
-            <div>회원가입이 완료되었습니다.</div>
-            <button className="flex text-btn-default cursor-pointer">
-              <div>Members 바로가기</div>
-              <Icon
-                src={"/icon/common/bottom_point_arrows_red.svg"}
-                alt={"bottom pointer arrow"}
-                className="rotate-[270deg] fill-btn-default"
-                height={20}
-                width={20}
-              />
-            </button>
-          </Toast>
-        </div>
+        <SignUpToast>
+          <div>회원가입이 완료!</div>
+          <button className="flex text-btn-default cursor-pointer">
+            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/member`}>
+              Members 바로가기
+            </Link>
+            <Icon
+              src={"/icon/common/bottom_point_arrows_red.svg"}
+              alt={"bottom pointer arrow"}
+              className="rotate-[270deg] fill-btn-default"
+              height={20}
+              width={20}
+            />
+          </button>
+        </SignUpToast>
       </div>
     </Container>
   );

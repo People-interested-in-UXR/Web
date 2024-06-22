@@ -4,6 +4,7 @@ import Image from "next/image";
 import { HTMLAttributes, ReactNode } from "react";
 import { Container, PIXRHeader, Section, PIXRFooter } from "./_containers";
 import { Button, Icon } from "./_ui";
+import { cookies } from "next/headers";
 
 const Banner = ({ children }: HTMLAttributes<HTMLElement>) => {
   return (
@@ -64,9 +65,9 @@ const Sponser = ({ children }: HTMLAttributes<HTMLElement>) => {
   );
 };
 
-export default function Home() {
+export default async function Home() {
   return (
-    <Container className="w-full ">
+    <Container className="w-full min-h-screen h-full">
       <PIXRHeader />
       <Section>
         <Banner>

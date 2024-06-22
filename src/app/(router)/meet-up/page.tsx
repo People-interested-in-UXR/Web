@@ -40,9 +40,9 @@ export default function Page({}) {
     },
   ];
   return (
-    <Container className="h-full bg-default flex flex-col w-full">
+    <Container className="h-full bg-default flex flex-col w-full min-h-screen ">
       <PIXRHeader />
-      <section className="flex flex-col items-center mt-10 gap-16">
+      <section className="flex flex-col items-center my-10 gap-16">
         <Board
           title="오프라인 모임"
           description="우리 모임에서 진행한 다양한 오프라인 모임 / 행사에 대한 스케치에요. 함께 참여해요."

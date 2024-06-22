@@ -8,7 +8,7 @@ export default async function Page({}) {
   const { results } = await data.json();
 
   return (
-    <Container>
+    <Container className="h-full min-h-screen ">
       <PIXRHeader />
       <section className="flex flex-col items-center mt-10 gap-16">
         <div>Content</div>

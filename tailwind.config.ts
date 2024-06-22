@@ -8,6 +8,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      animation: {
+        fadeOut: "fadeOut 4s ease-in-out",
+      },
+
+      keyframes: {
+        fadeOut: {
+          "0%": {
+            opacity: "1",
+          },
+          "100%": {
+            opacity: "0",
+          },
+        },
+      },
+
       screens: {
         mobile: "375px",
       },

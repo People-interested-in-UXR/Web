@@ -51,9 +51,9 @@ export default function Page({}) {
   ];
 
   return (
-    <Container className="h-full bg-default flex flex-col w-full">
+    <Container className="min-h-screen h-full bg-default flex flex-col w-full">
       <PIXRHeader />
-      <section className="flex flex-col items-center mt-10 gap-16 relative">
+      <section className="flex flex-col items-center my-10 gap-16 relative">
         <Board
           title={"지식 저장소"}
           description={`아카이브는 모임에서 진행한 스터디 / 토론에 대한 기록을 남겨두는 곳이에요.

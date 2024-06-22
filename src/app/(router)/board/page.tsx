@@ -51,16 +51,16 @@ export default function Page({}) {
   ];
 
   return (
-    <Container className="h-full bg-default flex flex-col w-full">
+    <Container className="h-full bg-default flex flex-col w-full min-h-screen ">
       <PIXRHeader />
-      <section className="flex flex-col items-center mt-10 gap-16">
+      <section className="flex flex-col items-center my-10 gap-16">
         <Board
           title={"자유 게시판"}
           description={`자유게시판은 누구나 자유로운 의견을 남기는 공간입니다. \n 잡담 / 궁금한 질문 / 새로운 소식 / 인사이트 공유 등 다양한 이야기를 공유해주세요.`}
           chips={chipSamples}
           cards={cardSamples}
         />
-        <RegisterButton>
+        {/* <RegisterButton>
           <Icon
             src={"/icon/common/pencil.svg"}
             alt={"plus icon"}
@@ -68,7 +68,7 @@ export default function Page({}) {
             width={24}
           />
           <span className="h4-600-18">글 작성하기</span>
-        </RegisterButton>
+        </RegisterButton> */}
       </section>
     </Container>
   );

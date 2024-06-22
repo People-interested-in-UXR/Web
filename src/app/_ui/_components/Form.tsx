@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   FormEvent,
   ReactNode,
@@ -116,8 +116,19 @@ const Form = () => {
 
   return (
     <form
-      onSubmit={(event) => {
+      onSubmit={async (event) => {
         event.preventDefault();
+        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/term`, {
+          method: "POST",
+          cache: "no-cache",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            isMarketing: getCheckBoxs.includes("marketing"),
+          }),
+        });
+
         router.push("/sign-up");
       }}
       className="flex flex-col gap-10"

@@ -1,7 +1,7 @@
 import { Container, PIXRHeader } from "@/app/_containers";
 import { Form } from "@/app/_ui";
 
-export default function Page({}) {
+export default function Page() {
   return (
     <Container>
       <PIXRHeader />

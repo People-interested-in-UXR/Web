@@ -7,5 +7,5 @@ export const NAV = {
   ARCHIVE: "ARCHIVE",
   BOARD: "BOARD",
   SIGN_UP: "SIGN UP",
-  LOGOUT: "LOGOUT",
+  SIGN_OUT: "SIGN OUT",
 };
