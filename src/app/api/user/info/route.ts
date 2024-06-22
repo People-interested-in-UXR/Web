@@ -2,9 +2,8 @@ import { createClient } from "@/app/utils/supabase/supabase";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { NextApiRequest } from "next";
 
-export async function GET(request: NextApiRequest) {
+export async function GET(request: NextRequest) {
   const cookie = cookies().get("_ui");
 
   if (!cookie)
