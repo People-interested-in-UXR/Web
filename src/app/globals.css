@@ -1,3 +1,69 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .h0-700-40 {
+    @apply font-bold text-[40px] leading-[140%];
+  }
+
+  .h1-700-32 {
+    @apply font-bold text-[32px] leading-[140%];
+  }
+
+  .h1-700-20 {
+    @apply font-bold text-[20px] leading-[140%];
+  }
+
+  .h2-700-24 {
+    @apply font-bold text-[24px] leading-[140%];
+  }
+
+  .h3-700-20 {
+    @apply font-bold text-[20px] leading-[140%];
+  }
+
+  .h4-700-16 {
+    @apply font-bold text-[16px] leading-[140%];
+  }
+
+  .h4-600-18 {
+    @apply font-semibold text-[18px] leading-[140%];
+  }
+
+  .b1-500-20 {
+    @apply font-medium text-[20px] leading-[150%];
+  }
+
+  .b1-500-12 {
+    @apply font-medium text-[12px] leading-[150%];
+  }
+
+  .b1-400-20 {
+    @apply font-normal text-[20px] leading-[150%];
+  }
+
+  .b1-400-12 {
+    @apply font-normal text-[12px] leading-[150%];
+  }
+
+  .b2-600-16 {
+    @apply font-semibold text-[16px] leading-[150%];
+  }
+
+  .b2-400-16 {
+    @apply font-normal text-[16px] leading-[150%];
+  }
+
+  .b3-600-14 {
+    @apply font-semibold text-[14px] leading-[150%];
+  }
+
+  .b3-400-14 {
+    @apply font-normal text-[14px] leading-[150%];
+  }
+
+  .c1-400-12 {
+    @apply font-normal text-[12px] leading-[150%];
+  }
+}
