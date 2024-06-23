@@ -3,6 +3,8 @@ import { Board } from "@/app/_ui/_atomics/Board";
 import { IChip } from "@/app/_ui/_atomics/Board/Chip";
 import { User } from "@/app/utils/types/user/user";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page({}) {
   //! 일어나서 이거 수정할 것 ( build 시 JSON.stringpy 에러 나옴)
   const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user`, {
