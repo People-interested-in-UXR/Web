@@ -2,10 +2,10 @@ import { Container, PIXRHeader } from "@/app/_containers";
 import { Icon, RegisterButton } from "@/app/_ui/_atomics";
 
 export default async function Page({}) {
-  const data = await fetch("http://localhost:3000/api/notion/schedule", {
-    cache: "no-store",
-  });
-  const { results } = await data.json();
+  // const data = await fetch("http://localhost:3000/api/notion/schedule", {
+  //   cache: "no-store",
+  // });
+  // const { results } = await data.json();
 
   return (
     <Container className="h-full min-h-screen ">

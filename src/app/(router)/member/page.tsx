@@ -2,20 +2,16 @@ import { Container, PIXRHeader } from "@/app/_containers";
 import { Board } from "@/app/_ui/_atomics/Board";
 import { IChip } from "@/app/_ui/_atomics/Board/Chip";
 import { User } from "@/app/utils/types/user/user";
-export interface IProfileCard {
-  name: string;
-  job: string;
-  introduce: string;
-}
-export default async function Page({}) {
-  const { users }: { users: User[] } = await (
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user`, {
-      method: "GET",
-      cache: "no-cache",
-    })
-  ).json();
 
-  console.log(users);
+export const dynamic = "force-dynamic";
+
+export default async function Page({}) {
+  //! 일어나서 이거 수정할 것 ( build 시 JSON.stringpy 에러 나옴)
+  const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user`, {
+    cache: "no-cache",
+  });
+
+  const { users }: { users: User[] } = await data.json();
 
   const chipSamples: IChip[] = [
     { category: "전체" },
