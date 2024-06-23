@@ -20,9 +20,7 @@ export async function GET(request: Request) {
   console.log("access_token & expires_in : ", access_token, expires_in);
 
   // * kakao user info
-  const {
-    kakao_account: { email },
-  } = await (
+  const data = await (
     await fetch(`https://kapi.kakao.com/v2/user/me`, {
       headers: {
         Authorization: `Bearer ${access_token}`,
@@ -31,13 +29,13 @@ export async function GET(request: Request) {
     })
   ).json();
 
-  console.log("email : ", email);
+  console.log("email : ", data);
 
   //* supabase
   const supabase = createClient();
   const { error } = await supabase
     .from("user")
-    .insert({ email, platform: "kakao" });
+    .insert({ email: data["kakao_account"]["email"], platform: "kakao" });
 
   cookies().set("_kt", access_token, {
     httpOnly: true,
@@ -48,9 +46,13 @@ export async function GET(request: Request) {
   });
 
   //* email 정보 토큰
-  const emailJwtToken = jwt.sign({ email }, process.env.PRIVATE_TOKEN_KEY!, {
-    expiresIn: expires_in,
-  });
+  const emailJwtToken = jwt.sign(
+    { email: data["kakao_account"]["email"] },
+    process.env.PRIVATE_TOKEN_KEY!,
+    {
+      expiresIn: expires_in,
+    }
+  );
   cookies().set("_ui", emailJwtToken, {
     httpOnly: true,
     maxAge: expires_in,
