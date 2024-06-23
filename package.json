@@ -2,11 +2,13 @@
   "name": "uxr",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://pixr.github.io/Web",
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "deploy": "next build && touch out/.nojekyll && git add -f out/ && git commit -m \"Deploy\" && git subtree push --prefix out origin gh-pages",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -19,7 +21,7 @@
     "cookie": "^0.6.0",
     "googleapis": "^140.0.0",
     "jsonwebtoken": "^9.0.2",
-    "next": "14.1.3",
+    "next": "14.2.4",
     "postcss": "^8.4.38",
     "react": "^18",
     "react-dom": "^18",
