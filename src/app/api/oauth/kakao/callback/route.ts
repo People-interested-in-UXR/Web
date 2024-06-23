@@ -17,6 +17,8 @@ export async function GET(request: Request) {
     })
   ).json();
 
+  console.log("access_token & expires_in : ", access_token, expires_in);
+
   // * kakao user info
   const {
     kakao_account: { email },
@@ -28,6 +30,8 @@ export async function GET(request: Request) {
       cache: "no-cache",
     })
   ).json();
+
+  console.log("email : ", email);
 
   //* supabase
   const supabase = createClient();
