@@ -3,6 +3,7 @@
 import { NAV } from "@/app/utils/consts";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -35,7 +36,13 @@ interface INavigation {
   isLogin: boolean;
 }
 const Navigation = ({ isLogin }: INavigation) => {
+  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
+
+  //* 로그아웃을 하고 로그인 했을 시
+  useEffect(() => {
+    setShowModal(false);
+  }, [isLogin]);
 
   // Resize
   // TODO: 메모리 최적화 하기
@@ -85,9 +92,13 @@ const Navigation = ({ isLogin }: INavigation) => {
           </li>
           <li className="text-primary-red hover:text-btn-hover b2-600-16">
             {isLogin ? (
-              <Link href={"/"}>{NAV.SIGN_OUT}</Link>
+              <Link
+                href={`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/sign-out`}
+              >
+                {NAV.SIGN_OUT}
+              </Link>
             ) : (
-              <Link href={"/sign-up"}>{NAV.SIGN_UP}</Link>
+              <Link href={"/sign-in"}>{NAV.SIGN_UP}</Link>
             )}
           </li>
         </ul>
@@ -118,7 +129,7 @@ const Navigation = ({ isLogin }: INavigation) => {
             >
               <ul className="p-4 gap-4 flex flex-col text-sub b2-400-16 ">
                 {isLogin ? (
-                  <PIXRHeaderNavList type="auth" href="/">
+                  <PIXRHeaderNavList type="auth" href="/api/user/sign-out">
                     {NAV.SIGN_OUT}
                   </PIXRHeaderNavList>
                 ) : (

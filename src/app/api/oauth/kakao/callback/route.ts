@@ -2,6 +2,8 @@ import { createClient } from "@/app/utils/supabase/supabase";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+import isObjectEmpty from "@/app/utils/isObjectEmpty";
+import { User } from "@/app/utils/types/user/user";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -29,20 +31,6 @@ export async function GET(request: Request) {
     })
   ).json();
 
-  /**
-   * ! Error log
-   * {
-   * msg: 'ip mismatched! callerIp=44.222.113.50. check out registered ips.',
-   * code: -401
-   * }
-   */
-
-  //* supabase
-  const supabase = createClient();
-  const { error } = await supabase
-    .from("user")
-    .insert({ email, platform: "kakao" });
-
   cookies().set("_kt", access_token, {
     httpOnly: true,
     maxAge: expires_in,
@@ -62,6 +50,37 @@ export async function GET(request: Request) {
     secure: true,
     path: "/",
   });
+
+  /**
+   * ! Error log
+   * {
+   * msg: 'ip mismatched! callerIp=44.222.113.50. check out registered ips.',
+   * code: -401
+   * }
+   */
+
+  //* supabase
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from("user")
+    .select()
+    .eq("email", email)
+    .limit(1)
+    .single();
+
+  //* 처음 가입하는게 아니라면
+  if (!isObjectEmpty<User>(data))
+    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`);
+
+  try {
+    const { error } = await supabase
+      .from("user")
+      .insert({ email, platform: "kakao" });
+    console.error("Supabase Error: ", error);
+  } catch (error) {
+    console.error("Error insert users:", error);
+  }
 
   //* 처음 가입하는 거라면 term으로 보내기
   if (!error)
