@@ -3,7 +3,13 @@ import { Icon, RegisterButton } from "@/app/_ui/_atomics";
 import { Board } from "@/app/_ui/_atomics/Board";
 import { IChip } from "@/app/_ui/_atomics/Board/Chip";
 
-export default function Page({}) {
+export default async function Page({}) {
+  const { pages } = await (
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/board`, {
+      cache: "no-store",
+    })
+  ).json();
+
   const cardSamples = [
     {
       title: "게시글 제목",
@@ -58,7 +64,8 @@ export default function Page({}) {
           title={"자유 게시판"}
           description={`자유게시판은 누구나 자유로운 의견을 남기는 공간입니다. \n 잡담 / 궁금한 질문 / 새로운 소식 / 인사이트 공유 등 다양한 이야기를 공유해주세요.`}
           chips={chipSamples}
-          cards={cardSamples}
+          // cards={cardSamples}
+          pages={pages}
         />
         {/* <RegisterButton>
           <Icon

@@ -1,38 +1,24 @@
-import { getProperty } from "@/app/_domain/pages";
-import { Client, iteratePaginatedAPI } from "@notionhq/client";
+import { getBlocks } from "@/app/_domain/blocks";
+
+import { Client } from "@notionhq/client";
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export async function GET(request: Request) {
-  console.log(request);
   const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
   const { results }: QueryDatabaseResponse = await notion.databases.query({
-    database_id: "2a3a7fdc75d64c4d8251c09354cd572d",
+    database_id: "d45fa5365c054b549d0a56b9a4ed5070",
   });
 
-  const properties = getProperty(results);
+  //* Block Contents 추츨
+  const blocks = await getBlocks(notion, results);
 
-  // const { results } = await notion.blocks.children.list({
-  //   block_id: "fab39f5c0f64427c9c986d1fff2c23e9",
-  // });
-
-  results.forEach((result: any) => {
-    console.log(result);
+  const pages = Array.from({ length: results.length }).map((_, i) => {
+    return {
+      ...results[i],
+      contents: blocks[i],
+    };
   });
 
-  results.forEach((result: any) => {
-    if (result["paragraph"]) {
-      result["paragraph"]["rich_text"].forEach((block: any) => {
-        console.log(block.text.content);
-      });
-    }
-
-    if (result["bulleted_list_item"]) {
-      result["bulleted_list_item"]["rich_text"].forEach((block: any) => {
-        console.log(block.text.content);
-      });
-    }
-  });
-
-  return Response.json({ ...properties });
+  return Response.json({ pages });
 }

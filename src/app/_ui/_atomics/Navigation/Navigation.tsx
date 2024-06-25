@@ -4,7 +4,7 @@ import { NAV } from "@/app/utils/consts";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+
 import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -48,7 +48,6 @@ const Navigation = ({ loginInfo }: INavigation) => {
     isLogin: loginInfo.find((cookie) => cookie.name === "_ui"),
   };
 
-  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
 
   //* 로그아웃을 하고 로그인 했을 시

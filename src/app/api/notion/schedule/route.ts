@@ -1,4 +1,3 @@
-import { getProperty } from "@/app/_domain/pages";
 import { Page } from "@/app/utils/types/notion/page";
 import { Client, iteratePaginatedAPI } from "@notionhq/client";
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
@@ -10,8 +9,6 @@ export async function GET(request: Request) {
   const { results }: QueryDatabaseResponse = await notion.databases.query({
     database_id: "2a3a7fdc75d64c4d8251c09354cd572d",
   });
-
-  const properties = getProperty(results);
 
   // const { results } = await notion.blocks.children.list({
   //   block_id: "fab39f5c0f64427c9c986d1fff2c23e9",
@@ -35,5 +32,5 @@ export async function GET(request: Request) {
   //   }
   // });
 
-  return Response.json({ ...properties });
+  return Response.json({ ...results });
 }
