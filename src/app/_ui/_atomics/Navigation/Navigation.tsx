@@ -1,6 +1,7 @@
 "use client";
 
 import { NAV } from "@/app/utils/consts";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
@@ -32,17 +33,28 @@ const PIXRHeaderNavList = ({
   );
 };
 
-interface INavigation {
-  isLogin: boolean;
+interface Cookie {
+  name: string;
+  value: string;
 }
-const Navigation = ({ isLogin }: INavigation) => {
+
+interface INavigation {
+  loginInfo: Array<Cookie>;
+}
+const Navigation = ({ loginInfo }: INavigation) => {
+  const { isLogin, isKakaoLogin, isGoogleLogin } = {
+    isKakaoLogin: loginInfo.find((cookie) => cookie.name === "_kt"),
+    isGoogleLogin: loginInfo.find((cookie) => cookie.name === "_gt"),
+    isLogin: loginInfo.find((cookie) => cookie.name === "_ui"),
+  };
+
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
 
   //* 로그아웃을 하고 로그인 했을 시
   useEffect(() => {
     setShowModal(false);
-  }, [isLogin]);
+  }, [loginInfo]);
 
   // Resize
   // TODO: 메모리 최적화 하기
