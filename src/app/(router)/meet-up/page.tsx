@@ -46,12 +46,12 @@ export default function Page({}) {
         <Board
           title="오프라인 모임"
           description="우리 모임에서 진행한 다양한 오프라인 모임 / 행사에 대한 스케치에요. 함께 참여해요."
-          cards={sample}
+          database={undefined}
         />
         <Board
           title="컨퍼런스"
           description="우리 모임에서 진행한 다양한 오프라인 모임 / 행사에 대한 스케치에요. 함께 참여해요."
-          cards={sample}
+          database={undefined}
         />
       </section>
     </Container>

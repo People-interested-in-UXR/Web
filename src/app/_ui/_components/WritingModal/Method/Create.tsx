@@ -90,8 +90,9 @@ const Create = ({
 
     fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/board/${database.id}`,
-      {}
+      { method: "POST", body: JSON.stringify(modal) }
     );
+
     database.id;
     localStorage.removeItem(pathname);
   };
