@@ -10,7 +10,6 @@ export interface ICard {
 }
 
 const Card = (data: any) => {
-  console.log(data);
   return (
     <div className="bg-muted rounded-3xl shadow-md sm:h-[360px] sm:aspect-[4/3] flex flex-col">
       <Image

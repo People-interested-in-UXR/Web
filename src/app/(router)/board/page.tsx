@@ -1,59 +1,50 @@
 import { Container, PIXRHeader } from "@/app/_containers";
-import { Icon, RegisterButton } from "@/app/_ui/_atomics";
+import { WritingModal } from "@/app/_ui";
 import { Board } from "@/app/_ui/_atomics/Board";
-import { IChip } from "@/app/_ui/_atomics/Board/Chip";
+import { NAV } from "@/app/utils/consts";
+import { IPageProperty, ISelect } from "@/app/utils/types/notion/page";
+
+import dynamic from "next/dynamic";
+
+const DynamicModal = dynamic(() => Promise.resolve(WritingModal), {
+  ssr: false,
+});
 
 export default async function Page({}) {
+  const database_id = "d45fa5365c054b549d0a56b9a4ed5070";
   const { pages } = await (
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/board`, {
-      cache: "no-store",
-    })
+    await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/board/${database_id}`,
+      {
+        cache: "no-store",
+      }
+    )
   ).json();
 
-  const cardSamples = [
-    {
-      title: "게시글 제목",
-      author: "작성자",
-      category: "잡담",
-      description:
-        "본문 내용 미리보기는 한 줄까지만 보여주기. 나머지는 말줌임표로 처리하기",
-    },
-    {
-      title: "게시글 제목",
-      author: "작성자",
-      category: "잡담",
-      description:
-        "본문 내용 미리보기는 한 줄까지만 보여주기. 나머지는 말줌임표로 처리하기",
-    },
-    {
-      title: "게시글 제목",
-      author: "작성자",
-      category: "잡담",
-      description:
-        "본문 내용 미리보기는 한 줄까지만 보여주기. 나머지는 말줌임표로 처리하기",
-    },
-    {
-      title: "게시글 제목",
-      author: "작성자",
-      category: "새소식",
-      description:
-        "본문 내용 미리보기는 한 줄까지만 보여주기. 나머지는 말줌임표로 처리하기",
-    },
-    {
-      title: "게시글 제목",
-      author: "작성자",
-      category: "새소식",
-      description:
-        "본문 내용 미리보기는 한 줄까지만 보여주기. 나머지는 말줌임표로 처리하기",
-    },
-  ];
+  const { props }: { props: IPageProperty[] } = await (
+    await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/prop/?database_id=${database_id}`,
+      {
+        cache: "no-store",
+      }
+    )
+  ).json();
 
-  const chipSamples: IChip[] = [
+  const database = {
+    id: database_id,
+    props,
+    pages,
+  };
+
+  const filterdProps = props.filter(
+    (prop) => "select" in prop && prop.name === "모임 유형"
+  )[0] as Pick<ISelect, "select">;
+
+  const chips = [
     { category: "전체" },
-    { category: "잡담" },
-    { category: "질문" },
-    { category: "새소식" },
-    { category: "인사이트" },
+    ...(filterdProps.select.options ?? []).map((option) => ({
+      category: option.name,
+    })),
   ];
 
   return (
@@ -63,19 +54,14 @@ export default async function Page({}) {
         <Board
           title={"자유 게시판"}
           description={`자유게시판은 누구나 자유로운 의견을 남기는 공간입니다. \n 잡담 / 궁금한 질문 / 새로운 소식 / 인사이트 공유 등 다양한 이야기를 공유해주세요.`}
-          chips={chipSamples}
-          // cards={cardSamples}
-          pages={pages}
+          chips={chips}
+          database={database}
         />
-        {/* <RegisterButton>
-          <Icon
-            src={"/icon/common/pencil.svg"}
-            alt={"plus icon"}
-            height={24}
-            width={24}
-          />
-          <span className="h4-600-18">글 작성하기</span>
-        </RegisterButton> */}
+        <DynamicModal
+          mode="create"
+          breadcrumb={[NAV.BOARD, "자유 게시판"]}
+          database={database}
+        />
       </section>
     </Container>
   );

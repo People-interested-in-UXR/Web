@@ -3,7 +3,6 @@ import { Client, iteratePaginatedAPI } from "@notionhq/client";
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export async function GET(request: Request) {
-  console.log(request);
   const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
   const { results }: QueryDatabaseResponse = await notion.databases.query({

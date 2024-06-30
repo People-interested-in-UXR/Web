@@ -48,6 +48,12 @@ const config: Config = {
         muted: "#D9D2CE",
         accent: "#FFFFFF",
       },
+      outlineColor: {
+        default: "#F7F6F5",
+        muted: "#F0EDEB",
+        secondary: "#D9D2CE",
+        teriary: "#575452",
+      },
       dropShadow: {
         s: "0 2px 4px rgba(224, 219, 215, 1)",
         m: "0 4px 8px rgba(224, 219, 215, 1)",
@@ -58,6 +64,7 @@ const config: Config = {
         "primary-brown": "#D9D2CE",
         "primary-red": "#E65656",
         "btn-default": "#E65656",
+        "btn-disabled": "#ADA8A4",
         "btn-hover": "#EB7777",
         "icon-default": "#827E7B",
         "icon-unselect": "#ADA8A4",

@@ -6,6 +6,7 @@ import { Description } from "./Description";
 import { ProfileCard } from "./ProfileCard";
 import { Fireworks } from "./Fireworks";
 import { Navigation } from "./Navigation";
+import { Property, PropertyChip } from "./Propperty";
 export {
   Toast,
   Button,
@@ -19,4 +20,6 @@ export {
   ProfileCard,
   Fireworks,
   Navigation,
+  Property,
+  PropertyChip,
 };

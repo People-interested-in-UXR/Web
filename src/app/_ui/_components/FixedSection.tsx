@@ -42,7 +42,10 @@ const Chip = ({ value, active }: IChip) => {
   );
 };
 
-export default function FixedSection() {
+interface IFixedSection {
+  breadcrumb: string[];
+}
+export default function FixedSection({ breadcrumb }: IFixedSection) {
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => setShowModal(true);
@@ -50,18 +53,9 @@ export default function FixedSection() {
 
   return (
     <div className="max-w-[640px] w-full fixed sm:bottom-[84px] bottom-4 flex sm:flex-col flex-col-reverse items-center sm:gap-5 gap-4 px-4">
+      {/* TODO: 로그인 상태에 따른 메세지 토글 */}
       <Toast>
         <div>로그인 해야 글을 작성할 수 있어요!</div>
-        {/* <button className="flex text-btn-default cursor-pointer">
-        <div>Members 바로가기</div>
-        <Icon
-          src={"/icon/common/bottom_point_arrows_red.svg"}
-          alt={"bottom pointer arrow"}
-          className="rotate-[270deg] fill-btn-default"
-          height={20}
-          width={20}
-        />
-      </button> */}
       </Toast>
 
       <RegisterButton onClick={openModal}>
@@ -101,7 +95,7 @@ export default function FixedSection() {
                 </div>
                 <div className="px-10 py-8 w-full flex flex-col items-start">
                   <div className="b1-500-20 text-muted">
-                    ARCHIVE {">"} 지식 저장소
+                    {breadcrumb.join(" > ")}
                   </div>
                   <div className="mt-[45px] h0-700-40 text-muted">
                     제목을 작성해주세요

@@ -3,7 +3,7 @@ import { getBlocks } from "@/app/_domain/blocks";
 import { Client } from "@notionhq/client";
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 
-export async function POST(
+export async function GET(
   request: Request,
   { params: { id } }: { params: { id: string } }
 ) {
@@ -24,4 +24,8 @@ export async function POST(
   });
 
   return Response.json({ pages });
+}
+
+export async function POST() {
+  return Response.json({ ok: true });
 }
