@@ -61,6 +61,7 @@ export default function Page({}) {
           도움이 필요한 자료가 있으면 자유롭게 활용해주세요.`}
           chips={chipSamples}
           database={undefined}
+          breadcrumb={[]}
         />
 
         <FixedSection breadcrumb={[NAV.ARCHIVE, "지식 저장소"]} />
