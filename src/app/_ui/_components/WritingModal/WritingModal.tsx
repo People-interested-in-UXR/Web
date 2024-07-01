@@ -1,9 +1,6 @@
 "use client";
 
-import { useEffect, useReducer, useRef, useState } from "react";
-import { Icon, RegisterButton, Toast } from "../../_atomics";
-import { createPortal } from "react-dom";
-import { Property, PropertyChip } from "../../_atomics/Propperty";
+import { useEffect, useState } from "react";
 import { Create } from "./Method";
 import { IDatabase } from "@/app/utils/types/notion/database";
 import { useBodyScrollLock } from "@/app/_hooks/useBodyScrollLock";
@@ -14,8 +11,6 @@ interface IWritingModal {
   database: IDatabase;
 }
 const WritingModal = ({ mode, breadcrumb, database }: IWritingModal) => {
-  console.log(database);
-
   //* Modal과 관련됨
   const [showModal, setShowModal] = useState(false);
   const { lockScroll, openScroll } = useBodyScrollLock();

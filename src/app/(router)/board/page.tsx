@@ -55,6 +55,7 @@ export default async function Page({}) {
           title={"자유 게시판"}
           description={`자유게시판은 누구나 자유로운 의견을 남기는 공간입니다. \n 잡담 / 궁금한 질문 / 새로운 소식 / 인사이트 공유 등 다양한 이야기를 공유해주세요.`}
           chips={chips}
+          breadcrumb={[NAV.BOARD, "자유 게시판"]}
           database={database}
         />
         <DynamicModal

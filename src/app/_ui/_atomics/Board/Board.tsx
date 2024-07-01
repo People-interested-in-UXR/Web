@@ -10,12 +10,19 @@ interface IBoard {
   title: string;
   chips?: Array<IChip>;
   description: string;
-
+  breadcrumb: string[];
   users?: Array<User>;
   database: any;
 }
 
-const Board = ({ title, description, chips, users, database }: IBoard) => {
+const Board = ({
+  title,
+  description,
+  breadcrumb,
+  chips,
+  users,
+  database,
+}: IBoard) => {
   const [selectedChip, setSelectedChip] = useState("전체");
 
   const handleChipClick: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -47,14 +54,16 @@ const Board = ({ title, description, chips, users, database }: IBoard) => {
           {[...database.pages].map(
             (page, index) =>
               selectedChip === "전체" && (
-                <Fragment key={index}>{<Card {...page} />}</Fragment>
+                <Fragment key={index}>
+                  {<Card page={page} breadcrumb={breadcrumb} />}
+                </Fragment>
               )
           )}
           {[...database.pages].map(
             (page, index) =>
               page?.properties["모임 유형"]?.select?.name === selectedChip && (
                 <Fragment key={index}>
-                  <Card {...page} />
+                  <Card page={page} breadcrumb={breadcrumb} />
                 </Fragment>
               )
           )}

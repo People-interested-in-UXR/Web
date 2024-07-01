@@ -7,7 +7,7 @@ import {
 } from "@/app/_ui/_atomics";
 import debounce from "@/app/utils/debounce";
 import { IDatabase } from "@/app/utils/types/notion/database";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { ChangeEvent, Fragment, useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
@@ -28,6 +28,7 @@ const Create = ({
   database,
 }: ICreate) => {
   const [_, pathname] = usePathname().split("/");
+  const router = useRouter();
 
   const [modal, setModal] = useState({
     page: pathname,
@@ -75,26 +76,22 @@ const Create = ({
     }
   }, [pathname, showModal]);
 
-  // TODO: 로컬스토리지에 저장
   useEffect(() => {
     if (!showModal) return;
     localStorage.setItem(pathname, JSON.stringify(modal));
   }, [modal, pathname, showModal]);
 
-  const handleSubmit = () => {
-    /**
-     * TODO: 서버로 데이터 전송
-     * 1. 서버로 데이터를 전송하고, 성공적으로 전송되었을 때
-     * 2. 로컬스토리지에 저장된 데이터를 삭제한다.
-     */
-
-    fetch(
+  const handleSubmit = async () => {
+    const { ok } = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/board/${database.id}`,
       { method: "POST", body: JSON.stringify(modal) }
     );
 
-    database.id;
+    if (!ok) return alert("에러가 발생했습니다! 나중에 시도해주세요!");
+
+    closeModal();
     localStorage.removeItem(pathname);
+    router.refresh();
   };
 
   return (
@@ -300,7 +297,8 @@ const Create = ({
               </div>
             </div>
           </div>,
-          document?.body
+          document?.body,
+          "create"
         )}
     </div>
   );

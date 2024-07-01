@@ -26,6 +26,66 @@ export async function GET(
   return Response.json({ pages });
 }
 
-export async function POST() {
-  return Response.json({ ok: true });
+export async function POST(
+  request: Request,
+  { params: { id } }: { params: { id: string } }
+) {
+  const notion = new Client({ auth: process.env.NOTION_TOKEN });
+  const {
+    content: { title, progress, date, category, text },
+  } = await request.json();
+
+  try {
+    await notion.pages.create({
+      parent: {
+        type: "database_id",
+        database_id: id,
+      },
+      properties: {
+        제목: {
+          title: [
+            {
+              text: {
+                content: title,
+              },
+            },
+          ],
+        },
+        날짜: {
+          date: {
+            start: date.split("T")[0],
+          },
+        },
+        "진행 상태": {
+          select: {
+            name: progress,
+          },
+        },
+        "모임 유형": {
+          select: {
+            name: category,
+          },
+        },
+      },
+      children: [
+        {
+          object: "block",
+          paragraph: {
+            rich_text: [
+              {
+                text: {
+                  content: text,
+                },
+              },
+            ],
+            color: "default",
+          },
+        },
+      ],
+    });
+    return Response.json({ ok: true });
+  } catch (error) {
+    console.error(error);
+    return Response.json({ ok: false });
+  }
 }
