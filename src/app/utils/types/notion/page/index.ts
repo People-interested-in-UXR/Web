@@ -1,3 +1,5 @@
+import { NotionBlock } from "../block";
+
 interface IEmoji {
   type: "emoji";
   emoji: string;
@@ -47,31 +49,36 @@ export type Page = {
   properties: IPageProperty;
   url: string;
   public_url: string;
+  contents: NotionBlock[];
 };
 
-export interface IPageProperty {
-  [name: string]:
-    | ITitle
-    | IRichText
-    | INumber
-    | ISelect
-    | IStatus
-    | IMultiSelect
-    | IDate
-    | IRelation
-    | IPeople
-    | IFile
-    | ICheckBox
-    | IURL
-    | IEmail
-    | IPhoneNumber
-    | ICreatedTime
-    | ILastEditedTime
-    | ICreator
-    | ILastEditor;
-}
+export type IPageProperty =
+  | ITitle
+  | IRichText
+  | INumber
+  | ISelect
+  | IStatus
+  | IMultiSelect
+  | IDate
+  | IRelation
+  | IPeople
+  | IFile
+  | ICheckBox
+  | IURL
+  | IEmail
+  | IPhoneNumber
+  | ICreatedTime
+  | ILastEditedTime
+  | ICreator
+  | ILastEditor;
+
+export type ExtractOneFromPageProps<T extends IPageProperty> = Extract<
+  T,
+  { type: T["type"] }
+>;
 
 type Property = {
+  name: string;
   id: string;
 };
 
@@ -100,7 +107,7 @@ interface ITextContent {
   href?: string;
 }
 
-interface ITitle extends Property {
+export interface ITitle extends Property {
   type: "title";
   title: Array<IText>;
 }
@@ -116,12 +123,15 @@ interface INumber extends Property {
 }
 
 interface INormalProperty {
-  id: string;
-  name: string;
-  color: string;
+  options?: Array<{
+    id: string;
+    name: string;
+    color: string;
+    description?: null | string;
+  }>;
 }
 
-interface ISelect extends Property {
+export interface ISelect extends Property {
   type: "select";
   select: INormalProperty;
 }

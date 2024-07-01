@@ -2,7 +2,7 @@ import { Header, Logo, Navigation } from "../_ui";
 import { cookies } from "next/headers";
 
 const PIXRHeader = () => {
-  const isLogin = !!cookies().get("_ui")?.value;
+  const loginInfo = cookies().getAll();
 
   return (
     <Header>
@@ -13,7 +13,7 @@ const PIXRHeader = () => {
         </p>
       </div>
 
-      <Navigation isLogin={isLogin} />
+      <Navigation loginInfo={loginInfo} />
     </Header>
   );
 };

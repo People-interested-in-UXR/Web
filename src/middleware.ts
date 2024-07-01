@@ -1,8 +1,17 @@
-import { type NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "./app/utils/supabase/middleware";
+import { cookies } from "next/headers";
 
 export async function middleware(request: NextRequest) {
-  // console.log(request);
+  if (request.nextUrl.pathname.startsWith("/sign-in")) {
+    await updateSession(request);
+
+    if (cookies().has("_ui"))
+      return NextResponse.redirect(
+        new URL(`${process.env.NEXT_PUBLIC_BASE_URL}`)
+      );
+    return NextResponse.next();
+  }
 
   return await updateSession(request);
 }

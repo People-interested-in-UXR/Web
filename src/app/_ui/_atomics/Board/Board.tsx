@@ -10,11 +10,19 @@ interface IBoard {
   title: string;
   chips?: Array<IChip>;
   description: string;
-  cards?: Array<ICard>;
+  breadcrumb: string[];
   users?: Array<User>;
+  database: any;
 }
 
-const Board = ({ title, description, chips, cards, users }: IBoard) => {
+const Board = ({
+  title,
+  description,
+  breadcrumb,
+  chips,
+  users,
+  database,
+}: IBoard) => {
   const [selectedChip, setSelectedChip] = useState("전체");
 
   const handleChipClick: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -22,6 +30,7 @@ const Board = ({ title, description, chips, cards, users }: IBoard) => {
       setSelectedChip(event?.currentTarget?.textContent);
   };
 
+  // cover는 type을 넣으면 됨 cover[cover.type]
   return (
     <div className="w-full flex flex-col items-center max-w-[1490px] px-4 break-keep text-pretty  sm:gap-16 gap-4">
       <Description title={title} description={description} position="center" />
@@ -40,21 +49,21 @@ const Board = ({ title, description, chips, cards, users }: IBoard) => {
           </div>
         </div>
       )}
-      {cards && (
+      {database.pages && (
         <div className="grid 2xl:grid-cols-3 gap-y-16 gap-x-6 lg:grid-cols-2  md:grid-cols-1  justify-center max-lg:gap-4">
-          {[...cards].map(
-            (card, index) =>
+          {[...database.pages].map(
+            (page, index) =>
               selectedChip === "전체" && (
                 <Fragment key={index}>
-                  <Card {...card} />
+                  {<Card page={page} breadcrumb={breadcrumb} />}
                 </Fragment>
               )
           )}
-          {[...cards].map(
-            (card, index) =>
-              card.category === selectedChip && (
+          {[...database.pages].map(
+            (page, index) =>
+              page?.properties["모임 유형"]?.select?.name === selectedChip && (
                 <Fragment key={index}>
-                  <Card {...card} />
+                  <Card page={page} breadcrumb={breadcrumb} />
                 </Fragment>
               )
           )}

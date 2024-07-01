@@ -58,7 +58,7 @@ const ProfileCard = ({
         </div>
         <div className="flex text-[8px] mt-2">
           <div className="b2-400-16  w-full break-words line-clamp-2 text-sub">
-            {introduce && `PIXR에 오신 것을 환영합니다!`}
+            {introduce ? introduce : `PIXR에 오신 것을 환영합니다!`}
           </div>
         </div>
       </div>

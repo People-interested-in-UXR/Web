@@ -1,3 +1,4 @@
+"use client";
 import { MouseEventHandler, ReactNode } from "react";
 
 interface IRegisteredButton {

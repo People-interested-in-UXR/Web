@@ -2,8 +2,17 @@ import { google } from "googleapis";
 import { Container, PIXRHeader } from "@/app/_containers";
 import { Icon } from "@/app/_ui";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function Page({}) {
+  const loginInfo = cookies().getAll();
+  const { isLogin, isKakaoLogin, isGoogleLogin } = {
+    isKakaoLogin: loginInfo.find((cookie) => cookie.name === "_kt"),
+    isGoogleLogin: loginInfo.find((cookie) => cookie.name === "_gt"),
+    isLogin: loginInfo.find((cookie) => cookie.name === "_ui"),
+  };
+
   const redirect_uri = `${process.env.NEXT_PUBLIC_BASE_URL}/api/oauth/google/callback`;
 
   //MEMO: Google OAuth2
@@ -20,6 +29,9 @@ export default async function Page({}) {
 
   //MEMO: Kakao OAuth2
   const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_BASE_URL}/api/oauth/kakao/callback&response_type=code`;
+
+  if (isKakaoLogin) return redirect(kakaoAuthUrl);
+  if (isGoogleLogin) return redirect(googleAuthUrl);
 
   return (
     <Container className="h-full min-h-screen ">

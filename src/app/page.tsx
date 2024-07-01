@@ -66,6 +66,8 @@ const Sponser = ({ children }: HTMLAttributes<HTMLElement>) => {
 };
 
 export default async function Home() {
+  const isLogin = cookies().has("_ui");
+
   return (
     <Container className="w-full min-h-screen h-full">
       <PIXRHeader />
@@ -93,9 +95,15 @@ export default async function Home() {
                   </li>
                 </ul>
               </div>
-              <Link href={"/sign-in"}>
-                <Button>모임 참여하기</Button>
-              </Link>
+              {isLogin ? (
+                <Link href={"/archive"}>
+                  <Button>아카이브 보러가기</Button>
+                </Link>
+              ) : (
+                <Link href={"/sign-in"}>
+                  <Button>모임 참여하기</Button>
+                </Link>
+              )}
             </div>
             <div className="flex items-center">
               <Image

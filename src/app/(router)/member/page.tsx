@@ -35,6 +35,7 @@ export default async function Page({}) {
           네트워킹을 통해 즐거운 모임을 만들고 서로 서로 도와요.`}
           chips={chipSamples}
           users={users}
+          database={undefined}
         />
       </section>
     </Container>

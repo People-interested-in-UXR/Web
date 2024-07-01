@@ -2,6 +2,7 @@ import { Container, PIXRHeader } from "@/app/_containers";
 import { Board } from "@/app/_ui/_atomics/Board";
 import { IChip } from "@/app/_ui/_atomics/Board/Chip";
 import { FixedSection } from "@/app/_ui/_components";
+import { NAV } from "@/app/utils/consts";
 
 export default function Page({}) {
   const cardSamples = [
@@ -59,10 +60,10 @@ export default function Page({}) {
           description={`아카이브는 모임에서 진행한 스터디 / 토론에 대한 기록을 남겨두는 곳이에요.
           도움이 필요한 자료가 있으면 자유롭게 활용해주세요.`}
           chips={chipSamples}
-          cards={cardSamples}
+          database={undefined}
         />
 
-        <FixedSection />
+        <FixedSection breadcrumb={[NAV.ARCHIVE, "지식 저장소"]} />
       </section>
     </Container>
   );
