@@ -49,9 +49,9 @@ const Board = ({
           </div>
         </div>
       )}
-      {database.pages && (
+      {database?.pages && (
         <div className="grid 2xl:grid-cols-3 gap-y-16 gap-x-6 lg:grid-cols-2  md:grid-cols-1  justify-center max-lg:gap-4">
-          {[...database.pages].map(
+          {[...database?.pages].map(
             (page, index) =>
               selectedChip === "전체" && (
                 <Fragment key={index}>
@@ -59,7 +59,7 @@ const Board = ({
                 </Fragment>
               )
           )}
-          {[...database.pages].map(
+          {[...database?.pages].map(
             (page, index) =>
               page?.properties["모임 유형"]?.select?.name === selectedChip && (
                 <Fragment key={index}>
