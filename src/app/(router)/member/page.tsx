@@ -16,7 +16,7 @@ export default async function Page({}) {
   const chipSamples: IChip[] = [
     { category: "전체" },
     { category: "UX Researcher" },
-    { category: "Product designer" },
+    { category: "Product Designer" },
     { category: "PO/PM" },
     { category: "Data Analyst" },
     { category: "Developer" },
@@ -36,6 +36,7 @@ export default async function Page({}) {
           chips={chipSamples}
           users={users}
           database={undefined}
+          breadcrumb={[]}
         />
       </section>
     </Container>

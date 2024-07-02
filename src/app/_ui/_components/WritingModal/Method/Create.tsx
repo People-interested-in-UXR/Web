@@ -289,6 +289,13 @@ const Create = ({
                     <button
                       className="disabled:bg-btn-disabled disabled:text-muted rounded-2xl h4-600-18 px-10 py-4 cursor-pointer text-white bg-primary-red"
                       onClick={handleSubmit}
+                      disabled={
+                        modal.content.title === "" ||
+                        modal.content.text === "" ||
+                        modal.content.progress === "" ||
+                        modal.content.category === "" ||
+                        modal.content.date === undefined
+                      }
                     >
                       완료
                     </button>
