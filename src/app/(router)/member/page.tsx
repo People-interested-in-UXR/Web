@@ -1,4 +1,5 @@
 import { Container, PIXRHeader } from "@/app/_containers";
+
 import { Board } from "@/app/_ui/_atomics/Board";
 import { IChip } from "@/app/_ui/_atomics/Board/Chip";
 import { User } from "@/app/utils/types/user/user";

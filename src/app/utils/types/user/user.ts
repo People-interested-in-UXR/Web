@@ -1,4 +1,4 @@
-export interface User {
+export interface User extends ToastFn {
   email: string;
   introduce: string;
   name: string;
@@ -6,4 +6,8 @@ export interface User {
   profile: string;
   secondary_email: string;
   sns: string;
+}
+
+interface ToastFn {
+  setIsClicked: React.Dispatch<React.SetStateAction<boolean>>;
 }

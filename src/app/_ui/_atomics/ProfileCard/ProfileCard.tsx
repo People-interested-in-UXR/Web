@@ -10,6 +10,7 @@ const ProfileCard = ({
   profile,
   secondary_email,
   sns,
+  setIsClicked,
 }: User) => {
   return (
     <div className="relative w-[380px] h-[460px] bg-secondary p-2 rounded-3xl flex flex-col items-center drop-shadow-lg mt-10">
@@ -20,6 +21,11 @@ const ProfileCard = ({
             alt={"email icon"}
             height={36}
             width={36}
+            className="cursor-pointer"
+            onClick={() => {
+              setIsClicked(true);
+              navigator.clipboard.writeText(secondary_email);
+            }}
           />
         )}
         {sns && (
@@ -28,6 +34,11 @@ const ProfileCard = ({
             alt={"sns icon"}
             height={36}
             width={36}
+            className="cursor-pointer"
+            onClick={() => {
+              navigator.clipboard.writeText(sns);
+              setIsClicked(true);
+            }}
           />
         )}
       </div>

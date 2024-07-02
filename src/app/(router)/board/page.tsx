@@ -5,12 +5,15 @@ import { NAV } from "@/app/utils/consts";
 import { IPageProperty, ISelect } from "@/app/utils/types/notion/page";
 
 import dynamic from "next/dynamic";
+import { cookies } from "next/headers";
 
 const DynamicModal = dynamic(() => Promise.resolve(WritingModal), {
   ssr: false,
 });
 
 export default async function Page({}) {
+  const userInfo = cookies().get("_ui");
+
   const database_id = "d45fa5365c054b549d0a56b9a4ed5070";
   const { pages } = await (
     await fetch(
@@ -62,6 +65,7 @@ export default async function Page({}) {
           mode="create"
           breadcrumb={[NAV.BOARD, "자유 게시판"]}
           database={database}
+          userInfo={userInfo}
         />
       </section>
     </Container>

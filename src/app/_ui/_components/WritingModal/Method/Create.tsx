@@ -18,6 +18,10 @@ interface ICreate {
   openModal: () => void;
   closeModal: () => void;
   database: IDatabase;
+  userInfo?: {
+    name: string;
+    value: string;
+  };
 }
 
 const Create = ({
@@ -26,6 +30,7 @@ const Create = ({
   openModal,
   closeModal,
   database,
+  userInfo,
 }: ICreate) => {
   const [_, pathname] = usePathname().split("/");
   const router = useRouter();
@@ -40,6 +45,15 @@ const Create = ({
       text: "",
     },
   });
+  const [showToast, setShowToast] = useState(false);
+
+  useEffect(() => {
+    if (showToast) {
+      setTimeout(() => {
+        setShowToast(false);
+      }, 4000);
+    }
+  }, [showToast]);
 
   const debouncedOnChange = useCallback(
     debounce((event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -50,7 +64,7 @@ const Create = ({
           text: event.target.value,
         },
       }));
-    }, 500),
+    }, 100),
     []
   );
 
@@ -97,11 +111,18 @@ const Create = ({
   return (
     <div className="max-w-[640px] w-full fixed sm:bottom-[40px] bottom-4 flex sm:flex-col flex-col-reverse items-center sm:gap-5 gap-4 px-4">
       {/* TODO: 로그인 상태에 따른 메세지 토글 */}
-      <Toast>
-        <div>로그인 해야 글을 작성할 수 있어요!</div>
-      </Toast>
+      {showToast && (
+        <Toast>
+          <div>로그인 해야 글을 작성할 수 있어요!</div>
+        </Toast>
+      )}
 
-      <RegisterButton onClick={openModal}>
+      <RegisterButton
+        onClick={() => {
+          if (!userInfo) return setShowToast(true);
+          openModal();
+        }}
+      >
         <Icon
           src={"/icon/common/pencil.svg"}
           alt={"plus icon"}
@@ -290,11 +311,11 @@ const Create = ({
                       className="disabled:bg-btn-disabled disabled:text-muted rounded-2xl h4-600-18 px-10 py-4 cursor-pointer text-white bg-primary-red"
                       onClick={handleSubmit}
                       disabled={
-                        modal.content.title === "" ||
-                        modal.content.text === "" ||
-                        modal.content.progress === "" ||
-                        modal.content.category === "" ||
-                        modal.content.date === undefined
+                        modal?.content?.title?.trim() === "" ||
+                        modal?.content?.text?.trim() === "" ||
+                        modal?.content?.progress?.trim() === "" ||
+                        modal?.content?.category?.trim() === "" ||
+                        modal?.content?.date === undefined
                       }
                     >
                       완료
