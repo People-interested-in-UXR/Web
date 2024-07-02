@@ -64,7 +64,7 @@ const Create = ({
           text: event.target.value,
         },
       }));
-    }, 500),
+    }, 100),
     []
   );
 
