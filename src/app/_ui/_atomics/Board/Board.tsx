@@ -1,10 +1,11 @@
 "use client";
-import { Fragment, MouseEventHandler, useState } from "react";
+import { Fragment, MouseEventHandler, useEffect, useState } from "react";
 import Card, { ICard } from "./Card";
 import Chip, { IChip } from "./Chip";
 import { Description } from "../Description";
 import { ProfileCard } from "../ProfileCard";
 import { User } from "@/app/utils/types/user/user";
+import { Toast } from "../Toast";
 
 interface IBoard {
   title: string;
@@ -24,11 +25,20 @@ const Board = ({
   database,
 }: IBoard) => {
   const [selectedChip, setSelectedChip] = useState("전체");
+  const [isClicked, setIsClicked] = useState(false);
 
   const handleChipClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     if (event?.currentTarget?.textContent)
       setSelectedChip(event?.currentTarget?.textContent);
   };
+
+  useEffect(() => {
+    if (isClicked) {
+      setTimeout(() => {
+        setIsClicked(false);
+      }, 4000);
+    }
+  }, [isClicked]);
 
   // cover는 type을 넣으면 됨 cover[cover.type]
   return (
@@ -75,7 +85,7 @@ const Board = ({
             (user, index) =>
               selectedChip === "전체" && (
                 <Fragment key={index}>
-                  <ProfileCard {...user} />
+                  <ProfileCard {...user} setIsClicked={setIsClicked} />
                 </Fragment>
               )
           )}
@@ -83,10 +93,17 @@ const Board = ({
             (user, index) =>
               user.position === selectedChip && (
                 <Fragment key={index}>
-                  <ProfileCard {...user} />
+                  <ProfileCard {...user} setIsClicked={setIsClicked} />
                 </Fragment>
               )
           )}
+        </div>
+      )}
+      {isClicked && (
+        <div className="fixed bottom-20">
+          <Toast>
+            <div>복사되었습니다.</div>
+          </Toast>
         </div>
       )}
     </div>

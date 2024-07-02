@@ -9,8 +9,14 @@ interface IWritingModal {
   mode: "create" | "edit" | "read";
   breadcrumb: string[];
   database: IDatabase;
+  userInfo?: { name: string; value: string };
 }
-const WritingModal = ({ mode, breadcrumb, database }: IWritingModal) => {
+const WritingModal = ({
+  mode,
+  breadcrumb,
+  database,
+  userInfo,
+}: IWritingModal) => {
   //* Modal과 관련됨
   const [showModal, setShowModal] = useState(false);
   const { lockScroll, openScroll } = useBodyScrollLock();
@@ -41,6 +47,7 @@ const WritingModal = ({ mode, breadcrumb, database }: IWritingModal) => {
         showModal={showModal}
         openModal={openModal}
         closeModal={closeModal}
+        userInfo={userInfo}
       />
     );
   }
