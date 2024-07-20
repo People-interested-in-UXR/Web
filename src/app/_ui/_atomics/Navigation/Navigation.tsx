@@ -89,9 +89,9 @@ const Navigation = ({ loginInfo }: INavigation) => {
           <li className="hover:text-muted active:text-default">
             <Link href={"/member"}>{NAV.MEMBERS}</Link>
           </li>
-          {/* <li className="hover:text-muted active:text-default">
+          <li className="hover:text-muted active:text-default">
             <Link href={"/schedule"}>{NAV.SCHEDULE}</Link>
-          </li> */}
+          </li>
           {/* <li className="hover:text-muted active:text-default">
             <Link href={"/meet-up"}>{NAV.MEETUPS}</Link>
           </li>
@@ -157,9 +157,9 @@ const Navigation = ({ loginInfo }: INavigation) => {
                 <PIXRHeaderNavList type="common" href="/member">
                   {NAV.MEMBERS}
                 </PIXRHeaderNavList>
-                {/* <PIXRHeaderNavList type="common" href="/schedule">
+                <PIXRHeaderNavList type="common" href="/schedule">
                   {NAV.SCHEDULE}
-                </PIXRHeaderNavList> */}
+                </PIXRHeaderNavList>
                 {/* <PIXRHeaderNavList type="common" href="/meet-up">
                   {NAV.MEETUPS}
                 </PIXRHeaderNavList>

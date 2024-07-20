@@ -6,6 +6,7 @@ import {
   SignUpToast,
   SignUpForm,
   WritingModal,
+  Calendar,
 } from "./_components";
 import {
   Toast,
@@ -19,7 +20,6 @@ import {
   ProfileCard,
   Navigation,
 } from "./_atomics";
-
 export {
   Header,
   Footer,
@@ -38,4 +38,5 @@ export {
   Navigation,
   SignUpForm,
   WritingModal,
+  Calendar,
 };

@@ -1,4 +1,5 @@
 import { Container, PIXRHeader } from "@/app/_containers";
+import { Calendar } from "@/app/_ui";
 import { Icon, RegisterButton } from "@/app/_ui/_atomics";
 
 export default async function Page({}) {
@@ -8,10 +9,10 @@ export default async function Page({}) {
   // const { results } = await data.json();
 
   return (
-    <Container className="h-full min-h-screen ">
+    <Container className="min-h-screen h-full bg-default">
       <PIXRHeader />
-      <section className="flex flex-col items-center mt-10 gap-16">
-        <div>Content</div>
+      <section className="flex flex-col items-center mt-10 gap-16 px-4">
+        <Calendar />
         <RegisterButton>
           <Icon
             src={"/icon/common/pencil.svg"}

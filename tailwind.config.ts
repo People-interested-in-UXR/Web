@@ -66,6 +66,7 @@ const config: Config = {
         "btn-default": "#E65656",
         "btn-disabled": "#ADA8A4",
         "btn-hover": "#EB7777",
+        "btn-unselected": "#E8E4E1",
         "icon-default": "#827E7B",
         "icon-unselect": "#ADA8A4",
         "icon-selected": "#575452",
