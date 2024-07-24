@@ -6,15 +6,21 @@ import FullCalendar from "@fullcalendar/react";
 import { Icon } from "../../_atomics";
 
 const formater = (day: number | Date | undefined) => {
-  const date = new Intl.DateTimeFormat("ko-KR", {
-    year: "numeric",
-    month: "2-digit",
-  }).format(day);
+  if (!day) return "";
 
-  return date.slice(0, date.length - 1);
+  if (day instanceof Date) {
+    const date = `${day.getFullYear()}. ${(day.getMonth() + 1).toString().padStart(2, "0")}`;
+    return date;
+  }
+
+  if (typeof day === "number") {
+    return "" + day;
+  }
+
+  return day;
 };
 
-const CalendarHeader = forwardRef<FullCalendar>(function Calc(props, ref) {
+const CalendarHeader = forwardRef<FullCalendar>(function Calc(prop, ref) {
   const [day, setDay] = useState("");
 
   useEffect(() => {

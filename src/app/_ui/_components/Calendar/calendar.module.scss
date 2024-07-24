@@ -1,13 +1,40 @@
+//* Today 배경색
+:root {
+  --fc-today-bg-color: transparant !important;
+}
+
 .calendar {
-  .fc-toolbar-chunk {
-    color: red;
+  margin-top: 16px;
+  border: 0 !important;
+
+  table {
+    border-top: none !important;
+    border-right: none !important;
+    border-left: none !important;
+  }
+
+  th,
+  tbody {
+    border: none !important;
+    text-align: left !important;
   }
 }
 
-.fc-toolbar-chunk {
-  background-color: brown;
+.dayHeader {
+  padding-left: 8px !important;
+  text-align: left !important;
+  border: none !important ;
 }
 
-.fc-day-header {
-  background-color: aquamarine;
+.dayCell {
+  background-color: white !important;
+  border: #d9d2ce;
+
+  div {
+    flex-direction: row !important;
+    padding-left: 4px !important;
+    // dayCell 내의 이벤트
+    // opacity: 1 !important;
+    // z-index: 1000 !important;
+  }
 }
