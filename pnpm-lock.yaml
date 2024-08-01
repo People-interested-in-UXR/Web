@@ -5,6 +5,18 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@fullcalendar/core':
+    specifier: ^6.1.15
+    version: 6.1.15
+  '@fullcalendar/daygrid':
+    specifier: ^6.1.15
+    version: 6.1.15(@fullcalendar/core@6.1.15)
+  '@fullcalendar/interaction':
+    specifier: ^6.1.15
+    version: 6.1.15(@fullcalendar/core@6.1.15)
+  '@fullcalendar/react':
+    specifier: ^6.1.15
+    version: 6.1.15(@fullcalendar/core@6.1.15)(react-dom@18.2.0)(react@18.2.0)
   '@notionhq/client':
     specifier: ^2.2.15
     version: 2.2.15
@@ -31,7 +43,7 @@ dependencies:
     version: 9.0.2
   next:
     specifier: 14.2.4
-    version: 14.2.4(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)
+    version: 14.2.4(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.77.8)
   postcss:
     specifier: ^8.4.38
     version: 8.4.38
@@ -50,6 +62,9 @@ dependencies:
   tailwindcss:
     specifier: ^3.4.4
     version: 3.4.4
+  tippy.js:
+    specifier: ^6.3.7
+    version: 6.3.7
   uuid:
     specifier: ^10.0.0
     version: 10.0.0
@@ -75,7 +90,7 @@ devDependencies:
     version: 8.0.0(@types/react@18.2.65)(react-dom@18.2.0)(react@18.2.0)
   '@storybook/nextjs':
     specifier: ^8.0.0
-    version: 8.0.0(esbuild@0.20.1)(next@14.2.4)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.2)(webpack@5.90.3)
+    version: 8.0.0(esbuild@0.20.1)(next@14.2.4)(react-dom@18.2.0)(react@18.2.0)(sass@1.77.8)(typescript@5.4.2)(webpack@5.90.3)
   '@storybook/react':
     specifier: ^8.0.0
     version: 8.0.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.2)
@@ -112,6 +127,9 @@ devDependencies:
   eslint-plugin-storybook:
     specifier: ^0.8.0
     version: 0.8.0(eslint@8.57.0)(typescript@5.4.2)
+  sass:
+    specifier: ^1.77.8
+    version: 1.77.8
   storybook:
     specifier: ^8.0.0
     version: 8.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -1775,6 +1793,40 @@ packages:
     resolution: {integrity: sha512-cEee/Z+I12mZcFJshKcCqC8tuX5hG3s+d+9nZ3LabqKF1vKdF41B92pJVCBggjAGORAeOzyyDDKrZwIkLffeOQ==}
     dev: true
 
+  /@fullcalendar/core@6.1.15:
+    resolution: {integrity: sha512-BuX7o6ALpLb84cMw1FCB9/cSgF4JbVO894cjJZ6kP74jzbUZNjtwffwRdA+Id8rrLjT30d/7TrkW90k4zbXB5Q==}
+    dependencies:
+      preact: 10.12.1
+    dev: false
+
+  /@fullcalendar/daygrid@6.1.15(@fullcalendar/core@6.1.15):
+    resolution: {integrity: sha512-j8tL0HhfiVsdtOCLfzK2J0RtSkiad3BYYemwQKq512cx6btz6ZZ2RNc/hVnIxluuWFyvx5sXZwoeTJsFSFTEFA==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.15
+    dependencies:
+      '@fullcalendar/core': 6.1.15
+    dev: false
+
+  /@fullcalendar/interaction@6.1.15(@fullcalendar/core@6.1.15):
+    resolution: {integrity: sha512-DOTSkofizM7QItjgu7W68TvKKvN9PSEEvDJceyMbQDvlXHa7pm/WAVtAc6xSDZ9xmB1QramYoWGLHkCYbTW1rQ==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.15
+    dependencies:
+      '@fullcalendar/core': 6.1.15
+    dev: false
+
+  /@fullcalendar/react@6.1.15(@fullcalendar/core@6.1.15)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-L0b9hybS2J4e7lq6G2CD4nqriyLEqOH1tE8iI6JQjAMTVh5JicOo5Mqw+fhU5bJ7hLfMw2K3fksxX3Ul1ssw5w==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.15
+      react: ^16.7.0 || ^17 || ^18 || ^19
+      react-dom: ^16.7.0 || ^17 || ^18 || ^19
+    dependencies:
+      '@fullcalendar/core': 6.1.15
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
     engines: {node: '>=10.10.0'}
@@ -2028,6 +2080,10 @@ packages:
       source-map: 0.7.4
       webpack: 5.90.3(esbuild@0.20.1)
     dev: true
+
+  /@popperjs/core@2.11.8:
+    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+    dev: false
 
   /@radix-ui/react-compose-refs@1.0.1(@types/react@18.2.65)(react@18.2.0):
     resolution: {integrity: sha512-fDSBgd44FKHa1FRMU59qBMPFcl2PZE+2nmqunj+BWFyYYjnhIDWL2ItDs3rrbJDQOtzt5nIebLCQc4QRfz6LJw==}
@@ -2656,7 +2712,7 @@ packages:
     resolution: {integrity: sha512-1aCHzc+A4IOdDves+mE0K9bjyyPzPAIlR7oI6kSuO416/HXXJDdN5G825OQB/VIBYc1b8cNElMdNVKQK2FQorQ==}
     dev: true
 
-  /@storybook/nextjs@8.0.0(esbuild@0.20.1)(next@14.2.4)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.2)(webpack@5.90.3):
+  /@storybook/nextjs@8.0.0(esbuild@0.20.1)(next@14.2.4)(react-dom@18.2.0)(react@18.2.0)(sass@1.77.8)(typescript@5.4.2)(webpack@5.90.3):
     resolution: {integrity: sha512-Z+eWizq7k+Nsr8edFwQmJAhEjJEu8o8i0lkcD+v/7kQbmwl+WDpRbSBu824FCaQNNkSLArXk6FgItlxGk31KrA==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
@@ -2702,7 +2758,7 @@ packages:
       fs-extra: 11.2.0
       image-size: 1.1.1
       loader-utils: 3.2.1
-      next: 14.2.4(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)
+      next: 14.2.4(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.77.8)
       node-polyfill-webpack-plugin: 2.0.1(webpack@5.90.3)
       pnp-webpack-plugin: 1.7.0(typescript@5.4.2)
       postcss: 8.4.38
@@ -2711,7 +2767,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
       react-refresh: 0.14.0
       resolve-url-loader: 5.0.0
-      sass-loader: 12.6.0(webpack@5.90.3)
+      sass-loader: 12.6.0(sass@1.77.8)(webpack@5.90.3)
       semver: 7.6.0
       sharp: 0.32.6
       style-loader: 3.3.4(webpack@5.90.3)
@@ -6666,6 +6722,9 @@ packages:
       queue: 6.0.2
     dev: true
 
+  /immutable@4.3.6:
+    resolution: {integrity: sha512-Ju0+lEMyzMVZarkTn/gqRpdqd5dOPaz1mCZ0SH3JV6iFw81PldE/PEB1hWVEA288HPt4WXW8O7AWxB10M+03QQ==}
+
   /import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -7626,7 +7685,7 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
-  /next@14.2.4(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0):
+  /next@14.2.4(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.77.8):
     resolution: {integrity: sha512-R8/V7vugY+822rsQGQCjoLhMuC9oFj9SOi4Cl4b2wjDrseD0LRZ10W7R6Czo4w9ZznVSshKjuIomsRjvm9EKJQ==}
     engines: {node: '>=18.17.0'}
     hasBin: true
@@ -7652,6 +7711,7 @@ packages:
       postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+      sass: 1.77.8
       styled-jsx: 5.1.1(@babel/core@7.24.0)(react@18.2.0)
     optionalDependencies:
       '@next/swc-darwin-arm64': 14.2.4
@@ -8355,6 +8415,10 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.2.0
 
+  /preact@10.12.1:
+    resolution: {integrity: sha512-l8386ixSsBdbreOAkqtrwqHwdvR35ID8c3rKPa8lCWuO86dBi32QWHV4vfsZK1utLLFMvw+Z5Ad4XLkZzchscg==}
+    dev: false
+
   /prebuild-install@7.1.2:
     resolution: {integrity: sha512-UnNke3IQb6sgarcZIDU3gbMeTp/9SSU1DAIkil7PrqG1vZlBtY5msYccSKSHDqa3hNg436IXK+SNImReuA1wEQ==}
     engines: {node: '>=10'}
@@ -8972,7 +9036,7 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: true
 
-  /sass-loader@12.6.0(webpack@5.90.3):
+  /sass-loader@12.6.0(sass@1.77.8)(webpack@5.90.3):
     resolution: {integrity: sha512-oLTaH0YCtX4cfnJZxKSLAyglED0naiYfNG1iXfU5w1LNZ+ukoA5DtyDIN5zmKVZwYNJP4KRc5Y3hkWga+7tYfA==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -8993,8 +9057,18 @@ packages:
     dependencies:
       klona: 2.0.6
       neo-async: 2.6.2
+      sass: 1.77.8
       webpack: 5.90.3(esbuild@0.20.1)
     dev: true
+
+  /sass@1.77.8:
+    resolution: {integrity: sha512-4UHg6prsrycW20fqLGPShtEvo/WyHRVRHwOP4DzkUrObWoWI05QBSfzU71TVB7PFaL104TwNaHpjlWXAZbQiNQ==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.6.0
+      immutable: 4.3.6
+      source-map-js: 1.2.0
 
   /scheduler@0.23.0:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
@@ -9679,6 +9753,12 @@ packages:
     resolution: {integrity: sha512-KYad6Vy5VDWV4GH3fjpseMQ/XU2BhIYP7Vzd0LG44qRWm/Yt2WCOTicFdvmgo6gWaqooMQCawTtILVQJupKu7A==}
     engines: {node: '>=14.0.0'}
     dev: true
+
+  /tippy.js@6.3.7:
+    resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==}
+    dependencies:
+      '@popperjs/core': 2.11.8
+    dev: false
 
   /to-fast-properties@2.0.0:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}

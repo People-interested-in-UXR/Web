@@ -5,6 +5,7 @@ import FixedSection from "./FixedSection";
 import SignUpToast from "./SignUpToast";
 import SignUpForm from "./SignUpForm";
 import { WritingModal } from "./WritingModal";
+import { Calendar } from "./Calendar";
 
 export {
   Header,
@@ -14,4 +15,5 @@ export {
   SignUpToast,
   SignUpForm,
   WritingModal,
+  Calendar,
 };
