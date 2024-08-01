@@ -8,8 +8,6 @@ import { User } from "@/app/utils/types/user/user";
 export async function GET(request: Request) {
   const url = new URL(request.url);
 
-  console.log(request.url);
-
   // * Google access token
   const { access_token, expires_in } = await (
     await fetch("https://oauth2.googleapis.com/token", {

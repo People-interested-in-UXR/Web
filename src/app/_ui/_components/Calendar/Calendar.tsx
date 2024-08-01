@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -9,13 +9,82 @@ import styles from "./calendar.module.scss";
 import CalendarHeader from "./CalendarHeader";
 import tippy from "tippy.js";
 
-const Calendar = () => {
-  const calendarRef = useRef<FullCalendar>(null);
-  const [activeDate, setActiveDate] = useState<string>("");
-
-  const handleDateClick = (arg: DateClickArg) => {
-    setActiveDate(arg.dateStr);
+interface ICalenderEvents {
+  "Note Taking": {
+    id: string;
+    type: "select";
+    select: {
+      id: string;
+      color: string;
+      name: string;
+    };
   };
+  날짜: {
+    id: string;
+    type: "date";
+    date: {
+      start: null | string;
+      end: null | string;
+      time_zone: null | string;
+    };
+  };
+  링크: {
+    id: string;
+    type: "files";
+    files: string[];
+  };
+  모임유형: {
+    id: string;
+    type: "select";
+    select: {
+      id: string;
+      name: string;
+      color: string;
+    };
+  };
+  주제: {
+    id: string;
+    type: "title";
+    title: Array<{
+      annotations: {
+        bold: boolean;
+        italic: boolean;
+        strikethrough: boolean;
+        underline: boolean;
+      };
+      href: string;
+      plain_text: string;
+      text: {
+        content: string;
+        link: null | string;
+      };
+    }>;
+  };
+  진행여부: {
+    id: string;
+    type: "status";
+    status: {
+      id: string;
+      color: string;
+      name: string;
+    };
+  };
+}
+
+const Calendar = ({ pages }: { pages: any }) => {
+  const calendarRef = useRef<FullCalendar>(null);
+
+  const events = [...pages].map((page: ICalenderEvents) => ({
+    title: page["주제"].title[0].plain_text,
+    start: page["날짜"].date.start
+      ? new Date(page["날짜"].date.start)
+      : undefined,
+    end: page["날짜"].date.end ? new Date(page["날짜"].date.end) : undefined,
+    backgroundColor: "#51BAFF",
+    borderColor: "#51BAFF",
+    className:
+      "cursor-pointer border border-icon-unselect bg-[#51BAFF] hover:bg-[#51BAFF] border-none",
+  }));
 
   return (
     <div className={` w-full h-fit flex flex-col gap-16`}>
@@ -30,37 +99,17 @@ const Calendar = () => {
         <CalendarHeader ref={calendarRef} />
         <FullCalendar
           ref={calendarRef}
+          dayMaxEvents={true}
+          eventMaxStack={4}
           viewClassNames={`${styles.calendar}`}
           dayHeaderClassNames={`${styles.dayHeader} text-default b2-400-16 first-of-type:text-primary-red `}
           dayCellClassNames={`${styles.dayCell} text-default h3-700-20 first-of-type:text-primary-red w-full`}
+          eventClassNames={`${styles.event} bg-black`}
           timeZone="local"
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
           headerToolbar={false}
-          events={[
-            {
-              title: "UXR 컨퍼런스",
-              date: "2024-07-05",
-              display: "background",
-              backgroundColor: "#F0EDEB",
-              className: "cursor-pointer border border-icon-unselect",
-            },
-            {
-              title: "UXR 컨퍼런스",
-              date: "2024-07-12",
-              display: "background",
-              backgroundColor: "#F0EDEB",
-              className: "cursor-pointer border border-icon-unselect",
-            },
-            {
-              title: "자유 회의",
-              description: "자유롭게 의견을 나눠요",
-              date: "2024-07-13",
-              display: "background",
-              backgroundColor: "#F0EDEB",
-              className: "cursor-pointer border border-icon-unselect",
-            },
-          ]}
+          events={events}
           eventDidMount={function (arg) {
             const content = String.raw`
             <div class="w-[280px] h-[180px]  bg-white drop-shadow-lg p-4 rounded-lg">
@@ -82,20 +131,16 @@ const Calendar = () => {
             });
           }}
           eventContent={function (arg) {
-            // return (
-            //   <div className="w-full h-full bg-black">
-            //     {arg?.event?.startStr === activeDate && (
-            //       <div className="bg-black w-[280px] h-[190px] fixed">
-            //         <div className="text-red-300">dd</div>
-            //       </div>
-            //     )}
-            //   </div>
-            // );
+            return (
+              <div className="w-full h-full bg-[#51BAFF] text-accent b3-600-14">
+                {arg.event.title}
+              </div>
+            );
           }}
           dayCellContent={function (arg) {
             if (arg.isToday) {
               return (
-                <div className="text-accent bg-icon-selected w-full h-full rounded-2xl flex justify-center items-center py-0.5 px-1 text-center">
+                <div className="text-accent bg-icon-selected w-8 h-8 rounded-2xl flex justify-center items-center py-0.5 px-1 text-center">
                   {arg.dayNumberText}
                 </div>
               );
