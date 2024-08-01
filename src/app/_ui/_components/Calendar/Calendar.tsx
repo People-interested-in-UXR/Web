@@ -82,8 +82,7 @@ const Calendar = ({ pages }: { pages: any }) => {
     end: page["날짜"].date.end ? new Date(page["날짜"].date.end) : undefined,
     backgroundColor: "#51BAFF",
     borderColor: "#51BAFF",
-    className:
-      "cursor-pointer border border-icon-unselect bg-[#51BAFF] hover:bg-[#51BAFF] border-none",
+    className: "cursor-pointer  bg-[#51BAFF] hover:bg-[#51BAFF] border-none",
   }));
 
   return (
@@ -104,7 +103,7 @@ const Calendar = ({ pages }: { pages: any }) => {
           viewClassNames={`${styles.calendar}`}
           dayHeaderClassNames={`${styles.dayHeader} text-default b2-400-16 first-of-type:text-primary-red `}
           dayCellClassNames={`${styles.dayCell} text-default h3-700-20 first-of-type:text-primary-red w-full`}
-          eventClassNames={`${styles.event} bg-black`}
+          eventClassNames={`${styles.event}`}
           timeZone="local"
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --fc-today-bg-color: transparant !important;
+}
+
 @layer components {
   .h0-700-40 {
     @apply font-bold text-[40px] leading-[140%];
