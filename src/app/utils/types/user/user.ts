@@ -9,5 +9,5 @@ export interface User extends ToastFn {
 }
 
 interface ToastFn {
-  setIsClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsClicked?: React.Dispatch<React.SetStateAction<boolean>>;
 }
