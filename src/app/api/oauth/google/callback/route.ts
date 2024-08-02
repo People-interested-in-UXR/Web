@@ -43,6 +43,9 @@ export async function GET(request: Request) {
   const emailJwtToken = jwt.sign({ email }, process.env.PRIVATE_TOKEN_KEY!, {
     expiresIn: expires_in,
   });
+
+  console.log("email : ", email);
+  console.log("emailJwtToken : ", emailJwtToken);
   cookies().set("_ui", emailJwtToken, {
     httpOnly: true,
     maxAge: expires_in,
@@ -60,12 +63,16 @@ export async function GET(request: Request) {
     .eq("email", email)
     .limit(1)
     .single();
+  // 로그인 판단을 함 =>
+  console.log("supabase", data, error);
 
   //* 처음 가입하는게 아니라면
+  //! 여기서 에러 발생
   if (!isObjectEmpty<User>(data))
     return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`);
 
   try {
+    console.log("supabase");
     const { error } = await supabase
       .from("user")
       .insert({ email, platform: "google" });

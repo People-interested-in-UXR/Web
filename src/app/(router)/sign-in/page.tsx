@@ -30,8 +30,8 @@ export default async function Page({}) {
   //MEMO: Kakao OAuth2
   const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_BASE_URL}/api/oauth/kakao/callback&response_type=code`;
 
-  if (isKakaoLogin) return redirect(kakaoAuthUrl);
-  if (isGoogleLogin) return redirect(googleAuthUrl);
+  if (isKakaoLogin) return redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`);
+  if (isGoogleLogin) return redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`);
 
   return (
     <Container className="h-full min-h-screen ">
