@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { Icon } from "../Icon";
 import { User } from "@/app/utils/types/user/user";

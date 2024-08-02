@@ -67,7 +67,7 @@ export async function GET(request: Request) {
     .limit(1)
     .single();
 
-  //TODO: 만약 kakao로 가입한 이메일과 구글로 가입한 이메일이 같을 때 공지하기
+  //TODO: 만약 kakao로 가입한 이메일과 구글로 가입한 이메일이 같을 때 공지하기 위한 방법 찾기
   if (data?.platform === "google") {
     const { error } = await supabase.from("user").update({ platform: "kakao" });
     if (error?.message)
