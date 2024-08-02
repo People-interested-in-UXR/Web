@@ -11,7 +11,7 @@ import {
 import {
   Toast,
   Button,
-  SocialLogin,
+  OAuthButton,
   Input,
   Checkbox,
   Logo,
@@ -25,7 +25,7 @@ export {
   Footer,
   Toast,
   Button,
-  SocialLogin,
+  OAuthButton,
   Input,
   Checkbox,
   Logo,

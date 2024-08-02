@@ -4,6 +4,7 @@ import { NAV } from "@/app/utils/consts";
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
@@ -12,14 +13,17 @@ interface IPIXRHeaderNavList {
   type: "common" | "auth";
   href: string;
   children: ReactNode;
+  onClick?: () => void;
 }
 const PIXRHeaderNavList = ({
   type,
   href = "",
   children,
+  onClick,
 }: IPIXRHeaderNavList) => {
+  const router = useRouter();
   return (
-    <Link href={href}>
+    <Link href={href} onClick={onClick}>
       {type === "common" ? (
         <li className="p-2 rounded-lg hover:bg-secondary hover:text-accent">
           {children}
@@ -47,13 +51,13 @@ const Navigation = ({ loginInfo }: INavigation) => {
     isGoogleLogin: loginInfo.find((cookie) => cookie.name === "_gt"),
     isLogin: loginInfo.find((cookie) => cookie.name === "_ui"),
   };
-
+  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
 
   //* 로그아웃을 하고 로그인 했을 시
   useEffect(() => {
     setShowModal(false);
-  }, [loginInfo]);
+  }, [isLogin, isKakaoLogin, isGoogleLogin]);
 
   // Resize
   // TODO: 메모리 최적화 하기
@@ -72,6 +76,13 @@ const Navigation = ({ loginInfo }: INavigation) => {
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
+
+  const handleSignOutClick = () => {
+    closeModal();
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
+  };
 
   {
     /* Desktop */
@@ -105,6 +116,7 @@ const Navigation = ({ loginInfo }: INavigation) => {
             {isLogin ? (
               <Link
                 href={`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/sign-out`}
+                onClick={handleSignOutClick}
               >
                 {NAV.SIGN_OUT}
               </Link>
@@ -130,7 +142,6 @@ const Navigation = ({ loginInfo }: INavigation) => {
         createPortal(
           <div
             className="xl:hidden top-0 fixed w-full h-full bg-brown-800 bg-opacity-60"
-            // onClick={closeModal}
             onClick={closeModal}
           >
             {/* Modal Menu */}
@@ -140,7 +151,11 @@ const Navigation = ({ loginInfo }: INavigation) => {
             >
               <ul className="p-4 gap-4 flex flex-col text-sub b2-400-16 ">
                 {isLogin ? (
-                  <PIXRHeaderNavList type="auth" href="/api/user/sign-out">
+                  <PIXRHeaderNavList
+                    type="auth"
+                    href="/api/user/sign-out"
+                    onClick={handleSignOutClick}
+                  >
                     {NAV.SIGN_OUT}
                   </PIXRHeaderNavList>
                 ) : (

@@ -1,5 +1,5 @@
 import RegisterButton from "./RegisterButton";
 import Button from "./Button";
-import SocialLogin from "./SocialLogin";
+import OAuthButton from "./OAuthButton";
 
-export { Button, SocialLogin, RegisterButton };
+export { Button, OAuthButton, RegisterButton };

@@ -86,7 +86,7 @@ const Calendar = ({ pages }: { pages: any }) => {
   }));
 
   return (
-    <div className={` w-full h-fit flex flex-col gap-16`}>
+    <div className={` w-full h-fit flex flex-col gap-16 z-0`}>
       <div className="flex flex-col items-center">
         <h1 className="h1-700-32 text-title">우리 모임 일정</h1>
         <div className="mt-4 text-center b1-500-20 text-sub">
