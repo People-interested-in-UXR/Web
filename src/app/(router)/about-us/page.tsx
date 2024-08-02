@@ -132,9 +132,6 @@ export default async function Page({}) {
             profile={""}
             secondary_email={""}
             sns={""}
-            setIsClicked={function (value: SetStateAction<boolean>): void {
-              throw new Error("Function not implemented.");
-            }}
           />
           <ProfileCard
             name={"홍길동"}
@@ -145,9 +142,6 @@ export default async function Page({}) {
             profile={""}
             secondary_email={""}
             sns={""}
-            setIsClicked={function (value: SetStateAction<boolean>): void {
-              throw new Error("Function not implemented.");
-            }}
           />
           <ProfileCard
             name={"홍길동"}
@@ -158,9 +152,6 @@ export default async function Page({}) {
             profile={""}
             secondary_email={""}
             sns={""}
-            setIsClicked={function (value: SetStateAction<boolean>): void {
-              throw new Error("Function not implemented.");
-            }}
           />
           <ProfileCard
             name={"홍길동"}
@@ -171,9 +162,6 @@ export default async function Page({}) {
             profile={""}
             secondary_email={""}
             sns={""}
-            setIsClicked={function (value: SetStateAction<boolean>): void {
-              throw new Error("Function not implemented.");
-            }}
           />
           <ProfileCard
             name={"홍길동"}
@@ -184,9 +172,6 @@ export default async function Page({}) {
             profile={""}
             secondary_email={""}
             sns={""}
-            setIsClicked={function (value: SetStateAction<boolean>): void {
-              throw new Error("Function not implemented.");
-            }}
           />
           <ProfileCard
             name={"홍길동"}
@@ -197,9 +182,6 @@ export default async function Page({}) {
             profile={""}
             secondary_email={""}
             sns={""}
-            setIsClicked={function (value: SetStateAction<boolean>): void {
-              throw new Error("Function not implemented.");
-            }}
           />
         </div>
       </div>

@@ -11,7 +11,7 @@ const ProfileCard = ({
   profile,
   secondary_email,
   sns,
-  setIsClicked,
+  setIsClicked = () => {},
 }: User) => {
   return (
     <div className="relative w-[380px] h-[460px] bg-secondary p-2 rounded-3xl flex flex-col items-center drop-shadow-lg mt-10">
