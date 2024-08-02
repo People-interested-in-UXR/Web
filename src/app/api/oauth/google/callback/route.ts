@@ -2,8 +2,6 @@ import { createClient } from "@/app/utils/supabase/supabase";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import isObjectEmpty from "@/app/utils/isObjectEmpty";
-import { User } from "@/app/utils/types/user/user";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -43,6 +41,7 @@ export async function GET(request: Request) {
   const emailJwtToken = jwt.sign({ email }, process.env.PRIVATE_TOKEN_KEY!, {
     expiresIn: expires_in,
   });
+
   cookies().set("_ui", emailJwtToken, {
     httpOnly: true,
     maxAge: expires_in,
@@ -61,26 +60,39 @@ export async function GET(request: Request) {
     .limit(1)
     .single();
 
-  //* 처음 가입하는게 아니라면
-  if (!isObjectEmpty<User>(data))
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`);
+  //TODO: 만약 kakao로 가입한 이메일과 구글로 가입한 이메일이 같을 때 공지하기 위한 방법 찾기
+  if (data?.platform === "kakao") {
+    const { error } = await supabase
+      .from("user")
+      .update({ platform: "google" });
+    if (error?.message)
+      console.log(
+        "가입된 구글 이메일이 있는데 해당 이메일이 카카오로 가입된 이메일과 같을 경우 platform key 만 업데이트를 진행했을 때 발생하는 에러 : ",
+        error?.message
+      );
+  }
 
-  try {
+  if (error?.message)
+    console.log(
+      "해당 유저가 가입되어 있는지 확인할 때 발생하는 Error 메세지 : ",
+      error.message
+    );
+  if (!data) {
+    //* 처음 가입할 때(DB에 데이터가 없을 때)
     const { error } = await supabase
       .from("user")
       .insert({ email, platform: "google" });
-    console.error("Supabase Error: ", error);
-  } catch (error) {
-    console.error("Error insert users:", error);
-  }
+    if (error?.message)
+      console.log(
+        "처음 가입자를 대상으로 하는 유저를 DB에 저장할 때 발생하는 Error 메세지 : ",
+        error.message
+      );
 
-  //* 처음 가입하는 거라면 term으로 보내기
-  if (!error)
     return NextResponse.redirect(
       `${process.env.NEXT_PUBLIC_BASE_URL}/sign-up/term`
     );
-
-  //* 현재 가입되어 쿠키만 갱신하고 있다면 바로 홈으로 보내기
-  console.error("Error fetching users:", error);
-  return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`);
+  } else {
+    //* 쿠키 갱신만 진행하면 될 때 (DB내에 데이터가 있을 때)
+    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`);
+  }
 }

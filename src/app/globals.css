@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  /schedule view 내에 fullcalendar 라이브러리 사용 시, today의 배경색 override
+*/
 :root {
   --fc-today-bg-color: transparant !important;
 }

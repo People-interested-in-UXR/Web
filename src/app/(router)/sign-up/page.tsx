@@ -1,11 +1,6 @@
 import { Container, PIXRHeader } from "@/app/_containers";
 import { SignUpForm } from "@/app/_ui";
 
-// const supabase = createClient(
-//   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-//   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-// );
-
 export default function Page({}) {
   return (
     <Container className="h-full bg-default flex flex-col w-full min-h-screen">

@@ -4,6 +4,7 @@ import { Icon } from "@/app/_ui";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { OAuthButton } from "@/app/_ui/_atomics";
 
 export default async function Page({}) {
   const loginInfo = cookies().getAll();
@@ -30,8 +31,8 @@ export default async function Page({}) {
   //MEMO: Kakao OAuth2
   const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_BASE_URL}/api/oauth/kakao/callback&response_type=code`;
 
-  if (isKakaoLogin) return redirect(kakaoAuthUrl);
-  if (isGoogleLogin) return redirect(googleAuthUrl);
+  if (isKakaoLogin) return redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`);
+  if (isGoogleLogin) return redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`);
 
   return (
     <Container className="h-full min-h-screen ">
@@ -40,35 +41,18 @@ export default async function Page({}) {
         <div className="flex flex-col justify-center text-center gap-10">
           <h1 className="text-brown-900 h1-700-32">가입하고 스터디 참여하기</h1>
           <div className="flex flex-col gap-[11px] mx-2">
-            <Link
-              className="bg-[#FEE500] h-[45px] w-full rounded-[7px] px-4 py-3 flex items-center gap-[77px]"
-              href={kakaoAuthUrl}
-              replace
-            >
-              <Icon
-                width={20}
-                height={20}
-                src={`/icon/sns/kakao/kakao.svg`}
-                alt={"카카오톡 아이콘"}
-              />
-
-              <p className="b3-600-14 text-[#181600]">카카오 로그인</p>
-            </Link>
-
-            <Link
-              href={googleAuthUrl}
-              className="bg-white h-[45px] w-full rounded-[7px] px-4 py-3 flex items-center gap-[77px]"
-              replace
-            >
-              <Icon
-                width={20}
-                height={20}
-                src={`/icon/sns/google.svg`}
-                alt={"카카오톡 아이콘"}
-              />
-
-              <p className="b3-600-14 text-[#181600]">구글 로그인</p>
-            </Link>
+            <OAuthButton
+              OAuthURL={kakaoAuthUrl}
+              iconSrc={`/icon/sns/kakao/kakao.svg`}
+              iconAlt={"카카오톡 아이콘"}
+              social={"kakao"}
+            />
+            <OAuthButton
+              OAuthURL={googleAuthUrl}
+              iconSrc={`/icon/sns/google.svg`}
+              iconAlt={"구글 아이콘"}
+              social={"google"}
+            />
           </div>
         </div>
       </div>
