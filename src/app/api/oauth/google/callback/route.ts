@@ -35,7 +35,7 @@ export async function GET(request: Request) {
     maxAge: expires_in,
     sameSite: "strict",
     secure: true,
-    path: "/",
+    path: process.env.NEXT_PUBLIC_BASE_URL,
   });
 
   const emailJwtToken = jwt.sign({ email }, process.env.PRIVATE_TOKEN_KEY!, {
@@ -47,7 +47,7 @@ export async function GET(request: Request) {
     maxAge: expires_in,
     sameSite: "strict",
     secure: true,
-    path: "/",
+    path: process.env.NEXT_PUBLIC_BASE_URL,
   });
 
   // * Supabase

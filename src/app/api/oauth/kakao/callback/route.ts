@@ -34,7 +34,7 @@ export async function GET(request: Request) {
     maxAge: expires_in,
     sameSite: "strict",
     secure: true,
-    path: "/",
+    path: process.env.NEXT_PUBLIC_BASE_URL,
   });
 
   //* email 정보 토큰
@@ -46,7 +46,7 @@ export async function GET(request: Request) {
     maxAge: expires_in,
     sameSite: "strict",
     secure: true,
-    path: "/",
+    path: process.env.NEXT_PUBLIC_BASE_URL,
   });
 
   /**
