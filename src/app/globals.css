@@ -54,6 +54,10 @@
     @apply font-normal text-[12px] leading-[150%];
   }
 
+  .b2-700-16 {
+    @apply font-bold text-[16px] leading-[150%];
+  }
+
   .b2-600-16 {
     @apply font-semibold text-[16px] leading-[150%];
   }
@@ -66,8 +70,16 @@
     @apply font-semibold text-[14px] leading-[150%];
   }
 
+  .b3-500-14 {
+    @apply font-medium text-[14px] leading-[150%];
+  }
+
   .b3-400-14 {
     @apply font-normal text-[14px] leading-[150%];
+  }
+
+  .b3-500-12 {
+    @apply font-medium text-[12px] leading-[150%];
   }
 
   .c1-400-12 {

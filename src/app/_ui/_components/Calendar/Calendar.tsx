@@ -74,8 +74,11 @@ interface ICalenderEvents {
 const Calendar = ({ pages }: { pages: any }) => {
   const calendarRef = useRef<FullCalendar>(null);
 
+  console.log(pages);
+
   const events = [...pages].map((page: ICalenderEvents) => ({
     title: page["주제"].title[0].plain_text,
+    note: page["Note Taking"]?.select?.name,
     start: page["날짜"].date.start
       ? new Date(page["날짜"].date.start)
       : undefined,
@@ -86,14 +89,14 @@ const Calendar = ({ pages }: { pages: any }) => {
   }));
 
   return (
-    <div className={` w-full h-fit flex flex-col gap-16 z-0`}>
-      <div className="flex flex-col items-center">
+    <div className={`w-full h-fit flex flex-col gap-16 z-0 px-48`}>
+      {/* <div className="flex flex-col items-center">
         <h1 className="h1-700-32 text-title">우리 모임 일정</h1>
         <div className="mt-4 text-center b1-500-20 text-sub">
           <p>모임에서 진행되는 다양한 이벤트 일정을 알 수 있어요.</p>
           <p>다음 스터디는 언제인지 바로 확인해보세요.</p>
         </div>
-      </div>
+      </div> */}
       <div>
         <CalendarHeader ref={calendarRef} />
         <FullCalendar
@@ -102,7 +105,7 @@ const Calendar = ({ pages }: { pages: any }) => {
           eventMaxStack={4}
           viewClassNames={`${styles.calendar}`}
           dayHeaderClassNames={`${styles.dayHeader} text-default b2-400-16 first-of-type:text-primary-red `}
-          dayCellClassNames={`${styles.dayCell} text-default h3-700-20 first-of-type:text-primary-red w-full`}
+          dayCellClassNames={`${styles.dayCell} text-default b2-700-16 first-of-type:text-primary-red w-full`}
           eventClassNames={`${styles.event}`}
           timeZone="local"
           plugins={[dayGridPlugin, interactionPlugin]}
@@ -115,6 +118,7 @@ const Calendar = ({ pages }: { pages: any }) => {
               <h1 class="text-default b2-700-16 font-bold">${arg?.event?.title}</h1>
               <h2 class="text-sub c1-400-12">${arg.event.startStr}${arg.event.endStr && " ~ " + arg.event.endStr} </h2>
               <div class="mt-4">
+                <p>${arg.event._def.extendedProps?.note ? "가능" : "불가능"}</p>
                 <p>${arg.event._def.extendedProps?.description ? arg.event._def.extendedProps?.description : ""}</p>
               </div>
             </div>  
@@ -131,7 +135,7 @@ const Calendar = ({ pages }: { pages: any }) => {
           }}
           eventContent={function (arg) {
             return (
-              <div className="w-full h-full bg-[#51BAFF] text-accent b3-600-14">
+              <div className="w-full h-full bg-[#51BAFF] text-accent b3-500-12 ">
                 {arg.event.title}
               </div>
             );
