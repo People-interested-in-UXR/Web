@@ -13,7 +13,10 @@ export async function POST(request: Request) {
     .upload(`profile/${uuidImageName}`, file);
   if (error) {
     console.error("파일이 업로드 되지 않습니다.", error);
-    return;
+    return NextResponse.json(
+      { ...error, message: "파일이 업로드 되지 않습니다." },
+      { status: 401 }
+    );
   }
   const {
     data: { publicUrl },

@@ -16,6 +16,7 @@ export async function GET(request: NextRequest) {
     .select("*")
     .eq("email", email);
 
+  console.log("supabase: GET /user/info", data, error);
   if (!error) return NextResponse.json({ ...data[0] });
   return NextResponse.json({ ...error }, { status: 500 });
 }
@@ -25,7 +26,9 @@ export async function PATCH(request: Request) {
 
   const cookie = cookies().get("_ui");
 
-  if (!cookie) return;
+  console.log("supabase: PATCH /user/info", cookie);
+  if (!cookie)
+    return NextResponse.json({ message: "have not cookie" }, { status: 401 });
   const { email } = jwt.decode(cookie?.value) as JwtPayload;
 
   const supabase = createClient();
