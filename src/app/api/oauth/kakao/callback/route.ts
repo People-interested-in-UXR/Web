@@ -31,7 +31,7 @@ export async function GET(request: Request) {
 
   cookies().set("_kt", access_token, {
     httpOnly: true,
-    expires: expires_in,
+    maxAge: expires_in,
     sameSite: "strict",
     secure: true,
     path: "/",
@@ -43,7 +43,7 @@ export async function GET(request: Request) {
   });
   cookies().set("_ui", emailJwtToken, {
     httpOnly: true,
-    expires: expires_in,
+    maxAge: expires_in,
     sameSite: "strict",
     secure: true,
     path: "/",
