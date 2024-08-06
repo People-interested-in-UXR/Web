@@ -5,10 +5,12 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 
 export async function GET(request: NextRequest) {
   const cookie = cookies().get("_ui");
+  const isLogOut = cookie?.value === "undefined";
 
-  if (!cookie)
+  if (isLogOut)
     return NextResponse.json({ message: "have not cookie" }, { status: 401 });
-  const { email } = jwt.decode(cookie?.value) as JwtPayload;
+
+  const { email } = jwt.decode(cookie?.value as string) as JwtPayload;
 
   const supabase = createClient();
   const { data, error } = await supabase
@@ -16,20 +18,18 @@ export async function GET(request: NextRequest) {
     .select("*")
     .eq("email", email);
 
-  console.log("supabase: GET /user/info", data, error);
   if (!error) return NextResponse.json({ ...data[0] });
   return NextResponse.json({ ...error }, { status: 500 });
 }
 
 export async function PATCH(request: Request) {
   const json = await request.json();
-
   const cookie = cookies().get("_ui");
+  const isLogOut = cookie?.value === "undefined";
 
-  console.log("supabase: PATCH /user/info", cookie);
-  if (!cookie)
+  if (isLogOut)
     return NextResponse.json({ message: "have not cookie" }, { status: 401 });
-  const { email } = jwt.decode(cookie?.value) as JwtPayload;
+  const { email } = jwt.decode(cookie?.value as string) as JwtPayload;
 
   const supabase = createClient();
   await supabase
