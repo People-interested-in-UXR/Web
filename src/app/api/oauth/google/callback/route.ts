@@ -30,6 +30,8 @@ export async function GET(request: Request) {
     )
   ).json();
 
+  console.log(expires_in);
+
   cookies().set("_gt", access_token, {
     httpOnly: true,
     maxAge: expires_in,

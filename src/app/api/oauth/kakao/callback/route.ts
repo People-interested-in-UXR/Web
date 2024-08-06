@@ -17,6 +17,8 @@ export async function GET(request: Request) {
     })
   ).json();
 
+  console.log(expires_in);
+
   // * kakao user info
   const {
     kakao_account: { email },

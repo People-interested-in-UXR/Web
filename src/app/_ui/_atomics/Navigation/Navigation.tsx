@@ -56,9 +56,9 @@ const Navigation = ({ loginInfo }: INavigation) => {
 
   const handleSignOutClick = () => {
     closeModal();
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 500);
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
   };
 
   {
