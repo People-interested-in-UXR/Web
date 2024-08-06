@@ -14,5 +14,5 @@ export interface User extends ToastFn {
 }
 
 interface ToastFn {
-  setIsClicked?: React.Dispatch<React.SetStateAction<boolean>>;
+  onClick?: React.Dispatch<React.SetStateAction<"email" | "sns" | "">>;
 }

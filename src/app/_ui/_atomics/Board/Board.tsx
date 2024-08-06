@@ -25,7 +25,7 @@ const Board = ({
   database,
 }: IBoard) => {
   const [selectedChip, setSelectedChip] = useState("전체");
-  const [isClicked, setIsClicked] = useState(false);
+  const [toastMessage, setToastMessage] = useState<"email" | "sns" | "">("");
 
   const handleChipClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     if (event?.currentTarget?.textContent)
@@ -33,12 +33,12 @@ const Board = ({
   };
 
   useEffect(() => {
-    if (isClicked) {
+    if (toastMessage) {
       setTimeout(() => {
-        setIsClicked(false);
+        setToastMessage("");
       }, 4000);
     }
-  }, [isClicked]);
+  }, [toastMessage]);
 
   // cover는 type을 넣으면 됨 cover[cover.type]
   return (
@@ -85,7 +85,7 @@ const Board = ({
             (user, index) =>
               selectedChip === "전체" && (
                 <Fragment key={index}>
-                  <ProfileCard {...user} setIsClicked={setIsClicked} />
+                  <ProfileCard {...user} onClick={setToastMessage} />
                 </Fragment>
               )
           )}
@@ -93,16 +93,19 @@ const Board = ({
             (user, index) =>
               user.position === selectedChip && (
                 <Fragment key={index}>
-                  <ProfileCard {...user} setIsClicked={setIsClicked} />
+                  <ProfileCard {...user} onClick={setToastMessage} />
                 </Fragment>
               )
           )}
         </div>
       )}
-      {isClicked && (
+      {toastMessage && (
         <div className="fixed bottom-20">
           <Toast>
-            <div>복사되었습니다.</div>
+            <div>
+              {toastMessage === "email" ? "이메일" : "SNS계정"}이
+              복사되었습니다.
+            </div>
           </Toast>
         </div>
       )}

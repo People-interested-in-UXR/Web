@@ -132,6 +132,11 @@ export default async function Page({}) {
             profile={""}
             secondary_email={""}
             sns={""}
+            id={0}
+            created_at={""}
+            updated_at={""}
+            platform={"google"}
+            is_marketing={true}
           />
           <ProfileCard
             name={"홍길동"}
@@ -142,6 +147,11 @@ export default async function Page({}) {
             profile={""}
             secondary_email={""}
             sns={""}
+            id={0}
+            created_at={""}
+            updated_at={""}
+            platform={"google"}
+            is_marketing={true}
           />
           <ProfileCard
             name={"홍길동"}
@@ -152,6 +162,11 @@ export default async function Page({}) {
             profile={""}
             secondary_email={""}
             sns={""}
+            id={0}
+            created_at={""}
+            updated_at={""}
+            platform={"google"}
+            is_marketing={true}
           />
           <ProfileCard
             name={"홍길동"}
@@ -162,6 +177,11 @@ export default async function Page({}) {
             profile={""}
             secondary_email={""}
             sns={""}
+            id={0}
+            created_at={""}
+            updated_at={""}
+            platform={"google"}
+            is_marketing={true}
           />
           <ProfileCard
             name={"홍길동"}
@@ -172,6 +192,11 @@ export default async function Page({}) {
             profile={""}
             secondary_email={""}
             sns={""}
+            id={0}
+            created_at={""}
+            updated_at={""}
+            platform={"google"}
+            is_marketing={true}
           />
           <ProfileCard
             name={"홍길동"}
@@ -182,6 +207,11 @@ export default async function Page({}) {
             profile={""}
             secondary_email={""}
             sns={""}
+            id={0}
+            created_at={""}
+            updated_at={""}
+            platform={"google"}
+            is_marketing={true}
           />
         </div>
       </div>
