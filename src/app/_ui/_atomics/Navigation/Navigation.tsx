@@ -23,7 +23,7 @@ const PIXRHeaderNavList = ({
   onClick,
 }: IPIXRHeaderNavList) => {
   return (
-    <Link href={href} onClick={onClick}>
+    <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}${href}`} onClick={onClick}>
       {type === "common" ? (
         <li className="p-2 rounded-lg hover:bg-secondary hover:text-accent">
           {children}
@@ -69,25 +69,33 @@ const Navigation = ({ loginInfo }: INavigation) => {
       <nav className="w-full flex items-center max-md:hidden">
         <ul className="flex justify-between w-full b2-400-16 items-center max-xl:hidden">
           <li className="hover:text-muted active:text-default">
-            <Link href={"/"}>{NAV.HOME}</Link>
+            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}`}>{NAV.HOME}</Link>
           </li>
           <li className="hover:text-muted active:text-default">
-            <Link href={"/about-us"}>{NAV.ABOUT_US}</Link>
+            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/about-us`}>
+              {NAV.ABOUT_US}
+            </Link>
           </li>
           <li className="hover:text-muted active:text-default">
-            <Link href={"/member"}>{NAV.MEMBERS}</Link>
+            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/member`}>
+              {NAV.MEMBERS}
+            </Link>
           </li>
           <li className="hover:text-muted active:text-default">
-            <Link href={"/schedule"}>{NAV.SCHEDULE}</Link>
+            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/schedule`}>
+              {NAV.SCHEDULE}
+            </Link>
           </li>
           {/* <li className="hover:text-muted active:text-default">
-            <Link href={"/meet-up"}>{NAV.MEETUPS}</Link>
+            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/meet-up`}>{NAV.MEETUPS}</Link>
           </li>
           <li className="hover:text-muted active:text-default">
-            <Link href={"/archive"}>{NAV.ARCHIVE}</Link>
+            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/archive`}>{NAV.ARCHIVE}</Link>
           </li> */}
           <li className="hover:text-muted active:text-default">
-            <Link href={"/board"}>{NAV.BOARD}</Link>
+            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/board`}>
+              {NAV.BOARD}
+            </Link>
           </li>
           <li className="text-primary-red hover:text-btn-hover b2-600-16">
             {isLogin ? (
@@ -98,7 +106,9 @@ const Navigation = ({ loginInfo }: INavigation) => {
                 {NAV.SIGN_OUT}
               </Link>
             ) : (
-              <Link href={"/sign-in"}>{NAV.SIGN_UP}</Link>
+              <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/sign-in`}>
+                {NAV.SIGN_UP}
+              </Link>
             )}
           </li>
         </ul>
