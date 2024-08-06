@@ -17,8 +17,6 @@ export async function GET(request: Request) {
     })
   ).json();
 
-  console.log(expires_in);
-
   // * kakao user info
   const {
     kakao_account: { email },
@@ -33,7 +31,7 @@ export async function GET(request: Request) {
 
   cookies().set("_kt", access_token, {
     httpOnly: true,
-    maxAge: expires_in,
+    expires: expires_in,
     sameSite: "strict",
     secure: true,
     path: "/",
@@ -45,7 +43,7 @@ export async function GET(request: Request) {
   });
   cookies().set("_ui", emailJwtToken, {
     httpOnly: true,
-    maxAge: expires_in,
+    expires: expires_in,
     sameSite: "strict",
     secure: true,
     path: "/",

@@ -74,8 +74,6 @@ interface ICalenderEvents {
 const Calendar = ({ pages }: { pages: any }) => {
   const calendarRef = useRef<FullCalendar>(null);
 
-  console.log(pages);
-
   const events = [...pages].map((page: ICalenderEvents) => ({
     title: page["주제"].title[0].plain_text,
     note: page["Note Taking"]?.select?.name,
