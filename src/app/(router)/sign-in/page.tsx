@@ -1,7 +1,6 @@
 import { google } from "googleapis";
 import { Container, PIXRHeader } from "@/app/_containers";
-import { Icon } from "@/app/_ui";
-import Link from "next/link";
+
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { OAuthButton } from "@/app/_ui/_atomics";

@@ -3,6 +3,7 @@ import { updateSession } from "./app/utils/supabase/middleware";
 import { cookies } from "next/headers";
 
 export async function middleware(request: NextRequest) {
+  console.log(cookies().getAll());
   if (request.nextUrl.pathname.startsWith("/sign-in")) {
     await updateSession(request);
 

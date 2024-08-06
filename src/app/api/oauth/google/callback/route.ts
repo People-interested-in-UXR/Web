@@ -30,10 +30,12 @@ export async function GET(request: Request) {
     )
   ).json();
 
+  console.log(expires_in);
+
   cookies().set("_gt", access_token, {
     httpOnly: true,
     maxAge: expires_in,
-    sameSite: "none",
+    sameSite: "strict",
     secure: true,
     path: "/",
   });
@@ -45,7 +47,7 @@ export async function GET(request: Request) {
   cookies().set("_ui", emailJwtToken, {
     httpOnly: true,
     maxAge: expires_in,
-    sameSite: "none",
+    sameSite: "strict",
     secure: true,
     path: "/",
   });
