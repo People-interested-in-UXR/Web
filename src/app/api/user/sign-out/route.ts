@@ -6,5 +6,5 @@ export async function GET(request: NextRequest) {
     cookies().delete(key);
   });
 
-  return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`);
+  return NextResponse.next();
 }
