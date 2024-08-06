@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { createPortal } from "react-dom";
 import { useModalToggle } from "../../hooks";
 
@@ -62,6 +62,7 @@ const Navigation = ({ loginInfo }: INavigation) => {
   };
   const router = useRouter();
   const { showModal, openModal, closeModal } = useModalToggle();
+  const [showProfile, setShowProfile] = useState(false);
 
   const handleSignOutClick = async () => {
     closeModal();
@@ -74,38 +75,40 @@ const Navigation = ({ loginInfo }: INavigation) => {
     }, 200);
   };
 
-  {
-    /* Desktop */
-  }
+  const handleProfileClick = () => {
+    setShowProfile((prev) => !prev);
+  };
+
   return (
     <>
       <nav className="w-full flex items-center max-md:hidden">
+        {/* Desktop */}
         <ul className="flex justify-between w-full b2-400-16 items-center max-xl:hidden">
-          <li className="hover:text-muted active:text-default">
+          <li className="hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold">
             <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}`}>{NAV.HOME}</Link>
           </li>
-          <li className="hover:text-muted active:text-default">
+          <li className="hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold">
             <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/about-us`}>
               {NAV.ABOUT_US}
             </Link>
           </li>
-          <li className="hover:text-muted active:text-default">
+          <li className="hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold">
             <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/member`}>
               {NAV.MEMBERS}
             </Link>
           </li>
-          <li className="hover:text-muted active:text-default">
+          <li className="hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold">
             <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/schedule`}>
               {NAV.SCHEDULE}
             </Link>
           </li>
-          {/* <li className="hover:text-muted active:text-default">
+          {/* <li className="hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold">
             <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/meet-up`}>{NAV.MEETUPS}</Link>
           </li>
-          <li className="hover:text-muted active:text-default">
+          <li className="hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold">
             <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/archive`}>{NAV.ARCHIVE}</Link>
           </li> */}
-          <li className="hover:text-muted active:text-default">
+          <li className="hover:text-muted active:text-default focus:font-bold active:font-bold focus:text-default">
             <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/board`}>
               {NAV.BOARD}
             </Link>
@@ -119,7 +122,70 @@ const Navigation = ({ loginInfo }: INavigation) => {
               </Link>
             )}
           </li>
+          <li
+            className="flex items-center gap-2 hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold cursor-pointer"
+            onClick={handleProfileClick}
+          >
+            <Image
+              src={"/sample.png"}
+              alt={""}
+              width={40}
+              height={40}
+              className="rounded-full"
+            />
+            <div className="flex gap-2">
+              <div>마이페이지</div>
+              <Image
+                src={"/icon/common/navigation_profile_arrow.svg"}
+                alt={""}
+                width={16}
+                height={16}
+              />
+            </div>
+          </li>
         </ul>
+        {showProfile && (
+          <div
+            className="w-[300px]  absolute right-10 bg-white rounded-2xl p-6 top-[100px] animate-fade-down drop-shadow-m"
+            // onMouseLeave={() => setShowProfile(false)}
+          >
+            <div className="border-b border-muted flex gap-4 pb-6">
+              <Image
+                src={"/sample.png"}
+                alt={""}
+                width={56}
+                height={56}
+                className="rounded-full"
+              />
+              <div>
+                <h3 className="text-default h3-700-20">홍길동</h3>
+                <p className="text-muted b2-600-16">UX Researcher</p>
+              </div>
+            </div>
+            <div className="pt-6">
+              <div className="flex flex-col gap-6 b3-400-14">
+                <button className="flex gap-2">
+                  <Image
+                    width={16}
+                    height={16}
+                    src={"/icon/common/edit.svg"}
+                    alt={""}
+                  />
+                  <div className="text-sub">Edit / 프로필 수정</div>
+                </button>
+                <button className="flex gap-2">
+                  <Image
+                    width={16}
+                    height={16}
+                    src={"/icon/common/logout.svg"}
+                    alt={""}
+                  />
+                  <div className="text-sub">Logout / 로그아웃</div>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Mobile */}
