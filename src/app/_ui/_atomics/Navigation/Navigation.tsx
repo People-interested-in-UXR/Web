@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 
 import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { useModalToggle } from "../../hooks";
 
 interface IPIXRHeaderNavList {
   type: "common" | "auth";
@@ -21,7 +22,6 @@ const PIXRHeaderNavList = ({
   children,
   onClick,
 }: IPIXRHeaderNavList) => {
-  const router = useRouter();
   return (
     <Link href={href} onClick={onClick}>
       {type === "common" ? (
@@ -52,36 +52,13 @@ const Navigation = ({ loginInfo }: INavigation) => {
     isLogin: loginInfo.find((cookie) => cookie.name === "_ui"),
   };
   const router = useRouter();
-  const [showModal, setShowModal] = useState(false);
-
-  //* 로그아웃을 하고 로그인 했을 시
-  useEffect(() => {
-    setShowModal(false);
-  }, [isLogin, isKakaoLogin, isGoogleLogin]);
-
-  // Resize
-  // TODO: 메모리 최적화 하기
-  useEffect(() => {
-    const handleResize = (event: UIEvent) => {
-      const target = event?.currentTarget as Window;
-      if (target?.innerWidth >= 1280 && showModal) return setShowModal(false);
-      // 1280px 이상일 때 모달이 켜져 있으면 끄기
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [showModal]);
-
-  const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
+  const { showModal, openModal, closeModal } = useModalToggle();
 
   const handleSignOutClick = () => {
     closeModal();
-    setTimeout(() => {
-      window.location.reload();
-    }, 500);
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 500);
   };
 
   {
