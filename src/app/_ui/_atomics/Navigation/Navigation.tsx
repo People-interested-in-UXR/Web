@@ -6,13 +6,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useModalToggle } from "../../hooks";
 
 interface IPIXRHeaderNavList {
   type: "common" | "auth";
-  href: string;
+  href?: string;
   children: ReactNode;
   onClick?: () => void;
 }
@@ -23,17 +23,24 @@ const PIXRHeaderNavList = ({
   onClick,
 }: IPIXRHeaderNavList) => {
   return (
-    <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}${href}`} onClick={onClick}>
-      {type === "common" ? (
-        <li className="p-2 rounded-lg hover:bg-secondary hover:text-accent">
-          {children}
-        </li>
+    <>
+      {type === "common" && children !== NAV.SIGN_OUT ? (
+        <Link
+          href={`${process.env.NEXT_PUBLIC_BASE_URL}${href}`}
+          onClick={onClick}
+        >
+          <li className="p-2 rounded-lg hover:bg-secondary hover:text-accent">
+            {children}
+          </li>
+        </Link>
       ) : (
-        <li className="text-primary-red b2-600-16 hover:bg-primary-red hover:text-white p-2 rounded-lg">
-          {children}
-        </li>
+        <button onClick={onClick}>
+          <li className="text-primary-red b2-600-16 hover:bg-primary-red hover:text-white p-2 rounded-lg">
+            {children}
+          </li>
+        </button>
       )}
-    </Link>
+    </>
   );
 };
 
@@ -54,9 +61,12 @@ const Navigation = ({ loginInfo }: INavigation) => {
   const router = useRouter();
   const { showModal, openModal, closeModal } = useModalToggle();
 
-  const handleSignOutClick = () => {
+  const handleSignOutClick = async () => {
     closeModal();
-    setTimeout(() => {
+    setTimeout(async () => {
+      await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/sign-out`, {
+        cache: "no-store",
+      });
       window.location.reload();
     }, 500);
   };
@@ -99,12 +109,7 @@ const Navigation = ({ loginInfo }: INavigation) => {
           </li>
           <li className="text-primary-red hover:text-btn-hover b2-600-16">
             {isLogin ? (
-              <Link
-                href={`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/sign-out`}
-                onClick={handleSignOutClick}
-              >
-                {NAV.SIGN_OUT}
-              </Link>
+              <button onClick={handleSignOutClick}>{NAV.SIGN_OUT}</button>
             ) : (
               <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/sign-in`}>
                 {NAV.SIGN_UP}
@@ -138,11 +143,7 @@ const Navigation = ({ loginInfo }: INavigation) => {
             >
               <ul className="p-4 gap-4 flex flex-col text-sub b2-400-16 ">
                 {isLogin ? (
-                  <PIXRHeaderNavList
-                    type="auth"
-                    href="/api/user/sign-out"
-                    onClick={handleSignOutClick}
-                  >
+                  <PIXRHeaderNavList type="auth" onClick={handleSignOutClick}>
                     {NAV.SIGN_OUT}
                   </PIXRHeaderNavList>
                 ) : (
