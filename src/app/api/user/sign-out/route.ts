@@ -6,5 +6,5 @@ export async function GET(request: NextRequest) {
     cookies().delete(key);
   });
 
-  return NextResponse.next();
+  return NextResponse.json({ message: "로그아웃 되었습니다." });
 }

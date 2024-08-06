@@ -24,18 +24,20 @@ const PIXRHeaderNavList = ({
 }: IPIXRHeaderNavList) => {
   return (
     <>
-      {type === "common" && children !== NAV.SIGN_OUT ? (
+      {type === "common" || children !== NAV.SIGN_OUT ? (
         <Link
           href={`${process.env.NEXT_PUBLIC_BASE_URL}${href}`}
           onClick={onClick}
         >
-          <li className="p-2 rounded-lg hover:bg-secondary hover:text-accent">
+          <li
+            className={`${children === NAV.SIGN_UP ? "text-primary-red b2-600-16 hover:bg-primary-red hover:text-white p-2 rounded-lg text-start" : "p-2 rounded-lg hover:bg-secondary hover:text-accent"}`}
+          >
             {children}
           </li>
         </Link>
       ) : (
         <button onClick={onClick}>
-          <li className="text-primary-red b2-600-16 hover:bg-primary-red hover:text-white p-2 rounded-lg">
+          <li className="text-primary-red b2-600-16 hover:bg-primary-red hover:text-white p-2 rounded-lg text-start">
             {children}
           </li>
         </button>
@@ -63,12 +65,13 @@ const Navigation = ({ loginInfo }: INavigation) => {
 
   const handleSignOutClick = async () => {
     closeModal();
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/sign-out`, {
+      cache: "no-store",
+    });
+
     setTimeout(async () => {
-      await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/sign-out`, {
-        cache: "no-store",
-      });
       window.location.reload();
-    }, 500);
+    }, 200);
   };
 
   {
