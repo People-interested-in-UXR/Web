@@ -1,4 +1,4 @@
-import { Container, PIXRHeader } from "@/app/_containers";
+import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
 import { Calendar } from "@/app/_ui";
 import { Icon, RegisterButton } from "@/app/_ui/_atomics";
 
@@ -7,17 +7,17 @@ export default async function Page({}) {
   const data = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/schedule/${database_id}`,
     {
-      cache: "no-store",
+      cache: "default",
     }
   );
   const { pages } = await data.json();
 
   return (
-    <Container className="min-h-screen h-full bg-default">
+    <Container className="min-h-screen h-[500px] bg-default">
       <PIXRHeader />
-      <section className="flex flex-col items-center mt-10 gap-16 px-4">
+      <section className="w-full px-4 max-h-calc-header py-10 h-full flex justify-center items-center">
         <Calendar pages={pages} />
-        <RegisterButton>
+        {/* <RegisterButton>
           <Icon
             src={"/icon/common/pencil.svg"}
             alt={"plus icon"}
@@ -25,8 +25,9 @@ export default async function Page({}) {
             width={24}
           />
           <span className="h4-600-18">일정 등록하기</span>
-        </RegisterButton>
+        </RegisterButton> */}
       </section>
+      <PIXRFooter />
     </Container>
   );
 }

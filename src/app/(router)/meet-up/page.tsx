@@ -1,4 +1,4 @@
-import { Container, PIXRHeader } from "@/app/_containers";
+import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
 import { Board } from "@/app/_ui/_atomics/Board";
 
 export default function Page({}) {
@@ -56,6 +56,7 @@ export default function Page({}) {
           breadcrumb={[]}
         />
       </section>
+      <PIXRFooter />
     </Container>
   );
 }

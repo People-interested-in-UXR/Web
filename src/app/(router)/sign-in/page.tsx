@@ -1,5 +1,5 @@
 import { google } from "googleapis";
-import { Container, PIXRHeader } from "@/app/_containers";
+import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -55,6 +55,7 @@ export default async function Page({}) {
           </div>
         </div>
       </div>
+      <PIXRFooter />
     </Container>
   );
 }

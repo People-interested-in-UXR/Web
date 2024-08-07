@@ -27,7 +27,13 @@ const config: Config = {
         mobile: "375px",
       },
       height: {
-        "calc-header": "calc(100vh - 95px)",
+        "calc-header": `calc(100vh - 95px)`,
+      },
+      minHeight: {
+        "calc-header": `calc(100vh - 95px)`,
+      },
+      maxHeight: {
+        "calc-header": `calc(100vh - 95px)`,
       },
       backgroundColor: {
         default: "#F7F6F5",
@@ -106,6 +112,9 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwind-scrollbar-hide")],
+  plugins: [
+    require("tailwind-scrollbar-hide"),
+    require("tailwindcss-animated"),
+  ],
 };
 module.exports = config;

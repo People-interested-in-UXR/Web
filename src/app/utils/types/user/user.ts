@@ -1,13 +1,18 @@
 export interface User extends ToastFn {
+  id: number;
+  created_at: string;
+  updated_at: string;
   email: string;
+  profile: string;
   introduce: string;
   name: string;
   position: string;
-  profile: string;
   secondary_email: string;
   sns: string;
+  platform: "google" | "kakao";
+  is_marketing: true;
 }
 
 interface ToastFn {
-  setIsClicked?: React.Dispatch<React.SetStateAction<boolean>>;
+  onClick?: React.Dispatch<React.SetStateAction<"email" | "sns" | "">>;
 }

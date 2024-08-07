@@ -1,4 +1,4 @@
-import { Container, PIXRHeader } from "@/app/_containers";
+import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
 import { Fireworks, Icon, ProfileCard, SignUpToast } from "@/app/_ui";
 import { User } from "@/app/utils/types/user/user";
 import { cookies } from "next/headers";
@@ -50,6 +50,7 @@ export default async function Page({}) {
           </button>
         </SignUpToast>
       </div>
+      <PIXRFooter />
     </Container>
   );
 }

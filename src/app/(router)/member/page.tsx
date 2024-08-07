@@ -1,4 +1,4 @@
-import { Container, PIXRHeader } from "@/app/_containers";
+import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
 
 import { Board } from "@/app/_ui/_atomics/Board";
 import { IChip } from "@/app/_ui/_atomics/Board/Chip";
@@ -40,6 +40,7 @@ export default async function Page({}) {
           breadcrumb={[]}
         />
       </section>
+      <PIXRFooter />
     </Container>
   );
 }

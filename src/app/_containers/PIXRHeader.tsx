@@ -1,8 +1,16 @@
 import { Header, Logo, Navigation } from "../_ui";
 import { cookies } from "next/headers";
 
-const PIXRHeader = () => {
-  const loginInfo = cookies().getAll();
+const PIXRHeader = async () => {
+  const user = await (
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/info`, {
+      method: "GET",
+      cache: "default",
+      headers: {
+        Cookie: `_ui=${cookies().get("_ui")?.value}`,
+      },
+    })
+  )?.json();
 
   return (
     <Header>
@@ -13,7 +21,7 @@ const PIXRHeader = () => {
         </p>
       </div>
 
-      <Navigation loginInfo={loginInfo} />
+      <Navigation user={user} />
     </Header>
   );
 };
