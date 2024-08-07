@@ -44,29 +44,38 @@ export default function PIXRFooter({}) {
             <Icon
               width={32}
               height={32}
-              src={`/icon/sns/LinkedIn.svg`}
+              src={`/icon/sns/linkedIn.svg`}
               alt={"링크드인 아이콘"}
             />
           </Link>
         </div>
       </div>
       <div className="flex gap-16 text-muted b2-400-16">
-        <div>{NAV.HOME}</div>
-        <div>{NAV.ABOUT_US}</div>
-        <div>{NAV.MEMBERS}</div>
+        <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.HOME}`}>
+          {NAV.HOME}
+        </Link>
+        <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.ABOUT_US}`}>
+          {NAV.ABOUT_US}
+        </Link>
+        <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.MEMBERS}`}>
+          {NAV.MEMBERS}
+        </Link>
         <div className="flex flex-col gap-4">
-          <div>{NAV.ARCHIVE}</div>
+          <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.ARCHIVE}`}>
+            {NAV.ARCHIVE}
+          </Link>
           <div>스터디</div>
           <div>모임 일정</div>
           <div>추천/책사이트</div>
         </div>
         <div className="flex flex-col gap-4">
-          <div>{NAV.BOARD}</div>
+          <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.BOARD}`}>
+            {NAV.BOARD}
+          </Link>
           <div>공지</div>
           <div>자유 게시판</div>
           <div>의견 남기기</div>
         </div>
-        <div className="b2-600-16 text-primary-red">{NAV.SIGN_UP}</div>
       </div>
     </Footer>
   );
