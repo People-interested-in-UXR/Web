@@ -1,13 +1,14 @@
 export const NAV = {
-  HOME: "HOME",
-  ABOUT_US: "ABOUT US",
-  MEMBERS: "MEMBERS",
-  SCHEDULE: "SCHEDULE",
-  MEETUPS: "MEETUPS",
-  ARCHIVE: "ARCHIVE",
-  BOARD: "BOARD",
-  SIGN_UP: "SIGN UP",
-  SIGN_OUT: "SIGN OUT",
+  HOME: "홈",
+  ABOUT_US: "모임 소개",
+  MEMBERS: "맴버 소개",
+  SCHEDULE: "모임 일정",
+  MEETUPS: "오프라인 모임",
+  ARCHIVE: "아카이브",
+  BOARD: "게시판",
+  PROFILE: "프로필",
+  SIGN_UP: "로그인",
+  SIGN_OUT: "로그아웃",
 
   HEADER_HEIGHT: "95px",
 

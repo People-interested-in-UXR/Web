@@ -105,12 +105,16 @@ const Navigation = ({ user }: INavigation) => {
               {NAV.SCHEDULE}
             </Link>
           </li>
-          {/* <li className="hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold">
-            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/meet-up`}>{NAV.MEETUPS}</Link>
+          <li className="hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold">
+            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/meet-up`}>
+              {NAV.MEETUPS}
+            </Link>
           </li>
           <li className="hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold">
-            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/archive`}>{NAV.ARCHIVE}</Link>
-          </li> */}
+            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/archive`}>
+              {NAV.ARCHIVE}
+            </Link>
+          </li>
           <li className="hover:text-muted active:text-default focus:font-bold active:font-bold focus:text-default">
             <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/board`}>
               {NAV.BOARD}
@@ -151,7 +155,7 @@ const Navigation = ({ user }: INavigation) => {
         </ul>
         {showProfile && (
           <div
-            className="w-[300px]  absolute right-10 bg-white rounded-2xl p-6 top-[100px] animate-fade-down drop-shadow-m"
+            className="w-[300px]  absolute right-10 bg-white rounded-2xl p-6 top-[100px] animate-fade-down drop-shadow-m z-10"
             // onMouseLeave={() => setShowProfile(false)}
           >
             <div className="border-b border-muted flex gap-4 pb-6">
@@ -174,7 +178,7 @@ const Navigation = ({ user }: INavigation) => {
             <div className="pt-6">
               <div className="flex flex-col gap-6 b3-400-14">
                 <Link
-                  className="flex gap-2"
+                  className="flex gap-2 cursor-pointer"
                   href={`${process.env.NEXT_PUBLIC_BASE_URL}/${user?.id}`}
                 >
                   <Image
@@ -183,16 +187,19 @@ const Navigation = ({ user }: INavigation) => {
                     src={"/icon/common/edit.svg"}
                     alt={""}
                   />
-                  <div className="text-sub">Edit / 프로필 수정</div>
+                  <div className="text-sub">프로필 수정</div>
                 </Link>
-                <button className="flex gap-2" onClick={handleSignOutClick}>
+                <button
+                  className="flex gap-2 cursor-pointer"
+                  onClick={handleSignOutClick}
+                >
                   <Image
                     width={16}
                     height={16}
                     src={"/icon/common/logout.svg"}
                     alt={""}
                   />
-                  <div className="text-sub">Logout / 로그아웃</div>
+                  <div className="text-sub">로그아웃</div>
                 </button>
               </div>
             </div>

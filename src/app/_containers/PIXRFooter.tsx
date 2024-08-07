@@ -60,12 +60,18 @@ export default function PIXRFooter({}) {
         <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.MEMBERS}`}>
           {NAV.MEMBERS}
         </Link>
+        <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.MEMBERS}`}>
+          {NAV.SCHEDULE}
+        </Link>
+        <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.MEMBERS}`}>
+          {NAV.MEETUPS}
+        </Link>
+
         <div className="flex flex-col gap-4">
           <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.ARCHIVE}`}>
             {NAV.ARCHIVE}
           </Link>
           <div>스터디</div>
-          <div>모임 일정</div>
           <div>추천/책사이트</div>
         </div>
         <div className="flex flex-col gap-4">
