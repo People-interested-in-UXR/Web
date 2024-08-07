@@ -1,4 +1,4 @@
-import { Container, PIXRHeader } from "@/app/_containers";
+import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
 import { Calendar } from "@/app/_ui";
 import { Icon, RegisterButton } from "@/app/_ui/_atomics";
 
@@ -27,6 +27,7 @@ export default async function Page({}) {
           <span className="h4-600-18">일정 등록하기</span>
         </RegisterButton> */}
       </section>
+      <PIXRFooter />
     </Container>
   );
 }

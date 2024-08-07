@@ -1,4 +1,4 @@
-import { Container, PIXRHeader } from "@/app/_containers";
+import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
 import { Board } from "@/app/_ui/_atomics/Board";
 import { IChip } from "@/app/_ui/_atomics/Board/Chip";
 import { FixedSection } from "@/app/_ui/_components";
@@ -66,6 +66,7 @@ export default function Page({}) {
 
         <FixedSection breadcrumb={[NAV.ARCHIVE, "지식 저장소"]} />
       </section>
+      <PIXRFooter />
     </Container>
   );
 }

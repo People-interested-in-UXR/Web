@@ -1,4 +1,4 @@
-import { Container, PIXRHeader } from "@/app/_containers";
+import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
 import { SignUpForm } from "@/app/_ui";
 
 export default function Page({}) {
@@ -14,6 +14,7 @@ export default function Page({}) {
           <SignUpForm />
         </div>
       </div>
+      <PIXRFooter />
     </Container>
   );
 }

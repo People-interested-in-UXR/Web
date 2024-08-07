@@ -1,4 +1,4 @@
-import { Container, PIXRHeader } from "@/app/_containers";
+import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
 import { WritingModal } from "@/app/_ui";
 import { Board } from "@/app/_ui/_atomics/Board";
 import { NAV } from "@/app/utils/consts";
@@ -68,6 +68,7 @@ export default async function Page({}) {
           userInfo={userInfo}
         />
       </section>
+      <PIXRFooter />
     </Container>
   );
 }

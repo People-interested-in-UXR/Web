@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { ReactNode, SetStateAction } from "react";
 
-import { Container, PIXRHeader } from "@/app/_containers";
+import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
 import { Description, ProfileCard } from "@/app/_ui/_atomics";
 
 const Card = ({
@@ -215,6 +215,7 @@ export default async function Page({}) {
           />
         </div>
       </div>
+      <PIXRFooter />
     </Container>
   );
 }
