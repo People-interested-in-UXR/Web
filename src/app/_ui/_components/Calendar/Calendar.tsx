@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -73,7 +73,7 @@ interface ICalenderEvents {
 
 const Calendar = ({ pages }: { pages: any }) => {
   const calendarRef = useRef<FullCalendar>(null);
-
+  const [screenSize, setScreenSize] = useState({ x: 0, y: 0 });
   const events = [...pages].map((page: ICalenderEvents) => ({
     title: page["주제"].title[0].plain_text,
     note: page["Note Taking"]?.select?.name,
@@ -86,8 +86,17 @@ const Calendar = ({ pages }: { pages: any }) => {
     className: "cursor-pointer  bg-[#51BAFF] hover:bg-[#51BAFF] border-none",
   }));
 
+  useEffect(() => {
+    if (window) {
+      setScreenSize({
+        x: window.innerWidth,
+        y: window.innerHeight,
+      });
+    }
+  }, [setScreenSize]);
+
   return (
-    <div className={`w-full h-fit flex flex-col gap-16 z-0 px-48`}>
+    <div className={`w-full max-h-screen h-full z-0 px-48 `}>
       {/* <div className="flex flex-col items-center">
         <h1 className="h1-700-32 text-title">우리 모임 일정</h1>
         <div className="mt-4 text-center b1-500-20 text-sub">
@@ -95,12 +104,13 @@ const Calendar = ({ pages }: { pages: any }) => {
           <p>다음 스터디는 언제인지 바로 확인해보세요.</p>
         </div>
       </div> */}
-      <div>
+      <div className="">
         <CalendarHeader ref={calendarRef} />
         <FullCalendar
           ref={calendarRef}
           dayMaxEvents={true}
           eventMaxStack={4}
+          height={screenSize.y - 200}
           viewClassNames={`${styles.calendar}`}
           dayHeaderClassNames={`${styles.dayHeader} text-default b2-400-16 first-of-type:text-primary-red `}
           dayCellClassNames={`${styles.dayCell} text-default b2-700-16 first-of-type:text-primary-red w-full`}

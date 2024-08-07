@@ -8,4 +8,6 @@ export const NAV = {
   BOARD: "BOARD",
   SIGN_UP: "SIGN UP",
   SIGN_OUT: "SIGN OUT",
+
+  HEADER_HEIGHT: "95px",
 };
