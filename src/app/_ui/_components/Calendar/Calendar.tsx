@@ -3,12 +3,11 @@ import { useEffect, useRef, useState } from "react";
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction"; // needed for dayClick
+import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 
 import styles from "./calendar.module.scss";
 import CalendarHeader from "./CalendarHeader";
 import tippy from "tippy.js";
-import Image from "next/image";
 
 interface ICalenderEvents {
   "Note Taking": {

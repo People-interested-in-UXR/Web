@@ -42,7 +42,7 @@ const Board = ({
 
   // cover는 type을 넣으면 됨 cover[cover.type]
   return (
-    <div className="w-full flex flex-col items-center max-w-[1490px] px-4 break-keep text-pretty  sm:gap-16 gap-4">
+    <div className="w-full flex flex-col items-center max-w-[1490px] px-4 break-keep text-pretty  sm:gap-16 gap-4 h-full">
       <Description title={title} description={description} position="center" />
       {chips && (
         <div className="w-full relative max-sm:mt-4">

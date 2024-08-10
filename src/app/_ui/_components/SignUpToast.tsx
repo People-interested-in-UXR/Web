@@ -7,7 +7,7 @@ interface ISignUpToast {
 
 const SignUpToast = ({ children }: ISignUpToast) => {
   return (
-    <div className="w-full fixed flex justify-center bottom-4 px-4">
+    <div className="w-full flex justify-center px-4">
       {/* TODO: 동적으로 어떻게 할당하지..? */}
       <Toast>{children}</Toast>
     </div>

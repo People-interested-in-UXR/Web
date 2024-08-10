@@ -33,8 +33,7 @@ const Card = ({
 
 export default async function Page({}) {
   return (
-    <Container className="h-full min-h-screen">
-      <PIXRHeader />
+    <>
       {/* 모임 소개 */}
       <div className="flex flex-col items-center w-full sm:py-20 py-8 gap-16 bg-muted sm:px-10 px-8">
         <Card
@@ -215,7 +214,6 @@ export default async function Page({}) {
           />
         </div>
       </div>
-      <PIXRFooter />
-    </Container>
+    </>
   );
 }

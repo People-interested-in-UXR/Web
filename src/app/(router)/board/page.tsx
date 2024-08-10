@@ -19,7 +19,7 @@ export default async function Page({}) {
     await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/board/${database_id}`,
       {
-        cache: "no-store",
+        cache: "default",
       }
     )
   ).json();
@@ -28,7 +28,7 @@ export default async function Page({}) {
     await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/prop/?database_id=${database_id}`,
       {
-        cache: "no-store",
+        cache: "default",
       }
     )
   ).json();
@@ -51,24 +51,20 @@ export default async function Page({}) {
   ];
 
   return (
-    <Container className="h-full bg-default flex flex-col w-full min-h-screen ">
-      <PIXRHeader />
-      <section className="flex flex-col items-center my-10 gap-16">
-        <Board
-          title={"자유 게시판"}
-          description={`자유게시판은 누구나 자유로운 의견을 남기는 공간입니다. \n 잡담 / 궁금한 질문 / 새로운 소식 / 인사이트 공유 등 다양한 이야기를 공유해주세요.`}
-          chips={chips}
-          breadcrumb={[NAV.BOARD, "자유 게시판"]}
-          database={database}
-        />
-        <DynamicModal
-          mode="create"
-          breadcrumb={[NAV.BOARD, "자유 게시판"]}
-          database={database}
-          userInfo={userInfo}
-        />
-      </section>
-      <PIXRFooter />
-    </Container>
+    <section className="flex flex-col items-center my-10 gap-16 relative min-h-calc-header h-full">
+      <Board
+        title={"자유 게시판"}
+        description={`자유게시판은 누구나 자유로운 의견을 남기는 공간입니다. \n 잡담 / 궁금한 질문 / 새로운 소식 / 인사이트 공유 등 다양한 이야기를 공유해주세요.`}
+        chips={chips}
+        breadcrumb={[NAV.BOARD, "자유 게시판"]}
+        database={database}
+      />
+      <DynamicModal
+        mode="create"
+        breadcrumb={[NAV.BOARD, "자유 게시판"]}
+        database={database}
+        userInfo={userInfo}
+      />
+    </section>
   );
 }

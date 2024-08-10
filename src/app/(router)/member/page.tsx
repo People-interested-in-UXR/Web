@@ -27,20 +27,16 @@ export default async function Page({}) {
   ];
 
   return (
-    <Container className="h-full bg-default flex flex-col w-full min-h-screen">
-      <PIXRHeader />
-      <section className="flex flex-col items-center my-10 gap-16">
-        <Board
-          title={"우리 모임 멤버"}
-          description={`우리 모임과 함께하는 사람들은 어떤 사람들 일까요?
+    <section className="flex flex-col items-center my-10 gap-16">
+      <Board
+        title={"우리 모임 멤버"}
+        description={`우리 모임과 함께하는 사람들은 어떤 사람들 일까요?
           네트워킹을 통해 즐거운 모임을 만들고 서로 서로 도와요.`}
-          chips={chipSamples}
-          users={users}
-          database={undefined}
-          breadcrumb={[]}
-        />
-      </section>
-      <PIXRFooter />
-    </Container>
+        chips={chipSamples}
+        users={users}
+        database={undefined}
+        breadcrumb={[]}
+      />
+    </section>
   );
 }

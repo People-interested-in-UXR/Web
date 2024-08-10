@@ -1,5 +1,4 @@
 import { google } from "googleapis";
-import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -34,28 +33,24 @@ export default async function Page({}) {
   if (isGoogleLogin) return redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`);
 
   return (
-    <Container className="h-full min-h-screen ">
-      <PIXRHeader />
-      <div className="w-full h-calc-header bg-default flex justify-center items-center">
-        <div className="flex flex-col justify-center text-center gap-10">
-          <h1 className="text-brown-900 h1-700-32">가입하고 스터디 참여하기</h1>
-          <div className="flex flex-col gap-[11px] mx-2">
-            <OAuthButton
-              OAuthURL={kakaoAuthUrl}
-              iconSrc={`/icon/sns/kakao/kakao.svg`}
-              iconAlt={"카카오톡 아이콘"}
-              social={"kakao"}
-            />
-            <OAuthButton
-              OAuthURL={googleAuthUrl}
-              iconSrc={`/icon/sns/google.svg`}
-              iconAlt={"구글 아이콘"}
-              social={"google"}
-            />
-          </div>
+    <div className="w-full h-calc-header bg-default flex justify-center items-center">
+      <div className="flex flex-col justify-center text-center gap-10">
+        <h1 className="text-brown-900 h1-700-32">가입하고 스터디 참여하기</h1>
+        <div className="flex flex-col gap-[11px] mx-2">
+          <OAuthButton
+            OAuthURL={kakaoAuthUrl}
+            iconSrc={`/icon/sns/kakao/kakao.svg`}
+            iconAlt={"카카오톡 아이콘"}
+            social={"kakao"}
+          />
+          <OAuthButton
+            OAuthURL={googleAuthUrl}
+            iconSrc={`/icon/sns/google.svg`}
+            iconAlt={"구글 아이콘"}
+            social={"google"}
+          />
         </div>
       </div>
-      <PIXRFooter />
-    </Container>
+    </div>
   );
 }

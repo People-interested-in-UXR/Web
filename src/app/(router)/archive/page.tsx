@@ -52,21 +52,17 @@ export default function Page({}) {
   ];
 
   return (
-    <Container className="min-h-screen h-full bg-default flex flex-col w-full">
-      <PIXRHeader />
-      <section className="flex flex-col items-center my-10 gap-16 relative">
-        <Board
-          title={"지식 저장소"}
-          description={`아카이브는 모임에서 진행한 스터디 / 토론에 대한 기록을 남겨두는 곳이에요.
+    <section className="flex flex-col items-center my-10 gap-16 relative min-h-calc-header h-full">
+      <Board
+        title={"지식 저장소"}
+        description={`아카이브는 모임에서 진행한 스터디 / 토론에 대한 기록을 남겨두는 곳이에요.
           도움이 필요한 자료가 있으면 자유롭게 활용해주세요.`}
-          chips={chipSamples}
-          database={undefined}
-          breadcrumb={[]}
-        />
+        chips={chipSamples}
+        database={undefined}
+        breadcrumb={[]}
+      />
 
-        <FixedSection breadcrumb={[NAV.ARCHIVE, "지식 저장소"]} />
-      </section>
-      <PIXRFooter />
-    </Container>
+      <FixedSection breadcrumb={[NAV.ARCHIVE, "지식 저장소"]} />
+    </section>
   );
 }
