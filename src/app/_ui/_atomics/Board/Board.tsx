@@ -7,6 +7,7 @@ import { ProfileCard } from "../ProfileCard";
 import { User } from "@/app/utils/types/user/user";
 import { Toast } from "../Toast";
 import { TOAST, ToastMessageType } from "@/app/utils/consts";
+import useToastMessage from "../../hooks/useToastMessage";
 
 interface IBoard {
   title: string;
@@ -26,20 +27,12 @@ const Board = ({
   database,
 }: IBoard) => {
   const [selectedChip, setSelectedChip] = useState("전체");
-  const [toastMessage, setToastMessage] = useState<ToastMessageType>("");
+  const [toastMessage, setToastMessage] = useToastMessage<ToastMessageType>("");
 
   const handleChipClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     if (event?.currentTarget?.textContent)
       setSelectedChip(event?.currentTarget?.textContent);
   };
-
-  useEffect(() => {
-    if (toastMessage) {
-      setTimeout(() => {
-        setToastMessage("");
-      }, 4000);
-    }
-  }, [toastMessage]);
 
   // cover는 type을 넣으면 됨 cover[cover.type]
   return (
@@ -92,7 +85,7 @@ const Board = ({
           )}
           {[...users].map(
             (user, index) =>
-              user.position === selectedChip && (
+              user?.position === selectedChip && (
                 <Fragment key={index}>
                   <ProfileCard {...user} onClick={setToastMessage} />
                 </Fragment>
