@@ -1,97 +1,69 @@
 "use client";
-import { Fragment, MouseEventHandler, useEffect, useState } from "react";
-import Card, { ICard } from "./Card";
-import Chip, { IChip } from "./Chip";
+import { Fragment, useState } from "react";
+
 import { Description } from "../Description";
 import { ProfileCard } from "../ProfileCard";
 import { User } from "@/app/utils/types/user/user";
 import { Toast } from "../Toast";
 import { TOAST, ToastMessageType } from "@/app/utils/consts";
 import useToastMessage from "../../hooks/useToastMessage";
+import ChipContainer from "./ChipContainer";
+import CardContainer from "./CardContainer";
+import PostCardList from "./PostCardList";
+import ProfileCardList from "./ProfileCardList";
 
-interface IBoard {
+export interface IChip<K> {
+  category: K;
+}
+
+interface IBoard<T> {
   title: string;
-  chips?: Array<IChip>;
+  chips?: Array<IChip<T>>;
   description: string;
   breadcrumb: string[];
   users?: Array<User>;
   database: any;
 }
 
-const Board = ({
+const Board = <T extends {}>({
   title,
   description,
   breadcrumb,
   chips,
   users,
   database,
-}: IBoard) => {
-  const [selectedChip, setSelectedChip] = useState("전체");
+}: IBoard<T | "전체">) => {
+  const [selectedChip, setSelectedChip] = useState<T | "전체">("전체");
   const [toastMessage, setToastMessage] = useToastMessage<ToastMessageType>("");
-
-  const handleChipClick: MouseEventHandler<HTMLButtonElement> = (event) => {
-    if (event?.currentTarget?.textContent)
-      setSelectedChip(event?.currentTarget?.textContent);
-  };
 
   // cover는 type을 넣으면 됨 cover[cover.type]
   return (
     <div className="w-full flex flex-col items-center max-w-[1490px] px-4 break-keep text-pretty  sm:gap-16 gap-4 h-full">
       <Description title={title} description={description} position="center" />
       {chips && (
-        <div className="w-full relative max-sm:mt-4">
-          <div className="flex gap-4 sm:justify-center sm:flex-wrap max-sm:px-4  max-sm:overflow-x-scroll max-sm:justify-start max-sm:scrollbar-hide">
-            {[...chips].map(({ category }, index) => (
-              <Fragment key={index}>
-                <Chip
-                  category={category}
-                  selectedChip={selectedChip}
-                  onClick={handleChipClick}
-                />
-              </Fragment>
-            ))}
-          </div>
-        </div>
+        <ChipContainer<T>
+          chips={chips}
+          selectedChip={selectedChip}
+          setSelectedChip={setSelectedChip}
+        />
       )}
       {database?.pages && (
-        <div className="grid 2xl:grid-cols-3 gap-y-16 gap-x-6 lg:grid-cols-2  md:grid-cols-1  justify-center max-lg:gap-4">
-          {[...database?.pages].map(
-            (page, index) =>
-              selectedChip === "전체" && (
-                <Fragment key={index}>
-                  {<Card page={page} breadcrumb={breadcrumb} />}
-                </Fragment>
-              )
-          )}
-          {[...database?.pages].map(
-            (page, index) =>
-              page?.properties["모임 유형"]?.select?.name === selectedChip && (
-                <Fragment key={index}>
-                  <Card page={page} breadcrumb={breadcrumb} />
-                </Fragment>
-              )
-          )}
-        </div>
+        <CardContainer>
+          <PostCardList
+            database={database}
+            selectedChip={selectedChip}
+            breadcrumb={breadcrumb}
+          />
+        </CardContainer>
       )}
       {users && (
-        <div className=" grid 2xl:grid-cols-3 gap-y-16 gap-x-6 lg:grid-cols-2  md:grid-cols-1  justify-center max-lg:gap-4">
-          {[...users].map(
-            (user, index) =>
-              selectedChip === "전체" && (
-                <Fragment key={index}>
-                  <ProfileCard {...user} onClick={setToastMessage} />
-                </Fragment>
-              )
-          )}
-          {[...users].map(
-            (user, index) =>
-              user?.position === selectedChip && (
-                <Fragment key={index}>
-                  <ProfileCard {...user} onClick={setToastMessage} />
-                </Fragment>
-              )
-          )}
-        </div>
+        <CardContainer>
+          <ProfileCardList
+            users={users}
+            selectedChip={selectedChip}
+            setToastMessage={setToastMessage}
+          />
+        </CardContainer>
       )}
       {toastMessage && (
         <div className="fixed bottom-20">

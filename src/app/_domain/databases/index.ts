@@ -1,3 +1,4 @@
+import { IChip } from "@/app/_ui/_atomics/Board/Board";
 import { IPageProperty, ISelect, Page } from "@/app/utils/types/notion/page";
 
 type NotionFetcherTag = "board" | "archive" | "meet-up" | "member";
@@ -63,7 +64,10 @@ export const getNotionData = async (id: string, tag: NotionFetcherTag) => {
   };
 };
 
-export const getChips = async (id: string, tag: NotionFetcherTag) => {
+export const getChips = async <T>(
+  id: string,
+  tag: NotionFetcherTag
+): Promise<Array<IChip<T | "전체">>> => {
   const props = await getDatabaseProp(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/prop/?database_id=${id}`,
     "default",
@@ -74,10 +78,10 @@ export const getChips = async (id: string, tag: NotionFetcherTag) => {
     (prop) => "select" in prop && prop.name === "모임 유형"
   )[0] as Pick<ISelect, "select">;
 
-  const chips = [
+  const chips: IChip<T | "전체">[] = [
     { category: "전체" },
     ...(filterdProps.select.options ?? []).map((option) => ({
-      category: option.name,
+      category: option.name as T,
     })),
   ];
 

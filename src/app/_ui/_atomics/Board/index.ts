@@ -1,5 +1,5 @@
-import Card from "./Card";
+import PostCard from "./PostCard";
 import Board from "./Board";
 import Chip from "./Chip";
 
-export { Card, Board, Chip };
+export { PostCard, Board, Chip };

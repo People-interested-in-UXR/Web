@@ -1,10 +1,21 @@
 import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
 
 import { Board } from "@/app/_ui/_atomics/Board";
-import { IChip } from "@/app/_ui/_atomics/Board/Chip";
+import { IChip } from "@/app/_ui/_atomics/Board/Board";
+
 import { User } from "@/app/utils/types/user/user";
 
 export const dynamic = "force-dynamic";
+type MemberCategory =
+  | "전체"
+  | "UX Researcher"
+  | "Product Designer"
+  | "PO/PM"
+  | "Data Analyst"
+  | "Developer"
+  | "Maketer"
+  | "Student"
+  | "ETC";
 
 export default async function Page({}) {
   //! 일어나서 이거 수정할 것 ( build 시 JSON.stringpy 에러 나옴)
@@ -14,7 +25,7 @@ export default async function Page({}) {
 
   const { users }: { users: User[] } = await data.json();
 
-  const chipSamples: IChip[] = [
+  const chipSamples: IChip<MemberCategory>[] = [
     { category: "전체" },
     { category: "UX Researcher" },
     { category: "Product Designer" },
