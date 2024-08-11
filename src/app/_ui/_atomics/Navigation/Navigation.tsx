@@ -55,9 +55,10 @@ const Navigation = ({ user }: INavigation) => {
   const [showProfile, setShowProfile] = useState(false);
 
   const searchParams = useSearchParams();
-  const refresh = searchParams.get("refresh");
+  const refresh = searchParams.has("refresh");
   const router = useRouter();
 
+  //* Profile 수정 후 User데이터 최신화
   useEffect(() => {
     if (refresh) router.refresh();
   }, [refresh]);

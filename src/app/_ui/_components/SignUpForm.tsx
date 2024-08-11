@@ -171,8 +171,9 @@ const SignUpForm = ({ user }: ISignUpForm) => {
           await uploadUserProfile(file);
           await insertUserInfo();
 
-          router.refresh();
           // * Router
+          //! <주의> 현재 server revalidateTag user-info(/api/user/info에서 실행)를 사용 중
+          //! Front간 데이터 차이가 있어 query를 붙여 강제로 useEffect를 이용해 refresh (구현은 현재 PIXRHeader 쪽에)
           user?.id
             ? router.push("/?refresh=true")
             : router.push("/sign-up/complete");

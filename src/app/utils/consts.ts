@@ -24,3 +24,62 @@ export const NAV = {
     // SIGN_OUT: "/",
   },
 };
+
+export const COOKIE = {
+  USER: "_ui",
+  GOOGLE: "_gt",
+  KAKAO: "_kt",
+};
+
+export const TOAST = {
+  MESSAGE: {
+    EMAIL: "이메일",
+    SNS: "SNS계정",
+  },
+  EMAIL: "email",
+  SNS: "sns",
+};
+
+export type ToastMessageType = "email" | "sns" | "";
+// TODO: Record<string, string> 타입으로 변경
+export type Chips = "전체";
+
+export const NOTION: {
+  DATABASE_ID: {
+    BOARD: string;
+    ARCHIVE: string;
+    MEET_UP: string;
+    MEMBER: string;
+  };
+  KEY: {
+    BOARD: "board";
+    ARCHIVE: "archive";
+    MEET_UP: "meet-up";
+    MEMBER: "member";
+  };
+  VALUE: {
+    BOARD: "자유 게시판";
+    ARCHIVE: "아카이브";
+    MEET_UP: "모임 일정";
+    MEMBER: "맴버 소개";
+  };
+} = {
+  DATABASE_ID: {
+    BOARD: "d45fa5365c054b549d0a56b9a4ed5070",
+    ARCHIVE: "adeb1a098e544852ad96e6d7380a98f4",
+    MEET_UP: "d45fa5365c054b549d0a56b9a4ed5070",
+    MEMBER: "d45fa5365c054b549d0a56b9a4ed5070",
+  },
+  KEY: {
+    BOARD: "board",
+    ARCHIVE: "archive",
+    MEET_UP: "meet-up",
+    MEMBER: "member",
+  },
+  VALUE: {
+    BOARD: "자유 게시판",
+    ARCHIVE: "아카이브",
+    MEET_UP: "모임 일정",
+    MEMBER: "맴버 소개",
+  },
+};

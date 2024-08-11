@@ -6,6 +6,7 @@ import { Description } from "../Description";
 import { ProfileCard } from "../ProfileCard";
 import { User } from "@/app/utils/types/user/user";
 import { Toast } from "../Toast";
+import { TOAST, ToastMessageType } from "@/app/utils/consts";
 
 interface IBoard {
   title: string;
@@ -25,7 +26,7 @@ const Board = ({
   database,
 }: IBoard) => {
   const [selectedChip, setSelectedChip] = useState("전체");
-  const [toastMessage, setToastMessage] = useState<"email" | "sns" | "">("");
+  const [toastMessage, setToastMessage] = useState<ToastMessageType>("");
 
   const handleChipClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     if (event?.currentTarget?.textContent)
@@ -103,8 +104,10 @@ const Board = ({
         <div className="fixed bottom-20">
           <Toast>
             <div>
-              {toastMessage === "email" ? "이메일" : "SNS계정"}이
-              복사되었습니다.
+              {toastMessage === TOAST.EMAIL
+                ? TOAST.MESSAGE.EMAIL
+                : TOAST.MESSAGE.SNS}
+              이 복사되었습니다.
             </div>
           </Toast>
         </div>
