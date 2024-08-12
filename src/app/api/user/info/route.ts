@@ -33,13 +33,18 @@ export async function PATCH(request: Request) {
   const { email } = jwt.decode(cookie?.value as string) as JwtPayload;
 
   const supabase = createClient();
-  await supabase
+  const { data, error } = await supabase
     .from("user")
     .update({ ...json })
     .eq("email", email)
     .select();
 
+  if (error?.message) console.log(error);
+
   revalidateTag("user-info");
 
-  return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`);
+  return NextResponse.json(
+    { url: `${process.env.NEXT_PUBLIC_BASE_URL}` },
+    { status: 200 }
+  );
 }

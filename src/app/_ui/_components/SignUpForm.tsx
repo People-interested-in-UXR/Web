@@ -74,9 +74,6 @@ const SignUpForm = ({ user }: ISignUpForm) => {
     // * 프로필 업데이트
     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/profile`, {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify({
         profile: publicUrl,
       }),
@@ -85,9 +82,6 @@ const SignUpForm = ({ user }: ISignUpForm) => {
   const insertUserInfo = async () => {
     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/info`, {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify({
         name,
         position,
