@@ -4,7 +4,7 @@ import Form from "./Form";
 import FixedSection from "./FixedSection";
 import SignUpToast from "./SignUpToast";
 import SignUpForm from "./SignUpForm";
-import { WritingModal } from "./WritingModal";
+import { PostDetailModal } from "./PostDetailModal";
 import { Calendar } from "./Calendar";
 
 export {
@@ -14,6 +14,6 @@ export {
   FixedSection,
   SignUpToast,
   SignUpForm,
-  WritingModal,
+  PostDetailModal,
   Calendar,
 };

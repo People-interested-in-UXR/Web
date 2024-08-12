@@ -4,6 +4,7 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Icon } from "../_atomics";
 import Image from "next/image";
 import { User } from "@/app/utils/types/user/user";
+import { revalidateTag } from "next/cache";
 
 interface ISignUpForm {
   user?: User;
@@ -23,6 +24,8 @@ const SignUpForm = ({ user }: ISignUpForm) => {
   const snsRef = useRef<HTMLInputElement>(null);
 
   const router = useRouter();
+
+  const INTRODUCE_MAX_LENGTH = 55;
 
   const positions = [
     "UX Researcher",
@@ -170,7 +173,7 @@ const SignUpForm = ({ user }: ISignUpForm) => {
           //! Front간 데이터 차이가 있어 query를 붙여 강제로 useEffect를 이용해 refresh (구현은 현재 PIXRHeader 쪽에)
           user?.id
             ? router.push("/?refresh=true")
-            : router.push("/sign-up/complete");
+            : router.push("/sign-up/complete/?refresh=true");
         }}
       >
         {/* 프로필 사진 */}
@@ -304,17 +307,26 @@ const SignUpForm = ({ user }: ISignUpForm) => {
         <div className="flex flex-col items-start w-full gap-2">
           <label htmlFor="introduce" className="b2-600-16 text-default gap-2">
             자기소개 <span className="text-primary-red">*</span>{" "}
-            <span className="ml-2">({introduce.length}/45)</span>
+            <span
+              className={`ml-2 b2-600-16 ${introduce.length >= INTRODUCE_MAX_LENGTH ? "text-primary-red" : "text-default"}`}
+            >
+              ({introduce.length}/{INTRODUCE_MAX_LENGTH})
+            </span>
           </label>
 
           <textarea
             id={"introduce"}
             ref={introduceRef}
-            className={`${introduce ? "border-teriary" : "border-secondary"} b2-400-16 w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center h-[104px] outline-none resize-none placeholder:text-muted`}
+            className={`${introduce ? "border-teriary" : "border-secondary"} b2-400-16 w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center h-[104px] outline-none resize-none placeholder:text-muted ${introduce.length >= INTRODUCE_MAX_LENGTH ? "border-primary-red" : ""}`}
             placeholder="자신을 제일 잘 나타낼 수 있는 한 줄 소개를 작성해주세요"
-            maxLength={45}
+            maxLength={INTRODUCE_MAX_LENGTH}
             onChange={(event) => setIntroduce(event.currentTarget.value)}
           />
+          {introduce.length >= INTRODUCE_MAX_LENGTH && (
+            <div className="c1-400-12 text-primary-red">
+              최대 입력 글자수를 초과했어요
+            </div>
+          )}
         </div>
         {/* 이메일 */}
         <div className="relative flex flex-col items-start w-full gap-2">
@@ -387,7 +399,7 @@ const SignUpForm = ({ user }: ISignUpForm) => {
             ![file?.name, name, position, introduce].every((value) => value)
           }
         >
-          {user?.id ? "수정하기" : "등록하기"}
+          {user?.id ? "저장하기" : "등록하기"}
         </button>
       </form>
     </>

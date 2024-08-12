@@ -1,8 +1,10 @@
 import { getNotionData } from "@/app/_domain/databases";
 import { Board } from "@/app/_ui/_atomics/Board";
 import { IChip } from "@/app/_ui/_atomics/Board/Board";
-import { FixedSection } from "@/app/_ui/_components";
-import { NAV, NOTION } from "@/app/utils/consts";
+import { FixedSection, PostDetailModal } from "@/app/_ui/_components";
+import { COOKIE, NAV, NOTION } from "@/app/utils/consts";
+import dynamic from "next/dynamic";
+import { cookies } from "next/headers";
 
 type ArchiveCategory =
   | "전체"
@@ -11,44 +13,12 @@ type ArchiveCategory =
   | "Discussion"
   | "Recommendation";
 
+const DynamicModal = dynamic(() => Promise.resolve(PostDetailModal), {
+  ssr: false,
+});
+
 export default async function Page({}) {
-  const cardSamples = [
-    {
-      title: "게시글 제목",
-      author: "작성자",
-      category: "Article Study",
-      description:
-        "본문 내용 미리보기는 한 줄까지만 보여주기. 나머지는 말줌임표로 처리하기",
-    },
-    {
-      title: "게시글 제목",
-      author: "작성자",
-      category: "Article Study",
-      description:
-        "본문 내용 미리보기는 한 줄까지만 보여주기. 나머지는 말줌임표로 처리하기",
-    },
-    {
-      title: "게시글 제목",
-      author: "작성자",
-      category: "Article Study",
-      description:
-        "본문 내용 미리보기는 한 줄까지만 보여주기. 나머지는 말줌임표로 처리하기",
-    },
-    {
-      title: "게시글 제목",
-      author: "작성자",
-      category: "Discussion",
-      description:
-        "본문 내용 미리보기는 한 줄까지만 보여주기. 나머지는 말줌임표로 처리하기",
-    },
-    {
-      title: "게시글 제목",
-      author: "작성자",
-      category: "Discussion",
-      description:
-        "본문 내용 미리보기는 한 줄까지만 보여주기. 나머지는 말줌임표로 처리하기",
-    },
-  ];
+  const userCookieInfo = cookies().get(COOKIE.USER);
 
   const chipSamples: IChip<ArchiveCategory>[] = [
     { category: "전체" },
@@ -72,7 +42,12 @@ export default async function Page({}) {
         breadcrumb={[]}
       />
 
-      <FixedSection breadcrumb={[NAV.ARCHIVE, "지식 저장소"]} />
+      <DynamicModal
+        mode="create"
+        breadcrumb={[NAV.ARCHIVE, NOTION.VALUE.ARCHIVE]}
+        database={archiveData}
+        userCookieInfo={userCookieInfo}
+      />
     </section>
   );
 }

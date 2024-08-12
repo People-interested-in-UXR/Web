@@ -12,7 +12,10 @@ const PostCardModal = ({ closeModal, breadcrumb, page }: IPostCardModal) => {
       onClick={closeModal}
     >
       {/* Modal Menu */}
-      <div className="fixed max-w-[900px] sm:w-3/4 w-10/12 bg-white z-20 left-0 right-0 mx-auto my-0 top-32  rounded-3xl overflow-y-auto h-3/4 scrollbar-hide overflow-x-hidden">
+      <div
+        className="fixed max-w-[900px] sm:w-3/4 w-10/12 bg-white z-20 left-0 right-0 mx-auto my-0 top-32  rounded-3xl overflow-y-auto h-3/4 scrollbar-hide overflow-x-hidden"
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className="w-full h-full flex flex-col  items-center px-6">
           <div className="flex justify-between w-full py-6 h3-700-20 text-default">
             <div></div>
@@ -108,7 +111,7 @@ const PostCardModal = ({ closeModal, breadcrumb, page }: IPostCardModal) => {
                           <div
                             id={page?.properties["날짜"]?.id}
                             key={page?.properties["날짜"]?.id}
-                            className="outline-1 outline-zinc-500"
+                            className="outline-1 outline-zinc-500 flex items-center"
                           >
                             {page?.properties["날짜"]?.date?.start || "미정"}
                           </div>,
@@ -119,14 +122,14 @@ const PostCardModal = ({ closeModal, breadcrumb, page }: IPostCardModal) => {
                 }
               })}
             </div>
-            <div className="w-full mt-[45px] h-[340px]">
-              <div className="p-6 rounded-3xl bg-default w-full outline-none b1-400-20 text-sub h-full">
-                {page?.contents.map((content: any) =>
-                  content?.paragraph?.rich_text
-                    ?.map((block: any) => block?.text?.content)
-                    .join("\r\n")
-                )}
-              </div>
+          </div>
+          <div className="w-full my-[45px] h-full">
+            <div className="p-6 rounded-3xl bg-default w-full outline-none b1-400-20 text-sub h-full">
+              {page?.contents.map((content: any) =>
+                content?.paragraph?.rich_text
+                  ?.map((block: any) => block?.text?.content)
+                  .join("\r\n")
+              )}
             </div>
           </div>
         </div>

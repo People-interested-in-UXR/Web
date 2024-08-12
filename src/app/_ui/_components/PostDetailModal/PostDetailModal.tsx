@@ -5,18 +5,18 @@ import { Create } from "./Method";
 import { IDatabase } from "@/app/utils/types/notion/database";
 import { useBodyScrollLock } from "@/app/_hooks/useBodyScrollLock";
 
-interface IWritingModal {
+interface IPostDetailModal {
   mode: "create" | "edit" | "read";
   breadcrumb: string[];
   database: IDatabase;
-  userInfo?: { name: string; value: string };
+  userCookieInfo?: { name: string; value: string };
 }
-const WritingModal = ({
+const PostDetailModal = ({
   mode,
   breadcrumb,
   database,
-  userInfo,
-}: IWritingModal) => {
+  userCookieInfo,
+}: IPostDetailModal) => {
   //* Modal과 관련됨
   const [showModal, setShowModal] = useState(false);
   const { lockScroll, openScroll } = useBodyScrollLock();
@@ -47,7 +47,7 @@ const WritingModal = ({
         showModal={showModal}
         openModal={openModal}
         closeModal={closeModal}
-        userInfo={userInfo}
+        userCookieInfo={userCookieInfo}
       />
     );
   }
@@ -396,4 +396,4 @@ const WritingModal = ({
   // }
 };
 
-export default WritingModal;
+export default PostDetailModal;

@@ -18,7 +18,7 @@ interface ICreate {
   openModal: () => void;
   closeModal: () => void;
   database: IDatabase;
-  userInfo?: {
+  userCookieInfo?: {
     name: string;
     value: string;
   };
@@ -30,7 +30,7 @@ const Create = ({
   openModal,
   closeModal,
   database,
-  userInfo,
+  userCookieInfo,
 }: ICreate) => {
   const [_, pathname] = usePathname().split("/");
   const router = useRouter();
@@ -79,12 +79,15 @@ const Create = ({
       const {
         content: { title, text, date },
       } = json;
+
       const domTitle = document.getElementById("title") as HTMLInputElement;
       domTitle.value = title;
       const domTextarea = document.getElementById(
         "textarea"
       ) as HTMLTextAreaElement;
       domTextarea.value = text;
+      domTextarea.style.height = "100%";
+
       const domDate = document.getElementById("date") as HTMLDataElement;
       domDate.value = date.split("T")[0];
     }
@@ -119,7 +122,7 @@ const Create = ({
 
       <RegisterButton
         onClick={() => {
-          if (!userInfo) return setShowToast(true);
+          if (!userCookieInfo) return setShowToast(true);
           openModal();
         }}
       >
@@ -140,11 +143,12 @@ const Create = ({
           >
             {/* Modal Menu */}
             <div
+              id="modal"
               className="fixed max-w-[900px] sm:w-3/4 w-10/12 bg-white z-20 left-0 right-0 mx-auto my-0 top-32  rounded-3xl overflow-y-auto h-3/4 scrollbar-hide overflow-x-hidden"
               onClick={(event) => event.stopPropagation()}
             >
-              <div className="w-full h-full flex flex-col  items-center px-6">
-                <div className="flex justify-between w-full py-6 h3-700-20 text-default">
+              <div className="sm:px-10 px-4 w-full h-full flex flex-col  items-center relative justify-between">
+                <div className="flex justify-between sm:w-3/4 w-10/12 py-6 h3-700-20 text-default fixed bg-white max-w-[900px] rounded-tr-3xl rounded-tl-3xl px-6 grow-0">
                   <div></div>
                   <div>글 작성하기</div>
                   <Icon
@@ -156,7 +160,7 @@ const Create = ({
                     onClick={closeModal}
                   />
                 </div>
-                <div className="sm:px-10 px-4 py-8 w-full flex flex-col items-start ">
+                <div className=" py-8 w-full flex flex-col items-start grow-0">
                   <div className="b1-500-20 text-muted">
                     {breadcrumb.join(" > ")}
                   </div>
@@ -177,7 +181,7 @@ const Create = ({
                     }
                   />
 
-                  <div className="flex flex-col gap-4 mt-8">
+                  <div className="flex flex-col gap-4 mt-8 grow-0">
                     {database?.props.map((prop, index) => {
                       if (prop.type === "title") return;
                       if (prop.type === "select") {
@@ -297,30 +301,30 @@ const Create = ({
                         ]}
                       /> */}
                   </div>
-                  <div className="w-full mt-[45px] h-[340px]">
-                    <textarea
-                      name=""
-                      id="textarea"
-                      className="p-6 rounded-3xl bg-default w-full outline-none b1-400-20 text-sub h-full"
-                      placeholder="내용을 작성해주세요"
-                      onChange={debouncedOnChange}
-                    />
-                  </div>
-                  <div className="flex justify-center w-full mt-8">
-                    <button
-                      className="disabled:bg-btn-disabled disabled:text-muted rounded-2xl h4-600-18 px-10 py-4 cursor-pointer text-white bg-primary-red"
-                      onClick={handleSubmit}
-                      disabled={
-                        modal?.content?.title?.trim() === "" ||
-                        modal?.content?.text?.trim() === "" ||
-                        modal?.content?.progress?.trim() === "" ||
-                        modal?.content?.category?.trim() === "" ||
-                        modal?.content?.date === undefined
-                      }
-                    >
-                      완료
-                    </button>
-                  </div>
+                </div>
+                <div className="w-full mt-2 h-full grow">
+                  <textarea
+                    name=""
+                    id="textarea"
+                    className="p-6 rounded-3xl bg-default w-full outline-none b1-400-20 text-sub min-h-full "
+                    placeholder="내용을 작성해주세요"
+                    onChange={debouncedOnChange}
+                  />
+                </div>
+                <div className="flex justify-center w-full py-10">
+                  <button
+                    className="disabled:bg-btn-disabled disabled:text-muted rounded-2xl h4-600-18 px-10 py-4 cursor-pointer text-white bg-primary-red"
+                    onClick={handleSubmit}
+                    disabled={
+                      modal?.content?.title?.trim() === "" ||
+                      modal?.content?.text?.trim() === "" ||
+                      modal?.content?.progress?.trim() === "" ||
+                      modal?.content?.category?.trim() === "" ||
+                      modal?.content?.date === undefined
+                    }
+                  >
+                    완료
+                  </button>
                 </div>
               </div>
             </div>

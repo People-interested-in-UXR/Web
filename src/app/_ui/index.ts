@@ -5,7 +5,7 @@ import {
   FixedSection,
   SignUpToast,
   SignUpForm,
-  WritingModal,
+  PostDetailModal,
   Calendar,
 } from "./_components";
 import {
@@ -37,6 +37,6 @@ export {
   ProfileCard,
   Navigation,
   SignUpForm,
-  WritingModal,
+  PostDetailModal,
   Calendar,
 };

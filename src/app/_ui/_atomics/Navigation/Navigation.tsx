@@ -10,6 +10,7 @@ import { createPortal } from "react-dom";
 import { useModalToggle } from "../../hooks";
 import { User } from "@/app/utils/types/user/user";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Icon } from "../Icon";
 
 interface IPIXRHeaderNavList {
   type: "common" | "auth";
@@ -147,7 +148,7 @@ const Navigation = ({ user }: INavigation) => {
                 alt={"user profile iamge"}
                 width={40}
                 height={40}
-                className="rounded-full"
+                className="rounded-full object-cover w-10 h-10"
               />
               <div className="flex gap-2">
                 <div>마이페이지</div>
@@ -236,7 +237,7 @@ const Navigation = ({ user }: INavigation) => {
           >
             {/* Modal Menu */}
             <nav
-              className="fixed min-w-[216px] max-w-[400px] h-full bg-white z-20  right-0"
+              className="fixed min-w-[216px] max-w-[400px] h-full bg-white z-20  right-0 flex flex-col justify-between"
               onClick={(event) => {
                 event.stopPropagation();
                 closeModal();
@@ -279,15 +280,70 @@ const Navigation = ({ user }: INavigation) => {
                 <PIXRHeaderNavList type="common" href="/schedule">
                   {NAV.SCHEDULE}
                 </PIXRHeaderNavList>
-                {/* <PIXRHeaderNavList type="common" href="/meet-up">
+                <PIXRHeaderNavList type="common" href="/meet-up">
                   {NAV.MEETUPS}
                 </PIXRHeaderNavList>
                 <PIXRHeaderNavList type="common" href="/archive">
                   {NAV.ARCHIVE}
-                </PIXRHeaderNavList> */}
+                </PIXRHeaderNavList>
                 <PIXRHeaderNavList type="common" href="/board">
                   {NAV.BOARD}
                 </PIXRHeaderNavList>
+              </ul>
+              <ul className="p-4">
+                <div className="flex gap-6">
+                  <li>
+                    <Link
+                      href={"https://open.kakao.com/o/gVEK8SXc"}
+                      target="_blank"
+                    >
+                      <Icon
+                        width={24}
+                        height={24}
+                        src={`/icon/sns/kakao/kakao_talk.svg`}
+                        alt={"카카오톡 아이콘"}
+                      />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href={"https://discord.gg/RH7p5PbM"} target="_blank">
+                      <Icon
+                        width={24}
+                        height={24}
+                        src={`/icon/sns/discord.svg`}
+                        alt={"디스코드 아이콘"}
+                      />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href={
+                        "https://www.notion.so/pyoux/UX-Research-7e2710f0dd1140fc8680381d139b2fe8"
+                      }
+                      target="_blank"
+                    >
+                      <Icon
+                        width={24}
+                        height={24}
+                        src={`/icon/sns/notion.svg`}
+                        alt={"노션 아이콘"}
+                      />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href={"https://www.linkedin.com/groups/14110093/"}
+                      target="_blank"
+                    >
+                      <Icon
+                        width={24}
+                        height={24}
+                        src={`/icon/sns/linkedIn.svg`}
+                        alt={"링크드인 아이콘"}
+                      />
+                    </Link>
+                  </li>
+                </div>
               </ul>
             </nav>
           </div>,

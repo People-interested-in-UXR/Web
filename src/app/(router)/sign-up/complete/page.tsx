@@ -1,19 +1,12 @@
 import { Container, PIXRFooter, PIXRHeader, Section } from "@/app/_containers";
+import { getUserInfo } from "@/app/_domain/user";
 import { Fireworks, Icon, ProfileCard, SignUpToast } from "@/app/_ui";
 import { User } from "@/app/utils/types/user/user";
 import { cookies } from "next/headers";
 import Link from "next/link";
 
 export default async function Page({}) {
-  const userData: User = await (
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/info`, {
-      method: "GET",
-      cache: "no-cache",
-      headers: {
-        Cookie: `_ui=${cookies().get("_ui")?.value}`,
-      },
-    })
-  ).json();
+  const user = await getUserInfo();
 
   return (
     <Section>
@@ -31,7 +24,7 @@ export default async function Page({}) {
           </div>
         </div>
 
-        <ProfileCard {...userData} />
+        <ProfileCard {...user} />
       </div>
       <div className="sticky w-full h-full bottom-5 mb-[70px]">
         <SignUpToast>

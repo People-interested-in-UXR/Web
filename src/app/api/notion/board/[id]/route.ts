@@ -35,6 +35,7 @@ export async function POST(
     content: { title, progress, date, category, text },
   } = await request.json();
 
+  //* 여기서 notion API를 Cover 추가
   try {
     await notion.pages.create({
       parent: {
