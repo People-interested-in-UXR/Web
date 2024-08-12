@@ -77,6 +77,7 @@ export async function GET(request: Request) {
       "해당 유저가 가입되어 있는지 확인할 때 발생하는 Error 메세지 : ",
       error.message
     );
+
   if (!data) {
     //* 처음 가입할 때(DB에 데이터가 없을 때)
     const { error } = await supabase
