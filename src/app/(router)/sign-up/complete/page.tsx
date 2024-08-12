@@ -1,4 +1,4 @@
-import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
+import { Container, PIXRFooter, PIXRHeader, Section } from "@/app/_containers";
 import { Fireworks, Icon, ProfileCard, SignUpToast } from "@/app/_ui";
 import { User } from "@/app/utils/types/user/user";
 import { cookies } from "next/headers";
@@ -16,9 +16,8 @@ export default async function Page({}) {
   ).json();
 
   return (
-    <Container className="h-full bg-default flex flex-col w-full min-h-screen">
-      <PIXRHeader />
-      <div className="flex items-center flex-col gap-4 my-10 px-4">
+    <Section>
+      <div className="flex items-center flex-col gap-4 my-10 px-4 min-h-calc-header relative h-full">
         <div className="flex flex-col items-center gap-8">
           <Fireworks />
           <div className="flex items-center flex-col gap-4">
@@ -33,7 +32,8 @@ export default async function Page({}) {
         </div>
 
         <ProfileCard {...userData} />
-
+      </div>
+      <div className="sticky w-full h-full bottom-5 mb-[70px]">
         <SignUpToast>
           <div>회원가입이 완료!</div>
           <button className="flex text-btn-default cursor-pointer">
@@ -50,7 +50,6 @@ export default async function Page({}) {
           </button>
         </SignUpToast>
       </div>
-      <PIXRFooter />
-    </Container>
+    </Section>
   );
 }

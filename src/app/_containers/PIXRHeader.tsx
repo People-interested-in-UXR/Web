@@ -1,16 +1,8 @@
+import { getUserInfo } from "../_domain/user";
 import { Header, Logo, Navigation } from "../_ui";
-import { cookies } from "next/headers";
 
 const PIXRHeader = async () => {
-  const user = await (
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/info`, {
-      method: "GET",
-      cache: "default",
-      headers: {
-        Cookie: `_ui=${cookies().get("_ui")?.value}`,
-      },
-    })
-  )?.json();
+  const user = await getUserInfo();
 
   return (
     <Header>

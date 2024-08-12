@@ -109,7 +109,7 @@ const Create = ({
   };
 
   return (
-    <div className="max-w-[640px] w-full fixed sm:bottom-[40px] bottom-4 flex sm:flex-col flex-col-reverse items-center sm:gap-5 gap-4 px-4">
+    <div className="max-w-[640px] w-full sticky sm:bottom-[40px] bottom-4 flex sm:flex-col flex-col-reverse items-center sm:gap-5 gap-4 px-4">
       {/* TODO: 로그인 상태에 따른 메세지 토글 */}
       {showToast && (
         <Toast>

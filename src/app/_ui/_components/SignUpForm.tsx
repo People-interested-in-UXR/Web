@@ -1,19 +1,26 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Icon } from "../_atomics";
 import Image from "next/image";
+import { User } from "@/app/utils/types/user/user";
 
-const SignUpForm = () => {
-  const [profile, setProfile] = useState("");
+interface ISignUpForm {
+  user?: User;
+}
+const SignUpForm = ({ user }: ISignUpForm) => {
+  const [profile, setProfile] = useState(user?.profile || "");
   const [file, setFile] = useState<File>();
-  const [name, setName] = useState("");
-  const [position, setPosition] = useState("");
+  const [name, setName] = useState(user?.name || "");
+  const nameRef = useRef<HTMLInputElement>(null);
+  const [position, setPosition] = useState(user?.position || "");
   const [positionToggle, setPositionToggle] = useState(false);
-  const [introduce, setIntroduce] = useState("");
-  const loginEmail = useSearchParams().get("email");
-  const [email, setEmail] = useState(loginEmail);
-  const [sns, setSns] = useState("");
+  const [introduce, setIntroduce] = useState(user?.introduce || "");
+  const introduceRef = useRef<HTMLTextAreaElement>(null);
+  const [email, setEmail] = useState(user?.secondary_email || "");
+  const emailRef = useRef<HTMLInputElement>(null);
+  const [sns, setSns] = useState(user?.sns || "");
+  const snsRef = useRef<HTMLInputElement>(null);
 
   const router = useRouter();
 
@@ -27,6 +34,28 @@ const SignUpForm = () => {
     "Student",
     "ect",
   ];
+
+  useEffect(() => {
+    if (
+      nameRef.current &&
+      introduceRef.current &&
+      emailRef.current &&
+      snsRef.current
+    ) {
+      nameRef.current.value = user?.name || "";
+      introduceRef.current.value = user?.introduce || "";
+      emailRef.current.value = user?.secondary_email || "";
+      snsRef.current.value = user?.sns || "";
+
+      (async () => {
+        const response = await fetch(profile);
+        const blob = await response.blob();
+        const file = new File([blob], "업로드 이미지", { type: blob.type });
+
+        setFile(file);
+      })();
+    }
+  }, [nameRef, introduceRef, emailRef, snsRef]);
 
   // * Function
   const uploadUserProfile = async (file: File) => {
@@ -45,7 +74,6 @@ const SignUpForm = () => {
     // * 프로필 업데이트
     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/profile`, {
       method: "PATCH",
-      cache: "no-cache",
       headers: {
         "Content-Type": "application/json",
       },
@@ -57,7 +85,6 @@ const SignUpForm = () => {
   const insertUserInfo = async () => {
     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/info`, {
       method: "PATCH",
-      cache: "no-cache",
       headers: {
         "Content-Type": "application/json",
       },
@@ -72,7 +99,7 @@ const SignUpForm = () => {
   };
 
   //* Event
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || !event.target.files[0]) return;
     const file = event.target.files[0];
     setProfile(URL?.createObjectURL(file));
@@ -136,6 +163,7 @@ const SignUpForm = () => {
       <form
         className="flex flex-col w-full px-[84px] gap-6 mt-2"
         onSubmit={async (event) => {
+          //TODO: SeverAction으로 리팩토링
           event.preventDefault();
 
           if (!file) return alert("파일을 업로드해주세요.");
@@ -144,7 +172,11 @@ const SignUpForm = () => {
           await insertUserInfo();
 
           // * Router
-          router.push("/sign-up/complete");
+          //! <주의> 현재 server revalidateTag user-info(/api/user/info에서 실행)를 사용 중
+          //! Front간 데이터 차이가 있어 query를 붙여 강제로 useEffect를 이용해 refresh (구현은 현재 PIXRHeader 쪽에)
+          user?.id
+            ? router.push("/?refresh=true")
+            : router.push("/sign-up/complete");
         }}
       >
         {/* 프로필 사진 */}
@@ -153,13 +185,17 @@ const SignUpForm = () => {
             프로필 사진 <span className="text-primary-red">*</span>
           </div>
           <div
-            className={`${file ? "border-teriary" : "border-secondary"} w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center`}
+            className={`${file || user?.id ? "border-teriary" : "border-secondary"} w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center`}
           >
             <div
-              className={`${file ? "text-default" : "text-muted"} b2-400-16 flex w-[260px]`}
+              className={`${file || user?.id ? "text-default" : "text-muted"} b2-400-16 flex w-[260px]`}
             >
               <p className="truncate">
-                {file ? file.name : "사진을 선택해주세요"}
+                {file
+                  ? file.name
+                  : user?.id
+                    ? "업로드 이미지"
+                    : "사진을 선택해주세요"}
               </p>
             </div>
             <label
@@ -184,10 +220,13 @@ const SignUpForm = () => {
 
           <input
             id={"name"}
+            ref={nameRef}
             type="text"
             className={`${name ? "border-teriary" : "border-secondary"} b2-400-16 w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center h-[58px] outline-none placeholder:text-muted`}
             placeholder="홍길동"
-            onChange={(event) => setName(event.currentTarget.value)}
+            onChange={(event) => {
+              setName(event.currentTarget.value);
+            }}
             maxLength={16}
           />
         </div>
@@ -276,8 +315,9 @@ const SignUpForm = () => {
 
           <textarea
             id={"introduce"}
+            ref={introduceRef}
             className={`${introduce ? "border-teriary" : "border-secondary"} b2-400-16 w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center h-[104px] outline-none resize-none placeholder:text-muted`}
-            placeholder="자신을 제일 잘 나타낼 수 있는 한 줄 소개룰 작성해주세요~"
+            placeholder="자신을 제일 잘 나타낼 수 있는 한 줄 소개를 작성해주세요"
             maxLength={45}
             onChange={(event) => setIntroduce(event.currentTarget.value)}
           />
@@ -307,6 +347,7 @@ const SignUpForm = () => {
             )}
             <input
               id={"email"}
+              ref={emailRef}
               type="email"
               className={`${email ? "border-teriary pl-4" : "border-secondary pl-12"} b2-400-16 w-full border rounded-lg pr-4 py-[11px] bg-white flex justify-between items-center h-[58px] outline-none placeholder:text-muted`}
               placeholder="piiuxr.official@gmail.com"
@@ -332,6 +373,7 @@ const SignUpForm = () => {
               </div>
             )}
             <input
+              ref={snsRef}
               id={"name"}
               type="sns"
               className={`${sns ? "border-teriary pl-4" : "border-secondary pl-12"} b2-400-16 w-full border rounded-lg pr-4 py-[11px] bg-white flex justify-between items-center h-[58px] outline-none placeholder:text-muted`}
@@ -351,7 +393,7 @@ const SignUpForm = () => {
             ![file?.name, name, position, introduce].every((value) => value)
           }
         >
-          등록하기
+          {user?.id ? "수정하기" : "등록하기"}
         </button>
       </form>
     </>

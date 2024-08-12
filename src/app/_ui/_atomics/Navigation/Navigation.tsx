@@ -9,6 +9,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useModalToggle } from "../../hooks";
 import { User } from "@/app/utils/types/user/user";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface IPIXRHeaderNavList {
   type: "common" | "auth";
@@ -52,6 +53,15 @@ interface INavigation {
 const Navigation = ({ user }: INavigation) => {
   const { showModal, openModal, closeModal } = useModalToggle();
   const [showProfile, setShowProfile] = useState(false);
+
+  const searchParams = useSearchParams();
+  const refresh = searchParams.has("refresh");
+  const router = useRouter();
+
+  //* Profile 수정 후 User데이터 최신화
+  useEffect(() => {
+    if (refresh) router.refresh();
+  }, [refresh]);
 
   useEffect(() => {
     const handleResize = (event: UIEvent) => {
@@ -156,7 +166,7 @@ const Navigation = ({ user }: INavigation) => {
         {showProfile && (
           <div
             className="w-[300px]  absolute right-10 bg-white rounded-2xl p-6 top-[100px] animate-fade-down drop-shadow-m z-10"
-            // onMouseLeave={() => setShowProfile(false)}
+            onMouseLeave={() => setShowProfile(false)}
           >
             <div className="border-b border-muted flex gap-4 pb-6">
               <Image
@@ -227,7 +237,10 @@ const Navigation = ({ user }: INavigation) => {
             {/* Modal Menu */}
             <nav
               className="fixed min-w-[216px] max-w-[400px] h-full bg-white z-20  right-0"
-              onClick={(event) => event.stopPropagation()}
+              onClick={(event) => {
+                event.stopPropagation();
+                closeModal();
+              }}
             >
               <ul className="p-4 gap-4 flex flex-col text-sub b2-400-16 ">
                 {user?.id ? (
@@ -242,6 +255,7 @@ const Navigation = ({ user }: INavigation) => {
                         className="rounded-full"
                         width={48}
                         height={48}
+                        onClick={closeModal}
                       />
                     </Link>
                     <PIXRHeaderNavList type="auth" onClick={handleSignOutClick}>

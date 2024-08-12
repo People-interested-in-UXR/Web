@@ -2,6 +2,7 @@ import { createClient } from "@/app/utils/supabase/supabase";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export async function GET(request: NextRequest) {
   const cookie = cookies().get("_ui");
@@ -38,5 +39,7 @@ export async function PATCH(request: Request) {
     .eq("email", email)
     .select();
 
-  return NextResponse.json(`${process.env.NEXT_PUBLIC_BASE_URL}`);
+  revalidateTag("user-info");
+
+  return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`);
 }
