@@ -1,7 +1,8 @@
 import { getBlocks } from "@/app/_domain/blocks";
-
+import { v4 as uuid } from "uuid";
 import { Client } from "@notionhq/client";
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
+import { createClient } from "@/app/utils/supabase/supabase";
 
 export async function GET(
   request: Request,
@@ -30,10 +31,15 @@ export async function POST(
   request: Request,
   { params: { id } }: { params: { id: string } }
 ) {
-  const notion = new Client({ auth: process.env.NOTION_TOKEN });
   const {
-    content: { title, progress, date, category, text },
+    modal: {
+      content: { title, progress, date, category, text, cover },
+    },
   } = await request.json();
+
+  const notion = new Client({ auth: process.env.NOTION_TOKEN });
+
+  //TODO: 여기서 supabase를 이용해 요청하고 public URL을 받아오면 cover로 넘겨주기
 
   //* 여기서 notion API를 Cover 추가
   try {
@@ -41,6 +47,13 @@ export async function POST(
       parent: {
         type: "database_id",
         database_id: id,
+      },
+
+      cover: {
+        type: "external",
+        external: {
+          url: cover,
+        },
       },
       properties: {
         제목: {

@@ -13,6 +13,7 @@ interface IChip {
         date: Date;
         category: string;
         text: string;
+        cover: string;
       };
     }>
   >;

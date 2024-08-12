@@ -98,15 +98,6 @@ const Calendar = ({ pages }: { pages: any }) => {
     }
   }, [setScreenSize]);
 
-  useEffect(() => {
-    if (!window.document) return;
-    const popover = document.querySelector(".fc-popover");
-
-    console.log(popover);
-
-    return () => {};
-  }, []);
-
   return (
     <div className={`${styles.full} w-full max-h-screen h-full z-0 px-48 `}>
       {/* <div className="flex flex-col items-center">

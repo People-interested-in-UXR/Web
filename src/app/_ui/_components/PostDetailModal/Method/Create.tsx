@@ -7,6 +7,7 @@ import {
 } from "@/app/_ui/_atomics";
 import debounce from "@/app/utils/debounce";
 import { IDatabase } from "@/app/utils/types/notion/database";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
 import { ChangeEvent, Fragment, useCallback, useEffect, useState } from "react";
@@ -43,8 +44,10 @@ const Create = ({
       date: new Date(),
       category: "",
       text: "",
+      cover: "",
     },
   });
+  const [file, setFile] = useState<File>();
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
@@ -95,17 +98,48 @@ const Create = ({
 
   useEffect(() => {
     if (!showModal) return;
+
     localStorage.setItem(pathname, JSON.stringify(modal));
   }, [modal, pathname, showModal]);
 
+  //* Submit
   const handleSubmit = async () => {
+    if (!file) return alert("커버를 업로드 해주세요.");
+    const image = new FormData();
+    image.append("cover", file, file?.name);
+
+    const { publicUrl } = await (
+      await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/s3/notion/cover`, {
+        method: "POST",
+        cache: "no-cache",
+        body: image,
+      })
+    ).json();
+
+    setModal((prev) => ({
+      ...prev,
+      content: { ...prev.content, cover: publicUrl },
+    }));
+
     const { ok } = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/board/${database.id}`,
-      { method: "POST", body: JSON.stringify(modal) }
+      { method: "POST", body: JSON.stringify({ modal }) }
     );
 
     if (!ok) return alert("에러가 발생했습니다! 나중에 시도해주세요!");
 
+    setModal({
+      page: pathname,
+      content: {
+        title: "",
+        progress: "",
+        date: new Date(),
+        category: "",
+        text: "",
+        cover: "",
+      },
+    });
+    setFile(undefined);
     closeModal();
     localStorage.removeItem(pathname);
     router.refresh();
@@ -284,6 +318,72 @@ const Create = ({
                         );
                       }
                     })}
+
+                    <Property
+                      propKey={[
+                        <div className="flex gap-2 justify-start items-start">
+                          <Icon
+                            src={"/icon/writingProp/cover.svg"}
+                            alt={"writing property date icon"}
+                            height={24}
+                            width={24}
+                          />
+                          <div>커버 이미지</div>
+                        </div>,
+                      ]}
+                      propValue={[
+                        <div className={""}>
+                          {file ? (
+                            <div className="w-[100px] h-[100px] relative border-primary-red border-[3px] ">
+                              <div className="absolute top-0 left-0 h-6 w-11 text-white bg-primary-red flex justify-center items-center">
+                                커버
+                              </div>
+                              <Image
+                                src={URL.createObjectURL(file)}
+                                className="w-full h-full object-contain p-1"
+                                alt={""}
+                                width={100}
+                                height={100}
+                              />
+                              <Image
+                                className="absolute right-0 top-0"
+                                src={"/icon/common/ic_close.svg"}
+                                alt={""}
+                                width={24}
+                                height={24}
+                                onClick={(event) => {
+                                  event.preventDefault();
+                                  setFile(undefined);
+                                }}
+                              />
+                            </div>
+                          ) : (
+                            <label
+                              htmlFor="photo"
+                              className={"b2-600-16 text-sub cursor-pointer"}
+                            >
+                              + 사진 추가
+                            </label>
+                          )}
+
+                          <input
+                            type="file"
+                            id="photo"
+                            className="hidden"
+                            onChange={(
+                              event: ChangeEvent<HTMLInputElement>
+                            ) => {
+                              if (!event.target.files || !event.target.files[0])
+                                return;
+                              const file = event.target.files[0];
+
+                              setFile(file);
+                            }}
+                          />
+                        </div>,
+                      ]}
+                    />
+
                     {/* <Property
                         propKey={[
                           <Icon

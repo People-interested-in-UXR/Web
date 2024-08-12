@@ -15,9 +15,6 @@ const PostCard = ({
   const [showModal, setShowModal] = useState(false);
   const { lockScroll, openScroll } = useBodyScrollLock();
 
-  // TODO: page?.cover?.external?.url & page?.cover?.file?.url
-  console.log(page?.cover);
-
   const openModal = () => {
     lockScroll();
     setShowModal(true);
@@ -39,18 +36,27 @@ const PostCard = ({
 
   return (
     <div className="bg-muted rounded-3xl shadow-md sm:h-[360px] sm:aspect-[4/3] flex flex-col cursor-pointer">
-      <Image
-        className="h-[252px] w-full rounded-tl-3xl rounded-tr-3xl object-cover"
-        src={
-          page?.cover?.external?.url
-            ? page?.cover?.external?.url
-            : page?.cover?.file?.url || "/bg_sample.jpg"
-        }
-        alt={"card image"}
-        width={480}
-        height={252}
-        onClick={openModal}
-      />
+      {!page?.cover?.external?.url && !page?.cover?.file?.url ? (
+        <div className="flex justify-center items-center w-full h-full rounded-tl-3xl rounded-tr-3xl">
+          <Image
+            className="opacity-40"
+            src={"/logo/PIXR_logo_light.svg"}
+            alt={"card image"}
+            width={149}
+            height={68}
+            onClick={openModal}
+          />
+        </div>
+      ) : (
+        <Image
+          className="h-[252px] w-full rounded-tl-3xl rounded-tr-3xl object-cover"
+          src={page?.cover?.external?.url || page?.cover?.file?.url}
+          alt={"card image"}
+          width={480}
+          height={252}
+          onClick={openModal}
+        />
+      )}
       <div
         className="bg-secondary  rounded-br-3xl rounded-bl-3xl w-full "
         onClick={openModal}

@@ -33,7 +33,7 @@ export default async function Page({}) {
             <Link
               href={`${process.env.NEXT_PUBLIC_BASE_URL}/member?refresh=true`}
             >
-              Members 바로가기
+              맴버 소개 바로가기
             </Link>
             <Icon
               src={"/icon/common/bottom_point_arrows_red.svg"}
