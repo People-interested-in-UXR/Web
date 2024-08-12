@@ -334,16 +334,16 @@ const Create = ({
                       propValue={[
                         <div className={""}>
                           {file ? (
-                            <div className="w-[100px] h-[100px] relative border-primary-red border-[3px] ">
+                            <div className="w-[480px] h-[252px] relative border-primary-red border-[3px] ">
                               <div className="absolute top-0 left-0 h-6 w-11 text-white bg-primary-red flex justify-center items-center">
                                 커버
                               </div>
                               <Image
                                 src={URL.createObjectURL(file)}
-                                className="w-full h-full object-contain p-1"
+                                className="w-full h-full object-cover p-1"
                                 alt={""}
-                                width={100}
-                                height={100}
+                                width={480}
+                                height={252}
                               />
                               <Image
                                 className="absolute right-0 top-0"
