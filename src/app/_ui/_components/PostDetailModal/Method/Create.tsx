@@ -221,7 +221,7 @@ const Create = ({
                       if (prop.type === "select") {
                         if (prop.name === "모임 유형") {
                           return (
-                            <Fragment key={index}>
+                            <Fragment key={index + "categoryKey"}>
                               <Property
                                 propKey={[
                                   <Icon
@@ -236,7 +236,7 @@ const Create = ({
                                 propValue={prop.select.options?.map(
                                   (option) => (
                                     <PropertyChip
-                                      key={option.id}
+                                      key={option.id + "chip_option"}
                                       type={prop.name}
                                       value={option.name}
                                       setModal={setModal}
@@ -321,7 +321,10 @@ const Create = ({
 
                     <Property
                       propKey={[
-                        <div className="flex gap-2 justify-start items-start">
+                        <div
+                          className="flex gap-2 justify-start items-start"
+                          key={"cover_key"}
+                        >
                           <Icon
                             src={"/icon/writingProp/cover.svg"}
                             alt={"writing property date icon"}
@@ -332,7 +335,7 @@ const Create = ({
                         </div>,
                       ]}
                       propValue={[
-                        <div className={""}>
+                        <div className={""} key={"cover_value"}>
                           {file ? (
                             <div className="w-[480px] h-[252px] relative border-primary-red border-[3px] ">
                               <div className="absolute top-0 left-0 h-6 w-11 text-white bg-primary-red flex justify-center items-center">
