@@ -39,7 +39,7 @@ const PostCardModal = ({ closeModal, breadcrumb, page }: IPostCardModal) => {
               {Object.keys(page?.properties).map((propKey: any, index: any) => {
                 if (propKey === "모임 유형") {
                   return (
-                    <>
+                    <div key={page?.id + "categoryKey"}>
                       <Property
                         propKey={[
                           <Icon
@@ -63,12 +63,12 @@ const PostCardModal = ({ closeModal, breadcrumb, page }: IPostCardModal) => {
                           </button>,
                         ]}
                       />
-                    </>
+                    </div>
                   );
                 }
                 if (propKey === "진행 상태") {
                   return (
-                    <>
+                    <div key={page?.id + "progressKey"}>
                       <Property
                         propKey={[
                           <Icon
@@ -90,12 +90,12 @@ const PostCardModal = ({ closeModal, breadcrumb, page }: IPostCardModal) => {
                           </button>,
                         ]}
                       />
-                    </>
+                    </div>
                   );
                 }
                 if (propKey === "날짜") {
                   return (
-                    <>
+                    <div key={page?.id + "dateKey"}>
                       <Property
                         propKey={[
                           <Icon
@@ -117,7 +117,7 @@ const PostCardModal = ({ closeModal, breadcrumb, page }: IPostCardModal) => {
                           </div>,
                         ]}
                       />
-                    </>
+                    </div>
                   );
                 }
               })}
