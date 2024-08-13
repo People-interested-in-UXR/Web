@@ -35,7 +35,7 @@ const SignUpForm = ({ user }: ISignUpForm) => {
     "Developer",
     "Maketer",
     "Student",
-    "ect",
+    "ETC",
   ];
 
   useEffect(() => {

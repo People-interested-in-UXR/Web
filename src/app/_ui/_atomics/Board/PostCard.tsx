@@ -35,16 +35,18 @@ const PostCard = ({
   }, [showModal]);
 
   return (
-    <div className="bg-muted rounded-3xl shadow-md sm:h-[360px] sm:aspect-[4/3] flex flex-col cursor-pointer">
+    <div className="bg-muted rounded-3xl shadow-md sm:h-[360px] sm:aspect-[4/3] flex flex-col cursor-pointer ">
       {!page?.cover?.external?.url && !page?.cover?.file?.url ? (
-        <div className="flex justify-center items-center w-full h-full rounded-tl-3xl rounded-tr-3xl">
+        <div
+          className="flex justify-center items-center w-full rounded-tl-3xl rounded-tr-3xl h-[252px]"
+          onClick={openModal}
+        >
           <Image
             className="opacity-40"
             src={"/logo/PIXR_logo_light.svg"}
             alt={"card image"}
             width={149}
             height={68}
-            onClick={openModal}
           />
         </div>
       ) : (
