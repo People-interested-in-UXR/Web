@@ -38,7 +38,7 @@ export default async function Page({}) {
   ];
 
   return (
-    <section className="flex flex-col items-center my-10 gap-16">
+    <section className="flex flex-col items-center my-10 gap-16 min-h-calc-header">
       <Board
         title={"우리 모임 멤버"}
         description={`우리 모임과 함께하는 사람들은 어떤 사람들 일까요?

@@ -9,9 +9,19 @@ const nextConfig = {
   },
   images: {
     remotePatterns: [
+      // Supabase Images(Profile)
       {
         protocol: "https",
         hostname: "ufrjplzdvmnqkncmrifp.supabase.co",
+      },
+      // Notion Images(PostCard Cover Image)
+      {
+        protocol: "https",
+        hostname: "www.notion.so",
+      },
+      {
+        protocol: "https",
+        hostname: "prod-files-secure.s3.us-west-2.amazonaws.com",
       },
     ],
   },

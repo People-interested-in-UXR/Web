@@ -38,6 +38,7 @@ const Read = ({
       date: new Date(),
       category: "",
       text: "",
+      cover: "",
     },
   });
 

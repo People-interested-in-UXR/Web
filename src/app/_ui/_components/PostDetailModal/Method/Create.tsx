@@ -7,6 +7,7 @@ import {
 } from "@/app/_ui/_atomics";
 import debounce from "@/app/utils/debounce";
 import { IDatabase } from "@/app/utils/types/notion/database";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
 import { ChangeEvent, Fragment, useCallback, useEffect, useState } from "react";
@@ -18,7 +19,7 @@ interface ICreate {
   openModal: () => void;
   closeModal: () => void;
   database: IDatabase;
-  userInfo?: {
+  userCookieInfo?: {
     name: string;
     value: string;
   };
@@ -30,7 +31,7 @@ const Create = ({
   openModal,
   closeModal,
   database,
-  userInfo,
+  userCookieInfo,
 }: ICreate) => {
   const [_, pathname] = usePathname().split("/");
   const router = useRouter();
@@ -43,8 +44,10 @@ const Create = ({
       date: new Date(),
       category: "",
       text: "",
+      cover: "",
     },
   });
+  const [file, setFile] = useState<File>();
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
@@ -79,12 +82,15 @@ const Create = ({
       const {
         content: { title, text, date },
       } = json;
+
       const domTitle = document.getElementById("title") as HTMLInputElement;
       domTitle.value = title;
       const domTextarea = document.getElementById(
         "textarea"
       ) as HTMLTextAreaElement;
       domTextarea.value = text;
+      domTextarea.style.height = "100%";
+
       const domDate = document.getElementById("date") as HTMLDataElement;
       domDate.value = date.split("T")[0];
     }
@@ -92,17 +98,48 @@ const Create = ({
 
   useEffect(() => {
     if (!showModal) return;
+
     localStorage.setItem(pathname, JSON.stringify(modal));
   }, [modal, pathname, showModal]);
 
+  //* Submit
   const handleSubmit = async () => {
+    if (!file) return alert("커버를 업로드 해주세요.");
+    const image = new FormData();
+    image.append("cover", file, file?.name);
+
+    const { publicUrl } = await (
+      await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/s3/notion/cover`, {
+        method: "POST",
+        cache: "no-cache",
+        body: image,
+      })
+    ).json();
+
+    setModal((prev) => ({
+      ...prev,
+      content: { ...prev.content, cover: publicUrl },
+    }));
+
     const { ok } = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/board/${database.id}`,
-      { method: "POST", body: JSON.stringify(modal) }
+      { method: "POST", body: JSON.stringify({ modal }) }
     );
 
     if (!ok) return alert("에러가 발생했습니다! 나중에 시도해주세요!");
 
+    setModal({
+      page: pathname,
+      content: {
+        title: "",
+        progress: "",
+        date: new Date(),
+        category: "",
+        text: "",
+        cover: "",
+      },
+    });
+    setFile(undefined);
     closeModal();
     localStorage.removeItem(pathname);
     router.refresh();
@@ -119,7 +156,7 @@ const Create = ({
 
       <RegisterButton
         onClick={() => {
-          if (!userInfo) return setShowToast(true);
+          if (!userCookieInfo) return setShowToast(true);
           openModal();
         }}
       >
@@ -140,11 +177,12 @@ const Create = ({
           >
             {/* Modal Menu */}
             <div
+              id="modal"
               className="fixed max-w-[900px] sm:w-3/4 w-10/12 bg-white z-20 left-0 right-0 mx-auto my-0 top-32  rounded-3xl overflow-y-auto h-3/4 scrollbar-hide overflow-x-hidden"
               onClick={(event) => event.stopPropagation()}
             >
-              <div className="w-full h-full flex flex-col  items-center px-6">
-                <div className="flex justify-between w-full py-6 h3-700-20 text-default">
+              <div className="sm:px-10 px-4 w-full h-full flex flex-col  items-center relative justify-between">
+                <div className="flex justify-between sm:w-3/4 w-10/12 py-6 h3-700-20 text-default fixed bg-white max-w-[900px] rounded-tr-3xl rounded-tl-3xl px-6 grow-0">
                   <div></div>
                   <div>글 작성하기</div>
                   <Icon
@@ -156,7 +194,7 @@ const Create = ({
                     onClick={closeModal}
                   />
                 </div>
-                <div className="sm:px-10 px-4 py-8 w-full flex flex-col items-start ">
+                <div className=" py-8 w-full flex flex-col items-start grow-0">
                   <div className="b1-500-20 text-muted">
                     {breadcrumb.join(" > ")}
                   </div>
@@ -177,13 +215,13 @@ const Create = ({
                     }
                   />
 
-                  <div className="flex flex-col gap-4 mt-8">
+                  <div className="flex flex-col gap-4 mt-8 grow-0">
                     {database?.props.map((prop, index) => {
                       if (prop.type === "title") return;
                       if (prop.type === "select") {
                         if (prop.name === "모임 유형") {
                           return (
-                            <Fragment key={index}>
+                            <Fragment key={index + "categoryKey"}>
                               <Property
                                 propKey={[
                                   <Icon
@@ -198,7 +236,7 @@ const Create = ({
                                 propValue={prop.select.options?.map(
                                   (option) => (
                                     <PropertyChip
-                                      key={option.id}
+                                      key={option.id + "chip_option"}
                                       type={prop.name}
                                       value={option.name}
                                       setModal={setModal}
@@ -280,6 +318,75 @@ const Create = ({
                         );
                       }
                     })}
+
+                    <Property
+                      propKey={[
+                        <div
+                          className="flex gap-2 justify-start items-start"
+                          key={"cover_key"}
+                        >
+                          <Icon
+                            src={"/icon/writingProp/cover.svg"}
+                            alt={"writing property date icon"}
+                            height={24}
+                            width={24}
+                          />
+                          <div>커버 이미지</div>
+                        </div>,
+                      ]}
+                      propValue={[
+                        <div className={""} key={"cover_value"}>
+                          {file ? (
+                            <div className="w-[480px] h-[252px] relative border-primary-red border-[3px] ">
+                              <div className="absolute top-0 left-0 h-6 w-11 text-white bg-primary-red flex justify-center items-center">
+                                커버
+                              </div>
+                              <Image
+                                src={URL.createObjectURL(file)}
+                                className="w-full h-full object-cover p-1"
+                                alt={""}
+                                width={480}
+                                height={252}
+                              />
+                              <Image
+                                className="absolute right-0 top-0"
+                                src={"/icon/common/ic_close.svg"}
+                                alt={""}
+                                width={24}
+                                height={24}
+                                onClick={(event) => {
+                                  event.preventDefault();
+                                  setFile(undefined);
+                                }}
+                              />
+                            </div>
+                          ) : (
+                            <label
+                              htmlFor="photo"
+                              className={"b2-600-16 text-sub cursor-pointer"}
+                            >
+                              + 사진 추가
+                            </label>
+                          )}
+
+                          <input
+                            type="file"
+                            id="photo"
+                            className="hidden"
+                            onChange={(
+                              event: ChangeEvent<HTMLInputElement>
+                            ) => {
+                              if (!event.target.files || !event.target.files[0])
+                                return;
+                              const file = event.target.files[0];
+
+                              setFile(file);
+                            }}
+                          />
+                        </div>,
+                      ]}
+                    />
+
                     {/* <Property
                         propKey={[
                           <Icon
@@ -297,30 +404,30 @@ const Create = ({
                         ]}
                       /> */}
                   </div>
-                  <div className="w-full mt-[45px] h-[340px]">
-                    <textarea
-                      name=""
-                      id="textarea"
-                      className="p-6 rounded-3xl bg-default w-full outline-none b1-400-20 text-sub h-full"
-                      placeholder="내용을 작성해주세요"
-                      onChange={debouncedOnChange}
-                    />
-                  </div>
-                  <div className="flex justify-center w-full mt-8">
-                    <button
-                      className="disabled:bg-btn-disabled disabled:text-muted rounded-2xl h4-600-18 px-10 py-4 cursor-pointer text-white bg-primary-red"
-                      onClick={handleSubmit}
-                      disabled={
-                        modal?.content?.title?.trim() === "" ||
-                        modal?.content?.text?.trim() === "" ||
-                        modal?.content?.progress?.trim() === "" ||
-                        modal?.content?.category?.trim() === "" ||
-                        modal?.content?.date === undefined
-                      }
-                    >
-                      완료
-                    </button>
-                  </div>
+                </div>
+                <div className="w-full mt-2 h-full grow">
+                  <textarea
+                    name=""
+                    id="textarea"
+                    className="p-6 rounded-3xl bg-default w-full outline-none b1-400-20 text-sub min-h-full "
+                    placeholder="내용을 작성해주세요"
+                    onChange={debouncedOnChange}
+                  />
+                </div>
+                <div className="flex justify-center w-full py-10">
+                  <button
+                    className="disabled:bg-btn-disabled disabled:text-muted rounded-2xl h4-600-18 px-10 py-4 cursor-pointer text-white bg-primary-red"
+                    onClick={handleSubmit}
+                    disabled={
+                      modal?.content?.title?.trim() === "" ||
+                      modal?.content?.text?.trim() === "" ||
+                      modal?.content?.progress?.trim() === "" ||
+                      modal?.content?.category?.trim() === "" ||
+                      modal?.content?.date === undefined
+                    }
+                  >
+                    완료
+                  </button>
                 </div>
               </div>
             </div>

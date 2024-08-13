@@ -6,13 +6,15 @@ interface IProperty {
 }
 const Property = ({ propKey, propValue }: IProperty) => {
   return (
-    <div className="grid sm:gap-16 gap-2 grid-cols-2 items-center max-sm:grid-cols-1 max-sm:grid-rows-2">
-      <div className="flex gap-2 px-4 py-2 b1-500-20 text-muted">
+    <div className="flex flex-wrap w-full">
+      <div className="flex gap-2 px-4 py-2 b1-500-20 text-muted w-[180px] flex-wrap">
         {propKey.map((key, index) => (
-          <Fragment key={index}>{key}</Fragment>
+          <div className="flex flex-wrap" key={index}>
+            {key}
+          </div>
         ))}
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 col-span-2 flex-wrap xl:pl-16 pl-4 items-center">
         {typeof propValue === "string" ? (
           <div className="text-muted">{propValue}</div>
         ) : (
