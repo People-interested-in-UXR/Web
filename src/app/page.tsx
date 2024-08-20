@@ -94,8 +94,8 @@ export default async function Home() {
               </ul>
             </div>
             {isLogin ? (
-              <Link href={"/archive"}>
-                <Button>아카이브 보러가기</Button>
+              <Link href={"/member"}>
+                <Button>멤버 소개</Button>
               </Link>
             ) : (
               <Link href={"/sign-in"}>
