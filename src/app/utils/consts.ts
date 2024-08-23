@@ -50,6 +50,7 @@ export const NOTION: {
     ARCHIVE: string;
     MEET_UP: string;
     MEMBER: string;
+    SCHEDULE: string;
   };
   KEY: {
     BOARD: "board";
@@ -69,6 +70,7 @@ export const NOTION: {
     ARCHIVE: "adeb1a098e544852ad96e6d7380a98f4",
     MEET_UP: "d45fa5365c054b549d0a56b9a4ed5070",
     MEMBER: "d45fa5365c054b549d0a56b9a4ed5070",
+    SCHEDULE: "2a3a7fdc75d64c4d8251c09354cd572d",
   },
   KEY: {
     BOARD: "board",

@@ -8,14 +8,14 @@ export async function GET(
 ) {
   const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
-  const data = await notion.databases.query({
+  const { results } = await notion.databases.query({
     database_id: id,
   });
 
   //* Block Contents 추츨
 
-  const pages = Array.from({ length: data?.results.length }).map((_, i) => {
-    const result = data?.results[i] as PageObjectResponse;
+  const pages = Array.from({ length: results.length }).map((_, i) => {
+    const result = results[i] as PageObjectResponse;
     return result.properties;
   });
 

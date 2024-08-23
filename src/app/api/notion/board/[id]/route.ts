@@ -1,9 +1,8 @@
 import { getBlocks } from "@/app/_domain/blocks";
-import { v4 as uuid } from "uuid";
 import { Client } from "@notionhq/client";
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
-import { createClient } from "@/app/utils/supabase/supabase";
 
+//? MEMO: 새로운 명세 기반으로 수정할 것
 export async function GET(
   request: Request,
   { params: { id } }: { params: { id: string } }
