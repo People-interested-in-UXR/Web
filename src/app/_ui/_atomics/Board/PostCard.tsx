@@ -37,14 +37,11 @@ const PostCard = ({
     }
   }, [showModal]);
 
-  console.log(loggedInUser?.email);
-  console.log(loggedInUser?.email === page?.properties["작성자 이메일"]?.email);
-
   return (
-    <div className="bg-muted rounded-3xl shadow-md sm:h-[360px] sm:aspect-[4/3] flex flex-col cursor-pointer ">
+    <div className="bg-muted rounded-3xl shadow-md   flex flex-col cursor-pointer sm:w-[480px] w-[288px]">
       {!page?.cover?.external?.url && !page?.cover?.file?.url ? (
         <div
-          className="flex justify-center items-center w-full rounded-tl-3xl rounded-tr-3xl h-[252px] relative"
+          className="flex justify-center items-center w-full rounded-tl-3xl rounded-tr-3xl h-full relative"
           onClick={openModal}
         >
           <Image
@@ -63,7 +60,7 @@ const PostCard = ({
       ) : (
         <div className="rounded-tl-3xl rounded-tr-3xl relative">
           <Image
-            className="h-[252px] rounded-tl-3xl rounded-tr-3xl object-cover"
+            className=" rounded-tl-3xl rounded-tr-3xl object-cover overflow-hidden"
             src={page?.cover?.external?.url || page?.cover?.file?.url}
             alt={"card cover image"}
             width={480}
@@ -78,10 +75,10 @@ const PostCard = ({
         </div>
       )}
       <div
-        className="bg-secondary  rounded-br-3xl rounded-bl-3xl  w-[480px] overflow-hidden"
+        className="bg-secondary  rounded-br-3xl rounded-bl-3xl  w-full overflow-hidden"
         onClick={openModal}
       >
-        <div className="h-[108px] p-6 flex flex-col gap-2 justify-center text-pretty break-words">
+        <div className="sm:h-[108px] h-20 p-6 flex flex-col gap-2 justify-center text-pretty break-words">
           <div className="flex justify-between gap-2 items-center">
             <h2 className="sm:h3-700-20 h4-700-16 text-title text-pretty break-words w-full line-clamp-1">
               {page?.properties?.["제목"]
