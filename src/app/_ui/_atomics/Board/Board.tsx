@@ -81,11 +81,13 @@ const Board = <T extends {}>({
         />
       )}
       {database?.pages && (
-        <div className="w-full flex flex-col items-center">
-          <div className="b2-600-16 sm:h3-700-20 text-primary-red flex items-center justify-end mb-8 gap-4 w-full mt-12 ">
-            <p>내 게시글</p>
-            <ToggleButton isToggled={isMyPostCard} toggle={toggle} />
-          </div>
+        <div className="w-full flex flex-col items-center px-4">
+          {loggedInUser && (
+            <div className="b2-600-16 sm:h3-700-20 text-primary-red flex items-center justify-end mb-8 gap-4 w-full">
+              <p>내 게시글</p>
+              <ToggleButton isToggled={isMyPostCard} toggle={toggle} />
+            </div>
+          )}
 
           <PostCardList
             database={database}

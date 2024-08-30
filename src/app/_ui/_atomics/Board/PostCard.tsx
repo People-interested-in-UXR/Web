@@ -38,10 +38,10 @@ const PostCard = ({
   }, [showModal]);
 
   return (
-    <div className="bg-muted rounded-3xl shadow-md   flex flex-col cursor-pointer sm:w-[480px] w-[288px]">
+    <div className="bg-muted rounded-3xl shadow-md flex flex-col cursor-pointer sm:w-[480px] w-[288px]">
       {!page?.cover?.external?.url && !page?.cover?.file?.url ? (
         <div
-          className="flex justify-center items-center w-full rounded-tl-3xl rounded-tr-3xl h-full relative"
+          className="flex justify-center items-center w-full rounded-tl-3xl rounded-tr-3xl sm:h-[252px] h-[136px] relative"
           onClick={openModal}
         >
           <Image
@@ -58,13 +58,12 @@ const PostCard = ({
           )}
         </div>
       ) : (
-        <div className="rounded-tl-3xl rounded-tr-3xl relative">
+        <div className="rounded-tl-3xl rounded-tr-3xl relative sm:h-[252px] h-[136px] overflow-hidden">
           <Image
-            className=" rounded-tl-3xl rounded-tr-3xl object-cover overflow-hidden"
+            className=" rounded-tl-3xl rounded-tr-3xl object-cover"
             src={page?.cover?.external?.url || page?.cover?.file?.url}
             alt={"card cover image"}
-            width={480}
-            height={252}
+            fill
             onClick={openModal}
           />
           {loggedInUser?.email === page?.properties["작성자 이메일"]?.email && (
@@ -78,7 +77,7 @@ const PostCard = ({
         className="bg-secondary  rounded-br-3xl rounded-bl-3xl  w-full overflow-hidden"
         onClick={openModal}
       >
-        <div className="sm:h-[108px] h-20 p-6 flex flex-col gap-2 justify-center text-pretty break-words">
+        <div className="sm:h-[108px] h-20 sm:p-6 p-4 flex flex-col gap-2 justify-center text-pretty break-words">
           <div className="flex justify-between gap-2 items-center">
             <h2 className="sm:h3-700-20 h4-700-16 text-title text-pretty break-words w-full line-clamp-1">
               {page?.properties?.["제목"]

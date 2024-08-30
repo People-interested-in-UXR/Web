@@ -5,7 +5,7 @@ interface ICardContainer
 
 const CardContainer = ({ children }: ICardContainer) => {
   return (
-    <div className="grid 2xl:grid-cols-3 gap-y-16 gap-x-6 lg:grid-cols-2  md:grid-cols-1 justify-center max-lg:gap-4">
+    <div className="grid 2xl:grid-cols-3 gap-y-20 gap-x-20 lg:grid-cols-2  md:grid-cols-1 justify-center max-lg:gap-4">
       {children}
     </div>
   );
