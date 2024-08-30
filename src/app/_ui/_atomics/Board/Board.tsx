@@ -1,8 +1,8 @@
 "use client";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 
 import { Description } from "../Description";
-import { ProfileCard } from "../ProfileCard";
+
 import { User } from "@/app/utils/types/user/user";
 import { Toast } from "../Toast";
 import { TOAST, ToastMessageType } from "@/app/utils/consts";
@@ -11,6 +11,7 @@ import ChipContainer from "./ChipContainer";
 import CardContainer from "./CardContainer";
 import PostCardList from "./PostCardList";
 import ProfileCardList from "./ProfileCardList";
+import { useSearchParams } from "next/navigation";
 
 export interface IChip<K> {
   category: K;
@@ -33,7 +34,10 @@ const Board = <T extends {}>({
   users,
   database,
 }: IBoard<T | "전체">) => {
-  const [selectedChip, setSelectedChip] = useState<T | "전체">("전체");
+  const query: T | "전체" =
+    (useSearchParams().get("chip") as T | "전체") || "전체";
+
+  const [selectedChip, setSelectedChip] = useState<T | "전체">(query);
   const [toastMessage, setToastMessage] = useToastMessage<ToastMessageType>("");
 
   // cover는 type을 넣으면 됨 cover[cover.type]

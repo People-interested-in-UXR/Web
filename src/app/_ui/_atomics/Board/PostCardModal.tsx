@@ -32,12 +32,14 @@ const PostCardModal = ({ closeModal, breadcrumb, page }: IPostCardModal) => {
           <div className="sm:px-10 px-4 py-8 w-full flex flex-col items-start ">
             <div className="b1-500-20 text-muted">{breadcrumb.join(" > ")}</div>
             <h1 className="mt-[45px] h0-700-40 placeholder:text-muted text-title outline-1 outline-zinc-500 w-full">
-              {page?.properties["제목"]?.title[0]?.plain_text}
+              {page?.properties?.["제목"]
+                ? page?.properties?.["제목"]?.title[0]?.plain_text
+                : page?.properties?.["주제"]?.title[0]?.plain_text}
             </h1>
 
             <div className="flex flex-col gap-4 mt-8">
               {Object.keys(page?.properties).map((propKey: any, index: any) => {
-                if (propKey === "모임 유형") {
+                if (propKey === "모임유형") {
                   return (
                     <div key={page?.id + "categoryKey"}>
                       <Property
@@ -55,10 +57,10 @@ const PostCardModal = ({ closeModal, breadcrumb, page }: IPostCardModal) => {
                         ]}
                         propValue={[
                           <button
-                            key={page?.properties["모임 유형"]?.id + "category"}
+                            key={page?.properties["모임유형"]?.id + "category"}
                             className={`${"bg-icon-default text-accent "} px-2 py-1 sm:b2-600-16 b3-600-14 flex items-center justify-center rounded-lg border-2 border-transparent`}
                           >
-                            {page?.properties["모임 유형"]?.select?.name ||
+                            {page?.properties["모임유형"]?.select?.name ||
                               "없음"}
                           </button>,
                         ]}
@@ -66,7 +68,7 @@ const PostCardModal = ({ closeModal, breadcrumb, page }: IPostCardModal) => {
                     </div>
                   );
                 }
-                if (propKey === "진행 상태") {
+                if (propKey === "진행여부") {
                   return (
                     <div key={page?.id + "progressKey"}>
                       <Property
@@ -82,10 +84,11 @@ const PostCardModal = ({ closeModal, breadcrumb, page }: IPostCardModal) => {
                         ]}
                         propValue={[
                           <button
-                            key={page?.properties["진행 상태"].id + "progress"}
+                            key={page?.properties["진행여부"].id + "progress"}
                             className={`${"bg-icon-default text-accent "} px-2 py-1 sm:b2-600-16 b3-600-14 flex items-center justify-center rounded-lg border-2 border-transparent`}
                           >
-                            {page?.properties["진행 상태"]?.select?.name ||
+                            {page?.properties?.["진행여부"]?.select?.name ||
+                              page?.properties?.["진행여부"]?.status?.name ||
                               "대기"}
                           </button>,
                         ]}
@@ -123,8 +126,8 @@ const PostCardModal = ({ closeModal, breadcrumb, page }: IPostCardModal) => {
               })}
             </div>
           </div>
-          <div className="w-full my-[45px] h-full">
-            <div className="p-6 rounded-3xl bg-default w-full outline-none b1-400-20 text-sub h-full">
+          <div className="w-full my-[45px] h-full ">
+            <div className="p-6 rounded-3xl bg-default w-full outline-none b1-400-20 text-sub h-full text-pretty break-words">
               {page?.contents.map((content: any) =>
                 content?.paragraph?.rich_text
                   ?.map((block: any) => block?.text?.content)

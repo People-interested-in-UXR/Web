@@ -20,7 +20,7 @@ interface IChip {
 }
 const PropertyChip = ({ value, type, active, setModal }: IChip) => {
   const handleModal = () => {
-    if (type === "모임 유형") {
+    if (type === "모임유형") {
       setModal((prev) => ({
         ...prev,
         content: {
@@ -31,7 +31,7 @@ const PropertyChip = ({ value, type, active, setModal }: IChip) => {
       return;
     }
 
-    if (type === "진행 상태") {
+    if (type === "진행여부") {
       setModal((prev) => ({
         ...prev,
         content: {
@@ -53,7 +53,7 @@ const PropertyChip = ({ value, type, active, setModal }: IChip) => {
       return;
     }
 
-    if (type === "제목") {
+    if (type === "제목" || type === "주제") {
       setModal((prev) => ({
         ...prev,
         content: {

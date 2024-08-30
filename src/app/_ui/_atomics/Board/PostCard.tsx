@@ -60,21 +60,25 @@ const PostCard = ({
         />
       )}
       <div
-        className="bg-secondary  rounded-br-3xl rounded-bl-3xl w-full "
+        className="bg-secondary  rounded-br-3xl rounded-bl-3xl w-full sm:w-[480px] overflow-hidden"
         onClick={openModal}
       >
-        <div className="h-[108px] p-6 flex flex-col gap-2 justify-center">
-          <div className="flex justify-between">
-            <h2 className="sm:h3-700-20 h4-700-16 text-title">
-              {page?.properties["제목"]?.title[0]?.plain_text}
+        <div className="h-[108px] p-6 flex flex-col gap-2 justify-center text-pretty break-words">
+          <div className="flex justify-between gap-2 items-center">
+            <h2 className="sm:h3-700-20 h4-700-16 text-title text-pretty break-words w-full line-clamp-1">
+              {page?.properties?.["제목"]
+                ? page?.properties?.["제목"]?.title[0]?.plain_text
+                : page?.properties?.["주제"]?.title[0]?.plain_text}
             </h2>
-            <div className="sm:b2-600-16 b1-500-12 text-sub">
-              {page?.properties["모임 유형"]?.select?.name ?? "모임 유형"} ·{" "}
-              {page?.properties["진행 상태"]?.select?.name ?? "진행 상태"}
+            <div className="sm:b2-600-16 b1-500-12 text-sub min-w-[120px] flex justify-end ">
+              {page?.properties?.["모임유형"]?.select?.name || "모임유형"} ·{" "}
+              {page?.properties?.["진행여부"]?.select?.name ||
+                page?.properties?.["진행여부"]?.status?.name ||
+                "진행여부"}
             </div>
           </div>
-          <p className="text-sub sm:b2-400-16 b1-400-12 text-ellipsis line-clamp-1">
-            {page?.contents.map((content: any) =>
+          <p className="text-sub sm:b2-400-16 b1-400-12 text-pretty break-words text-clip overflow-hidden">
+            {page?.contents?.map((content: any) =>
               content?.paragraph?.rich_text
                 ?.map((block: any) => block?.text?.content)
                 .join(" ")

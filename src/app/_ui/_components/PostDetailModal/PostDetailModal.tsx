@@ -148,7 +148,7 @@ const PostDetailModal = ({
   //                           width={24}
   //                           key={1}
   //                         />,
-  //                         <div key={2}>모임 유형</div>,
+  //                         <div key={2}>모임유형</div>,
   //                       ]}
   //                       propValue={[
   //                         <PropertyChip
@@ -182,7 +182,7 @@ const PostDetailModal = ({
   //                           width={24}
   //                           key={1}
   //                         />,
-  //                         <div key={2}>진행 상태</div>,
+  //                         <div key={2}>진행여부</div>,
   //                       ]}
   //                       propValue={[
   //                         <PropertyChip
@@ -320,7 +320,7 @@ const PostDetailModal = ({
   //                           width={24}
   //                           key={1}
   //                         />,
-  //                         <div key={2}>모임 유형</div>,
+  //                         <div key={2}>모임유형</div>,
   //                       ]}
   //                       propValue={[
   //                         <PropertyChip
@@ -354,7 +354,7 @@ const PostDetailModal = ({
   //                           width={24}
   //                           key={1}
   //                         />,
-  //                         <div key={2}>진행 상태</div>,
+  //                         <div key={2}>진행여부</div>,
   //                       ]}
   //                       propValue={[
   //                         <PropertyChip

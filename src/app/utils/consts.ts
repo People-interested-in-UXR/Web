@@ -44,12 +44,11 @@ export type ToastMessageType = "email" | "sns" | "";
 // TODO: Record<string, string> 타입으로 변경
 export type Chips = "전체";
 
-export const NOTION: {
+interface INotion {
   DATABASE_ID: {
     BOARD: string;
     ARCHIVE: string;
     MEET_UP: string;
-    MEMBER: string;
     SCHEDULE: string;
   };
   KEY: {
@@ -64,12 +63,13 @@ export const NOTION: {
     MEET_UP: "모임 일정";
     MEMBER: "맴버 소개";
   };
-} = {
+}
+
+export const NOTION: INotion = {
   DATABASE_ID: {
     BOARD: "d45fa5365c054b549d0a56b9a4ed5070",
-    ARCHIVE: "adeb1a098e544852ad96e6d7380a98f4",
-    MEET_UP: "d45fa5365c054b549d0a56b9a4ed5070",
-    MEMBER: "d45fa5365c054b549d0a56b9a4ed5070",
+    ARCHIVE: "2a3a7fdc75d64c4d8251c09354cd572d",
+    MEET_UP: "2a3a7fdc75d64c4d8251c09354cd572d",
     SCHEDULE: "2a3a7fdc75d64c4d8251c09354cd572d",
   },
   KEY: {

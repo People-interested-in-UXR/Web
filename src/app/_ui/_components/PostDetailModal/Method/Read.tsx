@@ -168,7 +168,7 @@ const Read = ({
                     {database?.props.map((prop, index) => {
                       if (prop.type === "title") return;
                       if (prop.type === "select") {
-                        if (prop.name === "모임 유형") {
+                        if (prop.name === "모임유형") {
                           return (
                             <Fragment key={index}>
                               <Property
@@ -199,7 +199,7 @@ const Read = ({
                             </Fragment>
                           );
                         }
-                        if (prop.name === "진행 상태") {
+                        if (prop.name === "진행여부") {
                           return (
                             <Fragment key={index}>
                               <Property

@@ -1,56 +1,32 @@
-import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
+import { getNotionData } from "@/app/_domain/databases";
 import { Board } from "@/app/_ui/_atomics/Board";
+import { NOTION } from "@/app/utils/consts";
 
-export default function Page({}) {
-  const sample = [
-    {
-      title: "게시글 제목",
-      author: "작성자",
-      category: "Article",
-      description:
-        "본문 내용 미리보기는 한 줄까지만 보여주기. 나머지는 말줌임표로 처리하기",
-    },
-    {
-      title: "게시글 제목",
-      author: "작성자",
-      category: "Article",
-      description:
-        "본문 내용 미리보기는 한 줄까지만 보여주기. 나머지는 말줌임표로 처리하기",
-    },
-    {
-      title: "게시글 제목",
-      author: "작성자",
-      category: "Article",
-      description:
-        "본문 내용 미리보기는 한 줄까지만 보여주기. 나머지는 말줌임표로 처리하기",
-    },
-    {
-      title: "게시글 제목",
-      author: "작성자",
-      category: "Article",
-      description:
-        "본문 내용 미리보기는 한 줄까지만 보여주기. 나머지는 말줌임표로 처리하기",
-    },
-    {
-      title: "게시글 제목",
-      author: "작성자",
-      category: "Article",
-      description:
-        "본문 내용 미리보기는 한 줄까지만 보여주기. 나머지는 말줌임표로 처리하기",
-    },
+export default async function Page({}) {
+  const id = NOTION.DATABASE_ID.MEET_UP;
+  const meetUpData = await getNotionData(id, NOTION.KEY.MEET_UP);
+
+  const [offline, conferences] = [
+    meetUpData.pages.filter(
+      (page) => page?.properties?.["모임유형"]?.select?.name === "오프라인"
+    ),
+    meetUpData.pages.filter(
+      (page) => page?.properties?.["모임유형"]?.select?.name === "컨퍼런스"
+    ),
   ];
+
   return (
     <section className="flex flex-col items-center my-10 gap-16 h-full min-h-calc-header">
       <Board
         title="오프라인 모임"
         description="우리 모임에서 진행한 다양한 오프라인 모임 / 행사에 대한 스케치에요. 함께 참여해요."
-        database={undefined}
+        database={{ pages: offline }}
         breadcrumb={[]}
       />
       <Board
         title="컨퍼런스"
         description="우리 모임에서 진행한 다양한 오프라인 모임 / 행사에 대한 스케치에요. 함께 참여해요."
-        database={undefined}
+        database={{ pages: conferences }}
         breadcrumb={[]}
       />
     </section>

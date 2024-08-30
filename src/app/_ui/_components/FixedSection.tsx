@@ -139,7 +139,7 @@ export default function FixedSection({ breadcrumb }: IFixedSection) {
                           width={24}
                           key={1}
                         />,
-                        <div key={2}>모임 유형</div>,
+                        <div key={2}>모임유형</div>,
                       ]}
                       propValue={[
                         <Chip value={"chips"} active={true} key={1} />,
@@ -157,7 +157,7 @@ export default function FixedSection({ breadcrumb }: IFixedSection) {
                           width={24}
                           key={1}
                         />,
-                        <div key={2}>진행 상태</div>,
+                        <div key={2}>진행여부</div>,
                       ]}
                       propValue={[
                         <Chip value={"진행예정"} active={false} key={1} />,

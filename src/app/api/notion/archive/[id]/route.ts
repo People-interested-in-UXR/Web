@@ -57,12 +57,12 @@ export async function POST(
             start: date.split("T")[0],
           },
         },
-        "진행 상태": {
+        진행여부: {
           select: {
             name: progress,
           },
         },
-        "모임 유형": {
+        모임유형: {
           select: {
             name: category,
           },

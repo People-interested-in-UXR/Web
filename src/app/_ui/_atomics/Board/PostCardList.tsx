@@ -18,7 +18,7 @@ const PostCardList = ({
             {<PostCard page={page} breadcrumb={breadcrumb} />}
           </Fragment>
         ) : (
-          page?.properties["모임 유형"]?.select?.name === selectedChip && (
+          page?.properties["모임유형"]?.select?.name === selectedChip && (
             <Fragment key={index}>
               <PostCard page={page} breadcrumb={breadcrumb} />
             </Fragment>

@@ -1,3 +1,4 @@
+import { getBlocks } from "@/app/_domain/blocks";
 import { Client } from "@notionhq/client";
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
@@ -13,11 +14,22 @@ export async function GET(
   });
 
   //* Block Contents 추츨
+  const blocks = await getBlocks(notion, results);
 
-  const pages = Array.from({ length: results.length }).map((_, i) => {
-    const result = results[i] as PageObjectResponse;
-    return result.properties;
-  });
+  const pages = [...results]
+    .filter((result, i) => {
+      const property = (result as PageObjectResponse).properties?.["모임유형"];
+      const meetingCategory =
+        property?.type === "select" ? property.select?.name : null;
+
+      return meetingCategory === "오프라인" || meetingCategory === "컨퍼런스";
+    })
+    .map((result, i) => {
+      return {
+        ...result,
+        contents: blocks[i],
+      };
+    });
 
   return Response.json({ pages });
 }
