@@ -4,18 +4,19 @@ import { useEffect, useState } from "react";
 import { Create } from "./Method";
 import { IDatabase } from "@/app/utils/types/notion/database";
 import { useBodyScrollLock } from "@/app/_hooks/useBodyScrollLock";
+import { User } from "@/app/utils/types/user/user";
 
 interface IPostDetailModal {
   mode: "create" | "edit" | "read";
   breadcrumb: string[];
   database: IDatabase;
-  userCookieInfo?: { name: string; value: string };
+  loggedInUser?: User;
 }
 const PostDetailModal = ({
   mode,
   breadcrumb,
   database,
-  userCookieInfo,
+  loggedInUser,
 }: IPostDetailModal) => {
   //* Modal과 관련됨
   const [showModal, setShowModal] = useState(false);
@@ -47,7 +48,7 @@ const PostDetailModal = ({
         showModal={showModal}
         openModal={openModal}
         closeModal={closeModal}
-        userCookieInfo={userCookieInfo}
+        loggedInUser={loggedInUser}
       />
     );
   }

@@ -24,6 +24,7 @@ interface IBoard<T> {
   breadcrumb: string[];
   users?: Array<User>;
   database: any;
+  loggedInUser?: User;
 }
 
 const Board = <T extends {}>({
@@ -33,6 +34,7 @@ const Board = <T extends {}>({
   chips,
   users,
   database,
+  loggedInUser,
 }: IBoard<T | "전체">) => {
   const query: T | "전체" =
     (useSearchParams().get("chip") as T | "전체") || "전체";
@@ -57,6 +59,7 @@ const Board = <T extends {}>({
             database={database}
             selectedChip={selectedChip}
             breadcrumb={breadcrumb}
+            loggedInUser={loggedInUser}
           />
         </CardContainer>
       )}

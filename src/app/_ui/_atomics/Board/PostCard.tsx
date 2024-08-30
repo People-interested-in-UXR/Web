@@ -4,13 +4,16 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import PostCardModal from "./PostCardModal";
+import { User } from "@/app/utils/types/user/user";
 
 const PostCard = ({
   page,
   breadcrumb,
+  loggedInUser,
 }: {
   page: any;
   breadcrumb: string[];
+  loggedInUser?: User;
 }) => {
   const [showModal, setShowModal] = useState(false);
   const { lockScroll, openScroll } = useBodyScrollLock();
@@ -34,33 +37,48 @@ const PostCard = ({
     }
   }, [showModal]);
 
+  console.log(loggedInUser?.email);
+  console.log(loggedInUser?.email === page?.properties["작성자 이메일"]?.email);
+
   return (
     <div className="bg-muted rounded-3xl shadow-md sm:h-[360px] sm:aspect-[4/3] flex flex-col cursor-pointer ">
       {!page?.cover?.external?.url && !page?.cover?.file?.url ? (
         <div
-          className="flex justify-center items-center w-full rounded-tl-3xl rounded-tr-3xl h-[252px]"
+          className="flex justify-center items-center w-full rounded-tl-3xl rounded-tr-3xl h-[252px] relative"
           onClick={openModal}
         >
           <Image
             className="opacity-40"
             src={"/logo/PIXR_logo_light.svg"}
-            alt={"card image"}
+            alt={"card cover image"}
             width={149}
             height={68}
           />
+          {loggedInUser?.email === page?.properties["작성자 이메일"]?.email && (
+            <div className="w-[92px] h-[40px] py-2 px-4 flext items-center justify-center bg-red-100 absolute top-[16px] right-[16px] text-primary-red b2-600-16 rounded-lg">
+              내 게시글
+            </div>
+          )}
         </div>
       ) : (
-        <Image
-          className="h-[252px] w-full rounded-tl-3xl rounded-tr-3xl object-cover"
-          src={page?.cover?.external?.url || page?.cover?.file?.url}
-          alt={"card image"}
-          width={480}
-          height={252}
-          onClick={openModal}
-        />
+        <div className="rounded-tl-3xl rounded-tr-3xl relative">
+          <Image
+            className="h-[252px] rounded-tl-3xl rounded-tr-3xl object-cover"
+            src={page?.cover?.external?.url || page?.cover?.file?.url}
+            alt={"card cover image"}
+            width={480}
+            height={252}
+            onClick={openModal}
+          />
+          {loggedInUser?.email === page?.properties["작성자 이메일"]?.email && (
+            <div className="w-[92px] h-[40px] py-2 px-4 flext items-center justify-center bg-red-100 absolute top-[16px] right-[16px] text-primary-red b2-600-16 rounded-lg">
+              내 게시글
+            </div>
+          )}
+        </div>
       )}
       <div
-        className="bg-secondary  rounded-br-3xl rounded-bl-3xl w-full sm:w-[480px] overflow-hidden"
+        className="bg-secondary  rounded-br-3xl rounded-bl-3xl  w-[480px] overflow-hidden"
         onClick={openModal}
       >
         <div className="h-[108px] p-6 flex flex-col gap-2 justify-center text-pretty break-words">

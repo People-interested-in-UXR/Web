@@ -7,6 +7,7 @@ import {
 } from "@/app/_ui/_atomics";
 import debounce from "@/app/utils/debounce";
 import { IDatabase } from "@/app/utils/types/notion/database";
+import { User } from "@/app/utils/types/user/user";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -19,10 +20,7 @@ interface ICreate {
   openModal: () => void;
   closeModal: () => void;
   database: IDatabase;
-  userCookieInfo?: {
-    name: string;
-    value: string;
-  };
+  loggedInUser?: User;
 }
 
 const Create = ({
@@ -31,7 +29,7 @@ const Create = ({
   openModal,
   closeModal,
   database,
-  userCookieInfo,
+  loggedInUser,
 }: ICreate) => {
   const [_, pathname] = usePathname().split("/");
   const router = useRouter();
@@ -156,7 +154,7 @@ const Create = ({
 
       <RegisterButton
         onClick={() => {
-          if (!userCookieInfo) return setShowToast(true);
+          if (!loggedInUser) return setShowToast(true);
           openModal();
         }}
       >
