@@ -7,10 +7,12 @@ import PostCardModal from "./PostCardModal";
 import { User } from "@/app/utils/types/user/user";
 
 const PostCard = ({
+  database,
   page,
   breadcrumb,
   loggedInUser,
 }: {
+  database: any;
   page: any;
   breadcrumb: string[];
   loggedInUser?: User;
@@ -102,15 +104,31 @@ const PostCard = ({
       </div>
       {showModal &&
         document?.body &&
-        createPortal(
-          <PostCardModal
-            breadcrumb={breadcrumb}
-            page={page}
-            closeModal={closeModal}
-          />,
-          document?.body,
-          "read"
-        )}
+        (loggedInUser?.email === page?.properties["작성자 이메일"]?.email
+          ? createPortal(
+              <PostCardModal
+                mode="edit"
+                database={database}
+                breadcrumb={breadcrumb}
+                page={page}
+                closeModal={closeModal}
+                loggedInUser={loggedInUser}
+              />,
+              document?.body,
+              "edit"
+            )
+          : createPortal(
+              <PostCardModal
+                mode="read"
+                database={database}
+                breadcrumb={breadcrumb}
+                page={page}
+                closeModal={closeModal}
+                loggedInUser={loggedInUser}
+              />,
+              document?.body,
+              "read"
+            ))}
     </div>
   );
 };

@@ -25,6 +25,7 @@ const PostCardList = ({
               loggedInUser?.email ===
                 page?.properties["작성자 이메일"]?.email && (
                 <PostCard
+                  database={database}
                   page={page}
                   breadcrumb={breadcrumb}
                   loggedInUser={loggedInUser}
@@ -32,6 +33,7 @@ const PostCardList = ({
               )
             ) : (
               <PostCard
+                database={database}
                 page={page}
                 breadcrumb={breadcrumb}
                 loggedInUser={loggedInUser}
@@ -45,6 +47,7 @@ const PostCardList = ({
                 loggedInUser?.email ===
                   page?.properties["작성자 이메일"]?.email && (
                   <PostCard
+                    database={database}
                     page={page}
                     breadcrumb={breadcrumb}
                     loggedInUser={loggedInUser}
@@ -52,6 +55,7 @@ const PostCardList = ({
                 )
               ) : (
                 <PostCard
+                  database={database}
                   page={page}
                   breadcrumb={breadcrumb}
                   loggedInUser={loggedInUser}

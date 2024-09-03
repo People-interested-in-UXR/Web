@@ -120,7 +120,7 @@ const Create = ({
     }));
 
     const { ok } = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/board/${database.id}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/board/${database?.id}`,
       { method: "POST", body: JSON.stringify({ modal }) }
     );
 
