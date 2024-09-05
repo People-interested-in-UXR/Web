@@ -1,4 +1,5 @@
 import { getChips, getNotionData } from "@/app/_domain/databases";
+import { getUserInfo } from "@/app/_domain/user";
 import { Board } from "@/app/_ui/_atomics/Board";
 import { IChip } from "@/app/_ui/_atomics/Board/Board";
 import { FixedSection, PostDetailModal } from "@/app/_ui/_components";
@@ -21,9 +22,9 @@ const DynamicModal = dynamic(() => Promise.resolve(PostDetailModal), {
 });
 
 export default async function Page({}) {
-  const userCookieInfo = cookies().get(COOKIE.USER);
-
+  const loggedInUser = await getUserInfo();
   const id = NOTION.DATABASE_ID.ARCHIVE;
+
   const archiveData = await getNotionData(id, NOTION.KEY.ARCHIVE);
   const chips = await (
     await getChips<ArchiveChip>(id, NOTION.KEY.ARCHIVE)
@@ -40,13 +41,14 @@ export default async function Page({}) {
         chips={chips}
         database={archiveData}
         breadcrumb={[]}
+        loggedInUser={loggedInUser}
       />
 
       <DynamicModal
         mode="create"
         breadcrumb={[NAV.ARCHIVE, NOTION.VALUE.ARCHIVE]}
         database={archiveData}
-        userCookieInfo={userCookieInfo}
+        loggedInUser={loggedInUser}
       />
     </section>
   );

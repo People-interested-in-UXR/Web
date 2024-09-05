@@ -32,7 +32,6 @@ const PostCardModal = ({
         .join("\r\n")
     );
   };
-  console.log(pageTextParser(page));
 
   const router = useRouter();
   const [modal, setModal] = useState({

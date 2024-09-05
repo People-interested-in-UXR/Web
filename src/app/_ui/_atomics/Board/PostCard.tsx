@@ -53,11 +53,12 @@ const PostCard = ({
             width={149}
             height={68}
           />
-          {loggedInUser?.email === page?.properties["작성자 이메일"]?.email && (
+          {(loggedInUser?.email !== undefined && loggedInUser?.email) ===
+          page?.properties["작성자 이메일"]?.email ? (
             <div className="w-[92px] h-[40px] py-2 px-4 flext items-center justify-center bg-red-100 absolute top-[16px] right-[16px] text-primary-red b2-600-16 rounded-lg">
               내 게시글
             </div>
-          )}
+          ) : null}
         </div>
       ) : (
         <div className="rounded-tl-3xl rounded-tr-3xl relative sm:h-[252px] h-[136px] overflow-hidden">
@@ -68,11 +69,12 @@ const PostCard = ({
             fill
             onClick={openModal}
           />
-          {loggedInUser?.email === page?.properties["작성자 이메일"]?.email && (
+          {(loggedInUser?.email !== undefined && loggedInUser?.email) ===
+          page?.properties["작성자 이메일"]?.email ? (
             <div className="w-[92px] h-[40px] py-2 px-4 flext items-center justify-center bg-red-100 absolute top-[16px] right-[16px] text-primary-red b2-600-16 rounded-lg">
               내 게시글
             </div>
-          )}
+          ) : null}
         </div>
       )}
       <div
