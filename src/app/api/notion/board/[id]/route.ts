@@ -32,6 +32,7 @@ export async function POST(
 ) {
   const {
     modal: {
+      user,
       content: { title, progress, date, category, text, cover },
     },
   } = await request.json();
@@ -64,16 +65,17 @@ export async function POST(
             },
           ],
         },
+        "작성자 이메일": { email: user },
         날짜: {
           date: {
             start: date.split("T")[0],
           },
         },
-        진행여부: {
-          select: {
-            name: progress,
-          },
-        },
+        // 진행여부: {
+        //   select: {
+        //     name: progress,
+        //   },
+        // },
         모임유형: {
           select: {
             name: category,

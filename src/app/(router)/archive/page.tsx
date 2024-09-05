@@ -1,11 +1,10 @@
 import { getChips, getNotionData } from "@/app/_domain/databases";
 import { getUserInfo } from "@/app/_domain/user";
 import { Board } from "@/app/_ui/_atomics/Board";
-import { IChip } from "@/app/_ui/_atomics/Board/Board";
-import { FixedSection, PostDetailModal } from "@/app/_ui/_components";
-import { COOKIE, NAV, NOTION } from "@/app/utils/consts";
+
+import { PostDetailModal } from "@/app/_ui/_components";
+import { NAV, NOTION } from "@/app/utils/consts";
 import dynamic from "next/dynamic";
-import { cookies } from "next/headers";
 
 type ArchiveChip =
   | "전체"
@@ -26,6 +25,14 @@ export default async function Page({}) {
   const id = NOTION.DATABASE_ID.ARCHIVE;
 
   const archiveData = await getNotionData(id, NOTION.KEY.ARCHIVE);
+  const database = {
+    ...archiveData,
+    pages: archiveData.pages.filter(
+      (page: any) =>
+        page.properties["모임유형"]?.select?.name !== "컨퍼런스" &&
+        page.properties["모임유형"]?.select?.name !== "오프라인"
+    ),
+  };
   const chips = await (
     await getChips<ArchiveChip>(id, NOTION.KEY.ARCHIVE)
   ).filter(
@@ -39,7 +46,7 @@ export default async function Page({}) {
         description={`아카이브는 모임에서 진행한 스터디 / 토론에 대한 기록을 남겨두는 곳이에요.
           도움이 필요한 자료가 있으면 자유롭게 활용해주세요.`}
         chips={chips}
-        database={archiveData}
+        database={database}
         breadcrumb={[]}
         loggedInUser={loggedInUser}
       />
@@ -47,7 +54,7 @@ export default async function Page({}) {
       <DynamicModal
         mode="create"
         breadcrumb={[NAV.ARCHIVE, NOTION.VALUE.ARCHIVE]}
-        database={archiveData}
+        database={database}
         loggedInUser={loggedInUser}
       />
     </section>

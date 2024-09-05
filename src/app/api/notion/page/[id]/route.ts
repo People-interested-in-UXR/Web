@@ -7,6 +7,7 @@ export async function PATCH(
   { params: { id } }: { params: { id: string } }
 ) {
   const {
+    type,
     modal: {
       content: { title, progress, date, category, text, cover },
     },
@@ -18,6 +19,7 @@ export async function PATCH(
 
   //TODO: 여기서 supabase를 이용해 요청하고 public URL을 받아오면 cover로 넘겨주기
 
+  const progressMap = type === "archive" ? { 진행여부: {} } : "제목";
   //* 여기서 notion API를 Cover 추가
   try {
     const pageResponse = await notion.pages.update({
@@ -30,7 +32,7 @@ export async function PATCH(
       },
 
       properties: {
-        제목: {
+        [type === "archive" ? "주제" : "제목"]: {
           title: [
             {
               text: {
@@ -44,11 +46,19 @@ export async function PATCH(
             start: date.split("T")[0],
           },
         },
-        진행여부: {
-          select: {
-            name: progress,
-          },
-        },
+
+        진행여부:
+          type === "archive"
+            ? {
+                status: {
+                  name: progress,
+                },
+              }
+            : {
+                select: {
+                  name: progress,
+                },
+              },
         모임유형: {
           select: {
             name: category,

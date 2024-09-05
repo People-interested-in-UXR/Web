@@ -110,6 +110,7 @@ const Create = ({
       await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/s3/notion/cover`, {
         method: "POST",
         cache: "no-cache",
+
         body: image,
       })
     ).json();
@@ -120,8 +121,20 @@ const Create = ({
     }));
 
     const { ok } = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/board/${database?.id}`,
-      { method: "POST", body: JSON.stringify({ modal }) }
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/${pathname}/${database?.id}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          modal: {
+            ...modal,
+            user: loggedInUser?.email,
+            content: {
+              ...modal.content,
+              cover: publicUrl,
+            },
+          },
+        }),
+      }
     );
 
     if (!ok) return alert("에러가 발생했습니다! 나중에 시도해주세요!");
@@ -232,17 +245,98 @@ const Create = ({
                                   <div key={index}>{prop.name}</div>,
                                 ]}
                                 propValue={prop.select.options?.map(
+                                  (option) => {
+                                    if (
+                                      option.name === "오프라인" ||
+                                      option.name === "컨퍼런스"
+                                    )
+                                      return;
+                                    return (
+                                      <PropertyChip
+                                        key={option.id + "chip_option"}
+                                        type={prop.name}
+                                        value={option.name}
+                                        setModal={setModal}
+                                        active={
+                                          modal.content.category === option.name
+                                        }
+                                      />
+                                    );
+                                  }
+                                )}
+                              />
+                            </Fragment>
+                          );
+                        }
+                        if (
+                          prop.name === "진행여부" &&
+                          pathname === "archive"
+                        ) {
+                          return (
+                            <Fragment key={index}>
+                              <Property
+                                propKey={[
+                                  <Icon
+                                    src={"/icon/writingProp/progress.svg"}
+                                    alt={"writing property progress icon"}
+                                    height={24}
+                                    width={24}
+                                    key={index}
+                                  />,
+                                  <div key={index}>{prop.name}</div>,
+                                ]}
+                                propValue={prop.select.options?.map(
                                   (option) => (
                                     <PropertyChip
-                                      key={option.id + "chip_option"}
+                                      key={option.id}
                                       type={prop.name}
                                       value={option.name}
                                       setModal={setModal}
                                       active={
-                                        modal.content.category === option.name
+                                        modal.content.progress === option.name
                                       }
                                     />
                                   )
+                                )}
+                              />
+                            </Fragment>
+                          );
+                        }
+                      }
+                      if (prop.type === "status") {
+                        if (prop.name === "모임유형") {
+                          return (
+                            <Fragment key={index + "categoryKey"}>
+                              <Property
+                                propKey={[
+                                  <Icon
+                                    src={"/icon/writingProp/category.svg"}
+                                    alt={"writing property category icon"}
+                                    height={24}
+                                    width={24}
+                                    key={index}
+                                  />,
+                                  <div key={index}>{prop.name}</div>,
+                                ]}
+                                propValue={prop.status.options?.map(
+                                  (option) => {
+                                    if (
+                                      option.name === "오프라인" ||
+                                      option.name === "컨퍼런스"
+                                    )
+                                      return;
+                                    return (
+                                      <PropertyChip
+                                        key={option.id + "chip_option"}
+                                        type={prop.name}
+                                        value={option.name}
+                                        setModal={setModal}
+                                        active={
+                                          modal.content.category === option.name
+                                        }
+                                      />
+                                    );
+                                  }
                                 )}
                               />
                             </Fragment>
@@ -262,7 +356,7 @@ const Create = ({
                                   />,
                                   <div key={index}>{prop.name}</div>,
                                 ]}
-                                propValue={prop.select.options?.map(
+                                propValue={prop.status.options?.map(
                                   (option) => (
                                     <PropertyChip
                                       key={option.id}
@@ -419,7 +513,6 @@ const Create = ({
                     disabled={
                       modal?.content?.title?.trim() === "" ||
                       modal?.content?.text?.trim() === "" ||
-                      modal?.content?.progress?.trim() === "" ||
                       modal?.content?.category?.trim() === "" ||
                       modal?.content?.date === undefined
                     }

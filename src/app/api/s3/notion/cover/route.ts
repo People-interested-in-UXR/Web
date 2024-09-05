@@ -7,6 +7,8 @@ export async function POST(request: Request) {
   const formData = await request.formData();
   const file = formData.get("cover") as File;
 
+  console.log("backend Cover File : ", file);
+
   const supabase = createClient();
   const { data, error } = await supabase.storage
     .from("image")

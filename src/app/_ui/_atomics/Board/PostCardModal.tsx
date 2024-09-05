@@ -21,10 +21,7 @@ const PostCardModal = ({
   page,
   loggedInUser,
 }: IPostCardModal) => {
-  const pathname = usePathname().replace("/", "");
-
-  // 여기서 선택권은 페이지 prop을 다시 요청한다 안한다 ?????
-
+  const [_, pathname] = usePathname().split("/");
   const pageTextParser = (page: any) => {
     return page?.contents.map((content: any) =>
       content?.paragraph?.rich_text
@@ -36,8 +33,14 @@ const PostCardModal = ({
   const router = useRouter();
   const [modal, setModal] = useState({
     content: {
-      title: page?.properties?.["제목"]?.title[0]?.plain_text || "",
-      progress: page?.properties?.["진행여부"]?.select?.name || "",
+      title:
+        page?.properties?.["제목"]?.title[0]?.plain_text ||
+        page?.properties?.["주제"]?.title[0]?.plain_text ||
+        "",
+      progress:
+        page?.properties?.["진행여부"]?.select?.name ||
+        page?.properties?.["진행여부"]?.status?.name ||
+        "",
       date: new Date(page?.properties?.["날짜"]?.date?.start) || new Date(),
       category: page?.properties?.["모임유형"]?.select?.name || "",
       text: pageTextParser(page) || "",
@@ -65,6 +68,7 @@ const PostCardModal = ({
   //* Submit
   const handleSubmit = async () => {
     if (!file) return alert("커버를 업로드 해주세요.");
+
     if (page?.cover?.external?.url !== file) {
       const image = new FormData();
       image.append("cover", file, file?.name);
@@ -81,14 +85,49 @@ const PostCardModal = ({
         ...prev,
         content: { ...prev.content, cover: publicUrl },
       }));
+
+      console.log("Edit public URL : ", publicUrl);
+
+      const { ok } = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/page/${page?.id}?block_id=${page?.contents[0]?.id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            type: pathname,
+            modal: {
+              ...modal,
+              user: loggedInUser?.email,
+              content: {
+                ...modal.content,
+                cover: publicUrl,
+              },
+            },
+          }),
+        }
+      );
+
+      if (!ok) return alert("에러가 발생했습니다! 나중에 시도해주세요!");
+    } else {
+      //* 위와 차이점은 커버 이미지를 다시 업로드 하지 않았을 때 업로드 요청을 생략하는것
+      const { ok } = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/page/${page?.id}?block_id=${page?.contents[0]?.id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            type: pathname,
+            modal: {
+              ...modal,
+              user: loggedInUser?.email,
+              content: {
+                ...modal.content,
+                cover: modal.content.cover,
+              },
+            },
+          }),
+        }
+      );
+      if (!ok) return alert("에러가 발생했습니다! 나중에 시도해주세요!");
     }
-
-    const { ok } = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/page/${page?.id}?block_id=${page?.contents[0]?.id}`,
-      { method: "PATCH", body: JSON.stringify({ modal }) }
-    );
-
-    if (!ok) return alert("에러가 발생했습니다! 나중에 시도해주세요!");
 
     setModal({
       content: {
@@ -177,7 +216,7 @@ const PostCardModal = ({
                           </div>
                         );
                       }
-                      if (propKey === "진행여부") {
+                      if (propKey === "진행여부" && pathname === "archive") {
                         return (
                           <div key={page?.id + "progressKey"}>
                             <Property
@@ -276,6 +315,36 @@ const PostCardModal = ({
 
                 <div className="flex flex-col gap-4 mt-8 grow-0">
                   {database?.props?.map((prop, index) => {
+                    if (prop.type === "status")
+                      return (
+                        <Fragment key={index}>
+                          <Property
+                            propKey={[
+                              <Icon
+                                src={"/icon/writingProp/progress.svg"}
+                                alt={"writing property progress icon"}
+                                height={24}
+                                width={24}
+                                key={index}
+                              />,
+                              <div key={index}>{prop.name}</div>,
+                            ]}
+                            propValue={prop.status.options?.map(
+                              (option: any) => (
+                                <PropertyChip
+                                  key={option.id}
+                                  type={prop.name}
+                                  value={option.name}
+                                  setModal={setModal}
+                                  active={
+                                    modal.content.progress === option.name
+                                  }
+                                />
+                              )
+                            )}
+                          />
+                        </Fragment>
+                      );
                     if (prop.type === "title") return;
                     if (prop.type === "select") {
                       if (prop.name === "모임유형") {
@@ -293,23 +362,30 @@ const PostCardModal = ({
                                 <div key={index}>{prop.name}</div>,
                               ]}
                               propValue={prop.select.options?.map(
-                                (option: any) => (
-                                  <PropertyChip
-                                    key={option.id + "chip_option"}
-                                    type={prop.name}
-                                    value={option.name}
-                                    setModal={setModal}
-                                    active={
-                                      modal.content.category === option.name
-                                    }
-                                  />
-                                )
+                                (option: any) => {
+                                  if (
+                                    option.name === "컨퍼런스" ||
+                                    option.name === "오프라인"
+                                  )
+                                    return null;
+                                  return (
+                                    <PropertyChip
+                                      key={option.id + "chip_option"}
+                                      type={prop.name}
+                                      value={option.name}
+                                      setModal={setModal}
+                                      active={
+                                        modal.content.category === option.name
+                                      }
+                                    />
+                                  );
+                                }
                               )}
                             />
                           </Fragment>
                         );
                       }
-                      if (prop.name === "진행여부") {
+                      if (prop.name === "진행여부" && pathname === "archive") {
                         return (
                           <Fragment key={index}>
                             <Property
