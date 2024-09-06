@@ -37,13 +37,11 @@ const PostCardModal = ({
 }: IPostCardModal) => {
   const [_, pathname] = usePathname().split("/");
 
-  console.log(page?.contents);
   const pageTextParser = (page: any) => {
-    return page?.contents.map(
-      (content: any) =>
-        content?.paragraph?.rich_text
-          ?.map((block: any) => block?.text?.content)
-          .join("\r\n")[0]
+    return page?.contents.map((content: any) =>
+      content?.paragraph?.rich_text
+        ?.map((block: any) => block?.text?.content)
+        .join("\r\n")
     );
   };
 
@@ -70,8 +68,8 @@ const PostCardModal = ({
     page?.cover?.external?.url || null
   );
 
-  const debounceTextArea = () =>
-    debounce((event: ChangeEvent<HTMLTextAreaElement>) => {
+  const debouncedOnChange = useCallback(
+    debounce((event) => {
       setModal((prev) => ({
         ...prev,
         content: {
@@ -79,9 +77,9 @@ const PostCardModal = ({
           text: event.target.value,
         },
       }));
-    }, 100);
-
-  const debouncedOnChange = useCallback(debounceTextArea, [debounceTextArea]);
+    }, 100),
+    []
+  );
 
   //* Submit
   const handleSubmit = async () => {
@@ -103,8 +101,6 @@ const PostCardModal = ({
         ...prev,
         content: { ...prev.content, cover: publicUrl },
       }));
-
-      console.log("Edit public URL : ", publicUrl);
 
       const { ok } = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/page/${page?.id}?block_id=${page?.contents[0]?.id}`,
@@ -585,8 +581,6 @@ const PostCardModal = ({
                   disabled={
                     modal?.content?.title?.trim() === "" ||
                     modal?.content?.text === "" ||
-                    (pathname !== "board" &&
-                      modal?.content?.progress?.trim() === "") ||
                     modal?.content?.category?.trim() === "" ||
                     modal?.content?.date === undefined
                   }

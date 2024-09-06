@@ -51,12 +51,12 @@ export async function PATCH(
           type === "archive"
             ? {
                 status: {
-                  name: progress,
+                  name: progress || "시작 전",
                 },
               }
             : {
                 select: {
-                  name: progress,
+                  name: progress || "진행예정",
                 },
               },
         모임유형: {

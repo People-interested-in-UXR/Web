@@ -42,8 +42,8 @@ const Read = ({
     },
   });
 
-  const debounceTextArea = () =>
-    debounce((event: ChangeEvent<HTMLTextAreaElement>) => {
+  const debouncedOnChange = useCallback(
+    debounce((event) => {
       setModal((prev) => ({
         ...prev,
         content: {
@@ -51,9 +51,9 @@ const Read = ({
           text: event.target.value,
         },
       }));
-    }, 100);
-
-  const debouncedOnChange = useCallback(debounceTextArea, [debounceTextArea]);
+    }, 100),
+    []
+  );
 
   useEffect(() => {
     if (!window.document) return;
