@@ -167,7 +167,9 @@ const Calendar = ({ pages }: { pages: any }) => {
           dayCellContent={function (arg) {
             if (arg.isToday) {
               return (
-                <div className="text-accent bg-icon-selected  rounded-full flex justify-center items-center  text-center px-2 mt-2">
+                <div
+                  className={`text-accent bg-icon-selected  rounded-full flex justify-center items-center  text-center ${arg.dayNumberText.length === 2 ? "px-2 py-1.5" : "px-3 py-1.5"}`}
+                >
                   {arg.dayNumberText}
                 </div>
               );

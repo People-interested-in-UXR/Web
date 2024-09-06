@@ -1,8 +1,8 @@
 "use client";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 
 import { Description } from "../Description";
-import { ProfileCard } from "../ProfileCard";
+
 import { User } from "@/app/utils/types/user/user";
 import { Toast } from "../Toast";
 import { TOAST, ToastMessageType } from "@/app/utils/consts";
@@ -11,6 +11,7 @@ import ChipContainer from "./ChipContainer";
 import CardContainer from "./CardContainer";
 import PostCardList from "./PostCardList";
 import ProfileCardList from "./ProfileCardList";
+import { useSearchParams } from "next/navigation";
 
 export interface IChip<K> {
   category: K;
@@ -23,7 +24,31 @@ interface IBoard<T> {
   breadcrumb: string[];
   users?: Array<User>;
   database: any;
+  loggedInUser?: User;
 }
+
+const ToggleButton = ({
+  isToggled,
+  toggle,
+}: {
+  isToggled: boolean;
+  toggle: () => void;
+}) => {
+  return (
+    <button
+      onClick={toggle}
+      className={`w-[51px] h-[31px] flex items-center rounded-full p-1 cursor-pointer transition-colors duration-300 ${
+        isToggled ? "bg-primary-red" : "bg-secondary"
+      }`}
+    >
+      <div
+        className={`bg-white w-[27px] h-[27px] rounded-full shadow-md transform transition-transform duration-300 ${
+          isToggled ? "translate-x-4" : "translate-x-0"
+        }`}
+      />
+    </button>
+  );
+};
 
 const Board = <T extends {}>({
   title,
@@ -32,9 +57,17 @@ const Board = <T extends {}>({
   chips,
   users,
   database,
+  loggedInUser,
 }: IBoard<T | "전체">) => {
-  const [selectedChip, setSelectedChip] = useState<T | "전체">("전체");
+  const query: T | "전체" =
+    (useSearchParams().get("chip") as T | "전체") || "전체";
+
+  const [selectedChip, setSelectedChip] = useState<T | "전체">(query);
   const [toastMessage, setToastMessage] = useToastMessage<ToastMessageType>("");
+
+  //* 내 게시글 토글
+  const [isMyPostCard, setIsMyPostCard] = useState(false);
+  const toggle = () => setIsMyPostCard(!isMyPostCard);
 
   // cover는 type을 넣으면 됨 cover[cover.type]
   return (
@@ -48,13 +81,22 @@ const Board = <T extends {}>({
         />
       )}
       {database?.pages && (
-        <CardContainer>
+        <div className="w-full flex flex-col items-center px-4">
+          {loggedInUser && (
+            <div className="b2-600-16 sm:h3-700-20 text-primary-red flex items-center justify-end mb-8 gap-4 w-full">
+              <p>내 게시글</p>
+              <ToggleButton isToggled={isMyPostCard} toggle={toggle} />
+            </div>
+          )}
+
           <PostCardList
             database={database}
             selectedChip={selectedChip}
             breadcrumb={breadcrumb}
+            loggedInUser={loggedInUser}
+            isMyPostCard={isMyPostCard}
           />
-        </CardContainer>
+        </div>
       )}
       {users && (
         <CardContainer>

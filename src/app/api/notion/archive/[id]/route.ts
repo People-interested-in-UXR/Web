@@ -3,6 +3,7 @@ import { getBlocks } from "@/app/_domain/blocks";
 import { Client } from "@notionhq/client";
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 
+//? MEMO: 새로운 명세 기반으로 수정할 것
 export async function GET(
   request: Request,
   { params: { id } }: { params: { id: string } }
@@ -31,8 +32,12 @@ export async function POST(
   { params: { id } }: { params: { id: string } }
 ) {
   const notion = new Client({ auth: process.env.NOTION_TOKEN });
+
   const {
-    content: { title, progress, date, category, text },
+    modal: {
+      user,
+      content: { title, progress, date, category, text, cover },
+    },
   } = await request.json();
 
   try {
@@ -41,8 +46,14 @@ export async function POST(
         type: "database_id",
         database_id: id,
       },
+      cover: {
+        type: "external",
+        external: {
+          url: cover,
+        },
+      },
       properties: {
-        제목: {
+        주제: {
           title: [
             {
               text: {
@@ -51,17 +62,18 @@ export async function POST(
             },
           ],
         },
+        "작성자 이메일": { email: user },
         날짜: {
           date: {
             start: date.split("T")[0],
           },
         },
-        "진행 상태": {
-          select: {
+        진행여부: {
+          status: {
             name: progress,
           },
         },
-        "모임 유형": {
+        모임유형: {
           select: {
             name: category,
           },

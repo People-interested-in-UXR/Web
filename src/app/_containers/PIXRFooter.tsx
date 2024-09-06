@@ -14,6 +14,7 @@ export default function PIXRFooter({}) {
               height={32}
               src={`/icon/sns/kakao/kakao_talk.svg`}
               alt={"카카오톡 아이콘"}
+              style={{ width: "32px", height: "32px" }}
             />
           </Link>
           <Link href={"https://discord.gg/RH7p5PbM"} target="_blank">
@@ -22,6 +23,7 @@ export default function PIXRFooter({}) {
               height={32}
               src={`/icon/sns/discord.svg`}
               alt={"디스코드 아이콘"}
+              style={{ width: 32, height: 32 }}
             />
           </Link>
           <Link

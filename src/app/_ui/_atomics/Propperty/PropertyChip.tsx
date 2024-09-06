@@ -1,26 +1,15 @@
 import { Dispatch, SetStateAction } from "react";
+import { IPostCardModalContent } from "../Board/PostCardModal";
 
 interface IChip {
   value: string;
   active: boolean;
   type: string;
-  setModal: Dispatch<
-    SetStateAction<{
-      page: string;
-      content: {
-        title: string;
-        progress: string;
-        date: Date;
-        category: string;
-        text: string;
-        cover: string;
-      };
-    }>
-  >;
+  setModal: Dispatch<SetStateAction<IPostCardModalContent>>;
 }
 const PropertyChip = ({ value, type, active, setModal }: IChip) => {
   const handleModal = () => {
-    if (type === "모임 유형") {
+    if (type === "모임유형") {
       setModal((prev) => ({
         ...prev,
         content: {
@@ -31,7 +20,7 @@ const PropertyChip = ({ value, type, active, setModal }: IChip) => {
       return;
     }
 
-    if (type === "진행 상태") {
+    if (type === "진행여부") {
       setModal((prev) => ({
         ...prev,
         content: {
@@ -53,7 +42,7 @@ const PropertyChip = ({ value, type, active, setModal }: IChip) => {
       return;
     }
 
-    if (type === "제목") {
+    if (type === "제목" || type === "주제") {
       setModal((prev) => ({
         ...prev,
         content: {

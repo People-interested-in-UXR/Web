@@ -11,6 +11,8 @@ export default function Logo({ theme = "system" }: { theme: Theme }) {
         className="max-md:w-[49px] max-md:h-6"
         src={`${theme === "light" ? "/logo/PIXR_logo_light.svg" : "/logo/PIXR_logo_dark.svg"}`}
         alt={"pixr 로고입니다."}
+        priority
+        style={{ width: "auto", height: "auto" }}
       ></Image>
     </Link>
   );

@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
 
   const { properties } = await notion.databases.retrieve({ database_id });
 
-  //* ex ['진행 상태', '날짜', '모임 유형', '제목']
+  //* ex ['진행여부', '날짜', '모임유형', '제목']
   const props = Object.keys(properties).map((key: string) => properties[key]);
 
   return Response.json({ props });

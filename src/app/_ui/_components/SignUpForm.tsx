@@ -58,7 +58,17 @@ const SignUpForm = ({ user }: ISignUpForm) => {
         setFile(file);
       })();
     }
-  }, [nameRef, introduceRef, emailRef, snsRef]);
+  }, [
+    nameRef,
+    introduceRef,
+    emailRef,
+    snsRef,
+    profile,
+    user?.name,
+    user?.introduce,
+    user?.secondary_email,
+    user?.sns,
+  ]);
 
   // * Function
   const uploadUserProfile = async (file: File) => {

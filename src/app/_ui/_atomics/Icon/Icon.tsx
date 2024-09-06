@@ -9,11 +9,13 @@ interface IImage {
   className?: string;
   loading?: "eager" | "lazy" | undefined;
   onClick?: (event: MouseEvent) => void;
+  style?: any;
+
   // ref?
   // srcSet
 }
 
 export default function Icon({ ...args }: IImage) {
-  // eslint-disable-next-line jsx-a11y/alt-text
+  /* eslint-disable jsx-a11y/alt-text */
   return <Image {...args}></Image>;
 }

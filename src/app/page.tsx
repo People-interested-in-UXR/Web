@@ -25,14 +25,16 @@ const OrganizationRule = ({ children }: HTMLAttributes<HTMLElement>) => {
 interface IGrid {
   imageSrc: string;
   imageAlt: string;
+  href?: string;
   children: ReactNode;
 }
-const Grid = ({ imageSrc, imageAlt, children }: IGrid) => {
+const Grid = ({ imageSrc, imageAlt, href, children }: IGrid) => {
   return (
     <div className="w-full h-full ">
       <Link
         className="rounded-3xl bg-white text-default h-fit flex flex-col items-center gap-2 p-6 max-sm:p-4 group hover:bg-muted hover:border-primary-red hover:border-2 border-2 border-white"
-        href={"#"}
+        href={href || "#"}
+        prefetch={true}
       >
         <Image
           width={140}
@@ -47,8 +49,9 @@ const Grid = ({ imageSrc, imageAlt, children }: IGrid) => {
             <Icon
               src={"/icon/common/right_arrow.svg"}
               alt={"링크 클릭을 위한 오른쪽 화살표 모양"}
-              height={20}
               width={24.5}
+              height={20}
+              style={{ width: "100%", height: "auto" }}
             />
           </button>
         </div>
@@ -94,8 +97,8 @@ export default async function Home() {
               </ul>
             </div>
             {isLogin ? (
-              <Link href={"/archive"}>
-                <Button>아카이브 보러가기</Button>
+              <Link href={"/member"}>
+                <Button>멤버 소개</Button>
               </Link>
             ) : (
               <Link href={"/sign-in"}>
@@ -132,10 +135,15 @@ export default async function Home() {
           </div>
           <div className="xl:flex sm:gap-8 gap-2 grid grid-cols-1">
             <div className="sm:flex sm:gap-8 gap-2 grid grid-cols-1">
-              <Grid imageSrc={"/home/book.png"} imageAlt={"북 스터디 이미지"}>
+              <Grid
+                href={"/archive?chip=북스터디"}
+                imageSrc={"/home/book.png"}
+                imageAlt={"북 스터디 이미지"}
+              >
                 북 스터디
               </Grid>
               <Grid
+                href={"/archive?chip=아티클"}
                 imageSrc={"/home/article.png"}
                 imageAlt={"아티클 스터디 이미지"}
               >
@@ -144,16 +152,18 @@ export default async function Home() {
             </div>
             <div className="sm:flex sm:gap-8 gap-2 grid grid-cols-1">
               <Grid
+                href={"/meet-up"}
                 imageSrc={"/home/meeting.png"}
                 imageAlt={"오프라인 정기모임 이미지"}
               >
-                오프라인 정기모임
+                오프라인 / 컨퍼런스
               </Grid>
               <Grid
-                imageSrc={"/home/conference.png"}
+                href={"/archive"}
+                imageSrc={"/home/archive.png"}
                 imageAlt={"컨퍼런스 / 세미나 이미지"}
               >
-                컨퍼런스 / 세미나
+                지식저장소
               </Grid>
             </div>
           </div>
@@ -169,7 +179,12 @@ export default async function Home() {
           </div>
         </div>
         <div className="">
-          <Button>후원 문의하기</Button>
+          <Link
+            href={"mailto:piiuxr.offical:gmail.com"}
+            className="w-full h-full"
+          >
+            <Button>후원 문의하기</Button>
+          </Link>
         </div>
       </Sponser>
     </Section>

@@ -48,12 +48,12 @@ export const getAllPages: GetAllPages = async (
 export const getNotionData = async (id: string, tag: NotionFetcherTag) => {
   const props = await getDatabaseProp(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/prop/?database_id=${id}`,
-    "default",
+    "no-cache",
     tag
   );
   const pages = await getAllPages(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/${tag}/${id}`,
-    "default",
+    "no-cache",
     tag
   );
 
@@ -70,12 +70,12 @@ export const getChips = async <T>(
 ): Promise<Array<IChip<T | "전체">>> => {
   const props = await getDatabaseProp(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/prop/?database_id=${id}`,
-    "default",
+    "no-cache",
     tag
   );
 
   const filterdProps = props.filter(
-    (prop) => "select" in prop && prop.name === "모임 유형"
+    (prop) => "select" in prop && prop.name === "모임유형"
   )[0] as Pick<ISelect, "select">;
 
   const chips: IChip<T | "전체">[] = [

@@ -42,7 +42,7 @@ const Read = ({
     },
   });
 
-  const debouncedOnChange = useCallback(
+  const debounceTextArea = () =>
     debounce((event: ChangeEvent<HTMLTextAreaElement>) => {
       setModal((prev) => ({
         ...prev,
@@ -51,9 +51,9 @@ const Read = ({
           text: event.target.value,
         },
       }));
-    }, 500),
-    []
-  );
+    }, 100);
+
+  const debouncedOnChange = useCallback(debounceTextArea, [debounceTextArea]);
 
   useEffect(() => {
     if (!window.document) return;
@@ -115,6 +115,7 @@ const Read = ({
           alt={"plus icon"}
           height={24}
           width={24}
+          style={{ width: 24, height: 24 }}
         />
         <span className="h4-600-18">글 작성하기</span>
       </RegisterButton>
@@ -168,7 +169,7 @@ const Read = ({
                     {database?.props.map((prop, index) => {
                       if (prop.type === "title") return;
                       if (prop.type === "select") {
-                        if (prop.name === "모임 유형") {
+                        if (prop.name === "모임유형") {
                           return (
                             <Fragment key={index}>
                               <Property
@@ -199,7 +200,7 @@ const Read = ({
                             </Fragment>
                           );
                         }
-                        if (prop.name === "진행 상태") {
+                        if (prop.name === "진행여부") {
                           return (
                             <Fragment key={index}>
                               <Property

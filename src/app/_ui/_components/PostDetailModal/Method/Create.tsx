@@ -5,8 +5,10 @@ import {
   RegisterButton,
   Toast,
 } from "@/app/_ui/_atomics";
+import { IPostCardModalContent } from "@/app/_ui/_atomics/Board/PostCardModal";
 import debounce from "@/app/utils/debounce";
 import { IDatabase } from "@/app/utils/types/notion/database";
+import { User } from "@/app/utils/types/user/user";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -19,10 +21,7 @@ interface ICreate {
   openModal: () => void;
   closeModal: () => void;
   database: IDatabase;
-  userCookieInfo?: {
-    name: string;
-    value: string;
-  };
+  loggedInUser?: User;
 }
 
 const Create = ({
@@ -31,12 +30,12 @@ const Create = ({
   openModal,
   closeModal,
   database,
-  userCookieInfo,
+  loggedInUser,
 }: ICreate) => {
   const [_, pathname] = usePathname().split("/");
   const router = useRouter();
 
-  const [modal, setModal] = useState({
+  const [modal, setModal] = useState<IPostCardModalContent>({
     page: pathname,
     content: {
       title: "",
@@ -58,7 +57,7 @@ const Create = ({
     }
   }, [showToast]);
 
-  const debouncedOnChange = useCallback(
+  const debounceTextArea = () =>
     debounce((event: ChangeEvent<HTMLTextAreaElement>) => {
       setModal((prev) => ({
         ...prev,
@@ -67,9 +66,9 @@ const Create = ({
           text: event.target.value,
         },
       }));
-    }, 100),
-    []
-  );
+    }, 100);
+
+  const debouncedOnChange = useCallback(debounceTextArea, [debounceTextArea]);
 
   useEffect(() => {
     if (!window.document) return;
@@ -112,6 +111,7 @@ const Create = ({
       await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/s3/notion/cover`, {
         method: "POST",
         cache: "no-cache",
+
         body: image,
       })
     ).json();
@@ -122,8 +122,20 @@ const Create = ({
     }));
 
     const { ok } = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/board/${database.id}`,
-      { method: "POST", body: JSON.stringify({ modal }) }
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/${pathname}/${database?.id}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          modal: {
+            ...modal,
+            user: loggedInUser?.email,
+            content: {
+              ...modal.content,
+              cover: publicUrl,
+            },
+          },
+        }),
+      }
     );
 
     if (!ok) return alert("에러가 발생했습니다! 나중에 시도해주세요!");
@@ -156,7 +168,7 @@ const Create = ({
 
       <RegisterButton
         onClick={() => {
-          if (!userCookieInfo) return setShowToast(true);
+          if (!loggedInUser) return setShowToast(true);
           openModal();
         }}
       >
@@ -165,6 +177,7 @@ const Create = ({
           alt={"plus icon"}
           height={24}
           width={24}
+          style={{ width: 24, height: 24 }}
         />
         <span className="h4-600-18">글 작성하기</span>
       </RegisterButton>
@@ -219,7 +232,7 @@ const Create = ({
                     {database?.props.map((prop, index) => {
                       if (prop.type === "title") return;
                       if (prop.type === "select") {
-                        if (prop.name === "모임 유형") {
+                        if (prop.name === "모임유형") {
                           return (
                             <Fragment key={index + "categoryKey"}>
                               <Property
@@ -234,23 +247,33 @@ const Create = ({
                                   <div key={index}>{prop.name}</div>,
                                 ]}
                                 propValue={prop.select.options?.map(
-                                  (option) => (
-                                    <PropertyChip
-                                      key={option.id + "chip_option"}
-                                      type={prop.name}
-                                      value={option.name}
-                                      setModal={setModal}
-                                      active={
-                                        modal.content.category === option.name
-                                      }
-                                    />
-                                  )
+                                  (option) => {
+                                    if (
+                                      option.name === "오프라인" ||
+                                      option.name === "컨퍼런스"
+                                    )
+                                      return;
+                                    return (
+                                      <PropertyChip
+                                        key={option.id + "chip_option"}
+                                        type={prop.name}
+                                        value={option.name}
+                                        setModal={setModal}
+                                        active={
+                                          modal.content.category === option.name
+                                        }
+                                      />
+                                    );
+                                  }
                                 )}
                               />
                             </Fragment>
                           );
                         }
-                        if (prop.name === "진행 상태") {
+                        if (
+                          prop.name === "진행여부" &&
+                          pathname === "archive"
+                        ) {
                           return (
                             <Fragment key={index}>
                               <Property
@@ -265,6 +288,77 @@ const Create = ({
                                   <div key={index}>{prop.name}</div>,
                                 ]}
                                 propValue={prop.select.options?.map(
+                                  (option) => (
+                                    <PropertyChip
+                                      key={option.id}
+                                      type={prop.name}
+                                      value={option.name}
+                                      setModal={setModal}
+                                      active={
+                                        modal.content.progress === option.name
+                                      }
+                                    />
+                                  )
+                                )}
+                              />
+                            </Fragment>
+                          );
+                        }
+                      }
+                      if (prop.type === "status") {
+                        if (prop.name === "모임유형") {
+                          return (
+                            <Fragment key={index + "categoryKey"}>
+                              <Property
+                                propKey={[
+                                  <Icon
+                                    src={"/icon/writingProp/category.svg"}
+                                    alt={"writing property category icon"}
+                                    height={24}
+                                    width={24}
+                                    key={index}
+                                  />,
+                                  <div key={index}>{prop.name}</div>,
+                                ]}
+                                propValue={prop.status.options?.map(
+                                  (option) => {
+                                    if (
+                                      option.name === "오프라인" ||
+                                      option.name === "컨퍼런스"
+                                    )
+                                      return;
+                                    return (
+                                      <PropertyChip
+                                        key={option.id + "chip_option"}
+                                        type={prop.name}
+                                        value={option.name}
+                                        setModal={setModal}
+                                        active={
+                                          modal.content.category === option.name
+                                        }
+                                      />
+                                    );
+                                  }
+                                )}
+                              />
+                            </Fragment>
+                          );
+                        }
+                        if (prop.name === "진행여부") {
+                          return (
+                            <Fragment key={index}>
+                              <Property
+                                propKey={[
+                                  <Icon
+                                    src={"/icon/writingProp/progress.svg"}
+                                    alt={"writing property progress icon"}
+                                    height={24}
+                                    width={24}
+                                    key={index}
+                                  />,
+                                  <div key={index}>{prop.name}</div>,
+                                ]}
+                                propValue={prop.status.options?.map(
                                   (option) => (
                                     <PropertyChip
                                       key={option.id}
@@ -421,7 +515,6 @@ const Create = ({
                     disabled={
                       modal?.content?.title?.trim() === "" ||
                       modal?.content?.text?.trim() === "" ||
-                      modal?.content?.progress?.trim() === "" ||
                       modal?.content?.category?.trim() === "" ||
                       modal?.content?.date === undefined
                     }
