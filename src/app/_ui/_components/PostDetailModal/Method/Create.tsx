@@ -57,8 +57,8 @@ const Create = ({
     }
   }, [showToast]);
 
-  const debounceTextArea = () =>
-    debounce((event: ChangeEvent<HTMLTextAreaElement>) => {
+  const debouncedOnChange = useCallback(
+    debounce((event) => {
       setModal((prev) => ({
         ...prev,
         content: {
@@ -66,9 +66,9 @@ const Create = ({
           text: event.target.value,
         },
       }));
-    }, 100);
-
-  const debouncedOnChange = useCallback(debounceTextArea, [debounceTextArea]);
+    }, 100),
+    []
+  );
 
   useEffect(() => {
     if (!window.document) return;
@@ -514,7 +514,7 @@ const Create = ({
                     onClick={handleSubmit}
                     disabled={
                       modal?.content?.title?.trim() === "" ||
-                      modal?.content?.text?.trim() === "" ||
+                      modal?.content?.text === "" ||
                       modal?.content?.category?.trim() === "" ||
                       modal?.content?.date === undefined
                     }
