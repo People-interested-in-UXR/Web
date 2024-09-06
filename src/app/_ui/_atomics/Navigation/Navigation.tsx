@@ -154,9 +154,10 @@ const Navigation = ({ user }: INavigation) => {
                 <div>마이페이지</div>
                 <Image
                   src={"/icon/common/navigation_profile_arrow.svg"}
-                  alt={""}
+                  alt={"navigation profile toggle arrow"}
                   width={16}
                   height={16}
+                  style={{ width: 16, height: 16 }}
                 />
               </div>
             </li>

@@ -36,11 +36,14 @@ const PostCardModal = ({
   loggedInUser,
 }: IPostCardModal) => {
   const [_, pathname] = usePathname().split("/");
+
+  console.log(page?.contents);
   const pageTextParser = (page: any) => {
-    return page?.contents.map((content: any) =>
-      content?.paragraph?.rich_text
-        ?.map((block: any) => block?.text?.content)
-        .join("\r\n")
+    return page?.contents.map(
+      (content: any) =>
+        content?.paragraph?.rich_text
+          ?.map((block: any) => block?.text?.content)
+          .join("\r\n")[0]
     );
   };
 
