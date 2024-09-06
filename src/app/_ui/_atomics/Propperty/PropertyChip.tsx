@@ -1,22 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
+import { IPostCardModalContent } from "../Board/PostCardModal";
 
 interface IChip {
   value: string;
   active: boolean;
   type: string;
-  setModal: Dispatch<
-    SetStateAction<{
-      page: string;
-      content: {
-        title: string;
-        progress: string;
-        date: Date;
-        category: string;
-        text: string;
-        cover: string;
-      };
-    }>
-  >;
+  setModal: Dispatch<SetStateAction<IPostCardModalContent>>;
 }
 const PropertyChip = ({ value, type, active, setModal }: IChip) => {
   const handleModal = () => {

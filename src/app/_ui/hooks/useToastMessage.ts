@@ -13,7 +13,7 @@ const useToastMessage = <T>(
         setToastMessage(defaultValue);
       }, 4000);
     }
-  }, [toastMessage]);
+  }, [toastMessage, defaultValue]);
 
   return [toastMessage, setToastMessage] as const;
 };

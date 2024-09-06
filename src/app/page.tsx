@@ -34,6 +34,7 @@ const Grid = ({ imageSrc, imageAlt, href, children }: IGrid) => {
       <Link
         className="rounded-3xl bg-white text-default h-fit flex flex-col items-center gap-2 p-6 max-sm:p-4 group hover:bg-muted hover:border-primary-red hover:border-2 border-2 border-white"
         href={href || "#"}
+        prefetch={true}
       >
         <Image
           width={140}

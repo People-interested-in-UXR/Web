@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 // Define types for the state
 interface ModalContent {
   text: string;

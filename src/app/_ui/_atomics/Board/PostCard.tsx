@@ -52,6 +52,7 @@ const PostCard = ({
             alt={"card cover image"}
             width={149}
             height={68}
+            style={{ width: 149, height: 68 }}
           />
           {(loggedInUser?.email !== undefined && loggedInUser?.email) ===
           page?.properties["작성자 이메일"]?.email ? (
@@ -68,6 +69,7 @@ const PostCard = ({
             alt={"card cover image"}
             fill
             onClick={openModal}
+            sizes="100%"
           />
           {(loggedInUser?.email !== undefined && loggedInUser?.email) ===
           page?.properties["작성자 이메일"]?.email ? (

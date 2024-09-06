@@ -5,6 +5,19 @@ import { ChangeEvent, Fragment, useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import debounce from "@/app/utils/debounce";
 import Image from "next/image";
+
+export interface IPostCardModalContent {
+  page: string;
+  content: {
+    title: string;
+    progress: string;
+    date: Date;
+    category: string;
+    text: string;
+    cover: string;
+  };
+}
+
 interface IPostCardModal {
   mode: "create" | "edit" | "read";
   breadcrumb: string[];
@@ -13,6 +26,7 @@ interface IPostCardModal {
   closeModal: () => void;
   loggedInUser?: User;
 }
+
 const PostCardModal = ({
   mode,
   closeModal,
@@ -31,7 +45,8 @@ const PostCardModal = ({
   };
 
   const router = useRouter();
-  const [modal, setModal] = useState({
+  const [modal, setModal] = useState<IPostCardModalContent>({
+    page: "",
     content: {
       title:
         page?.properties?.["제목"]?.title[0]?.plain_text ||
@@ -52,7 +67,7 @@ const PostCardModal = ({
     page?.cover?.external?.url || null
   );
 
-  const debouncedOnChange = useCallback(
+  const debounceTextArea = () =>
     debounce((event: ChangeEvent<HTMLTextAreaElement>) => {
       setModal((prev) => ({
         ...prev,
@@ -61,9 +76,9 @@ const PostCardModal = ({
           text: event.target.value,
         },
       }));
-    }, 100),
-    []
-  );
+    }, 100);
+
+  const debouncedOnChange = useCallback(debounceTextArea, [debounceTextArea]);
 
   //* Submit
   const handleSubmit = async () => {
@@ -130,6 +145,7 @@ const PostCardModal = ({
     }
 
     setModal({
+      page: "",
       content: {
         title: "",
         progress: "",
@@ -314,7 +330,7 @@ const PostCardModal = ({
                 />
 
                 <div className="flex flex-col gap-4 mt-8 grow-0">
-                  {database?.props?.map((prop, index) => {
+                  {database?.props?.map((prop: any, index: number) => {
                     if (prop.type === "status")
                       return (
                         <Fragment key={index}>

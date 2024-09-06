@@ -62,7 +62,7 @@ const Navigation = ({ user }: INavigation) => {
   //* Profile 수정 후 User데이터 최신화
   useEffect(() => {
     if (refresh) router.refresh();
-  }, [refresh]);
+  }, [router, refresh]);
 
   useEffect(() => {
     const handleResize = (event: UIEvent) => {

@@ -16,5 +16,6 @@ interface IImage {
 }
 
 export default function Icon({ ...args }: IImage) {
+  /* eslint-disable jsx-a11y/alt-text */
   return <Image {...args}></Image>;
 }

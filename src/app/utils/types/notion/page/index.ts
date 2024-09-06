@@ -46,7 +46,7 @@ export type Page = {
   parent: DatabaseParent | PageParent | WorkspaceParent | BlockParent;
   archived: boolean;
   in_trash: boolean;
-  properties: IPageProperty;
+  properties: IPageProperty[];
   url: string;
   public_url: string;
   contents: NotionBlock[];

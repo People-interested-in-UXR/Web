@@ -1,6 +1,7 @@
 import { getNotionData } from "@/app/_domain/databases";
 import { Board } from "@/app/_ui/_atomics/Board";
 import { NOTION } from "@/app/utils/consts";
+import { Page as IPage } from "@/app/utils/types/notion/page";
 
 export default async function Page({}) {
   const id = NOTION.DATABASE_ID.MEET_UP;
@@ -8,10 +9,10 @@ export default async function Page({}) {
 
   const [offline, conferences] = [
     meetUpData.pages.filter(
-      (page) => page?.properties?.["모임유형"]?.select?.name === "오프라인"
+      (page: any) => page?.properties?.["모임유형"]?.select?.name === "오프라인"
     ),
     meetUpData.pages.filter(
-      (page) => page?.properties?.["모임유형"]?.select?.name === "컨퍼런스"
+      (page: any) => page?.properties?.["모임유형"]?.select?.name === "컨퍼런스"
     ),
   ];
 

@@ -64,6 +64,7 @@ export default function FixedSection({ breadcrumb }: IFixedSection) {
           alt={"plus icon"}
           height={24}
           width={24}
+          style={{ width: 24, height: 24 }}
         />
         <span className="h4-600-18">글 작성하기</span>
       </RegisterButton>

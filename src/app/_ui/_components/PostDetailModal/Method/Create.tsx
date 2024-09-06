@@ -5,6 +5,7 @@ import {
   RegisterButton,
   Toast,
 } from "@/app/_ui/_atomics";
+import { IPostCardModalContent } from "@/app/_ui/_atomics/Board/PostCardModal";
 import debounce from "@/app/utils/debounce";
 import { IDatabase } from "@/app/utils/types/notion/database";
 import { User } from "@/app/utils/types/user/user";
@@ -34,7 +35,7 @@ const Create = ({
   const [_, pathname] = usePathname().split("/");
   const router = useRouter();
 
-  const [modal, setModal] = useState({
+  const [modal, setModal] = useState<IPostCardModalContent>({
     page: pathname,
     content: {
       title: "",
@@ -56,7 +57,7 @@ const Create = ({
     }
   }, [showToast]);
 
-  const debouncedOnChange = useCallback(
+  const debounceTextArea = () =>
     debounce((event: ChangeEvent<HTMLTextAreaElement>) => {
       setModal((prev) => ({
         ...prev,
@@ -65,9 +66,9 @@ const Create = ({
           text: event.target.value,
         },
       }));
-    }, 100),
-    []
-  );
+    }, 100);
+
+  const debouncedOnChange = useCallback(debounceTextArea, [debounceTextArea]);
 
   useEffect(() => {
     if (!window.document) return;
@@ -176,6 +177,7 @@ const Create = ({
           alt={"plus icon"}
           height={24}
           width={24}
+          style={{ width: 24, height: 24 }}
         />
         <span className="h4-600-18">글 작성하기</span>
       </RegisterButton>
