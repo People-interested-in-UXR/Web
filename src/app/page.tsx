@@ -48,8 +48,9 @@ const Grid = ({ imageSrc, imageAlt, href, children }: IGrid) => {
             <Icon
               src={"/icon/common/right_arrow.svg"}
               alt={"링크 클릭을 위한 오른쪽 화살표 모양"}
-              height={20}
               width={24.5}
+              height={20}
+              style={{ width: "100%", height: "auto" }}
             />
           </button>
         </div>

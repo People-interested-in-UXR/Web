@@ -227,6 +227,7 @@ const Navigation = ({ user }: INavigation) => {
           width={24}
           height={24}
           onClick={openModal}
+          style={{ width: "24px", height: "24px" }}
         />
       )}
       {showModal &&
@@ -298,10 +299,11 @@ const Navigation = ({ user }: INavigation) => {
                       target="_blank"
                     >
                       <Icon
+                        src={`/icon/sns/kakao/kakao_talk.svg`}
                         width={24}
                         height={24}
-                        src={`/icon/sns/kakao/kakao_talk.svg`}
                         alt={"카카오톡 아이콘"}
+                        style={{ width: 24, height: 24 }}
                       />
                     </Link>
                   </li>
@@ -312,6 +314,7 @@ const Navigation = ({ user }: INavigation) => {
                         height={24}
                         src={`/icon/sns/discord.svg`}
                         alt={"디스코드 아이콘"}
+                        style={{ width: 24, height: 24 }}
                       />
                     </Link>
                   </li>
