@@ -585,7 +585,8 @@ const PostCardModal = ({
                   disabled={
                     modal?.content?.title?.trim() === "" ||
                     modal?.content?.text === "" ||
-                    modal?.content?.progress?.trim() === "" ||
+                    (pathname !== "board" &&
+                      modal?.content?.progress?.trim() === "") ||
                     modal?.content?.category?.trim() === "" ||
                     modal?.content?.date === undefined
                   }
