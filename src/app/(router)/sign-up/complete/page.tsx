@@ -1,8 +1,7 @@
-import { Container, PIXRFooter, PIXRHeader, Section } from "@/app/_containers";
+import { Section } from "@/app/_containers";
 import { getUserInfo } from "@/app/_domain/user";
 import { Fireworks, Icon, ProfileCard, SignUpToast } from "@/app/_ui";
-import { User } from "@/app/utils/types/user/user";
-import { cookies } from "next/headers";
+
 import Link from "next/link";
 
 export default async function Page({}) {

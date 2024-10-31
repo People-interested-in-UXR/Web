@@ -2,15 +2,9 @@ import { getChips, getNotionData } from "@/app/_domain/databases";
 import { getUserInfo } from "@/app/_domain/user";
 import { PostDetailModal } from "@/app/_ui";
 import { Board } from "@/app/_ui/_atomics/Board";
-import { COOKIE, NAV, NOTION } from "@/app/utils/consts";
-
-import dynamic from "next/dynamic";
+import { NAV, NOTION } from "@/app/utils/consts";
 
 export type BoardChip = "전체" | "잡담" | "질문" | "새소식" | "인사이트";
-
-const DynamicModal = dynamic(() => Promise.resolve(PostDetailModal), {
-  ssr: false,
-});
 
 export default async function Page({}) {
   const loggedInUser = await getUserInfo();
@@ -29,7 +23,7 @@ export default async function Page({}) {
         database={boardData}
         loggedInUser={loggedInUser}
       />
-      <DynamicModal
+      <PostDetailModal
         mode="create"
         breadcrumb={[NAV.BOARD, NOTION.VALUE.BOARD]}
         database={boardData}

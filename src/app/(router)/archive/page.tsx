@@ -4,7 +4,6 @@ import { Board } from "@/app/_ui/_atomics/Board";
 
 import { PostDetailModal } from "@/app/_ui/_components";
 import { NAV, NOTION } from "@/app/utils/consts";
-import dynamic from "next/dynamic";
 
 type ArchiveChip =
   | "전체"
@@ -15,10 +14,6 @@ type ArchiveChip =
   | "아티클"
   | "오프라인"
   | "컨퍼런스";
-
-const DynamicModal = dynamic(() => Promise.resolve(PostDetailModal), {
-  ssr: false,
-});
 
 export default async function Page({}) {
   const loggedInUser = await getUserInfo();
@@ -51,7 +46,7 @@ export default async function Page({}) {
         loggedInUser={loggedInUser}
       />
 
-      <DynamicModal
+      <PostDetailModal
         mode="create"
         breadcrumb={[NAV.ARCHIVE, NOTION.VALUE.ARCHIVE]}
         database={database}

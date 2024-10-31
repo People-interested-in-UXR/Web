@@ -3,10 +3,13 @@ import { Client } from "@notionhq/client";
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 
 //? MEMO: 새로운 명세 기반으로 수정할 것
-export async function GET(
-  request: Request,
-  { params: { id } }: { params: { id: string } }
-) {
+export async function GET(request: Request, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
   const { results }: QueryDatabaseResponse = await notion.databases.query({
@@ -26,10 +29,13 @@ export async function GET(
   return Response.json({ pages });
 }
 
-export async function POST(
-  request: Request,
-  { params: { id } }: { params: { id: string } }
-) {
+export async function POST(request: Request, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   const {
     modal: {
       user,

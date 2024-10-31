@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { OAuthButton } from "@/app/_ui/_atomics";
 
 export default async function Page({}) {
-  const loginInfo = cookies().getAll();
+  const loginInfo = (await cookies()).getAll();
   const { isLogin, isKakaoLogin, isGoogleLogin } = {
     isKakaoLogin: loginInfo.find((cookie) => cookie.name === "_kt"),
     isGoogleLogin: loginInfo.find((cookie) => cookie.name === "_gt"),

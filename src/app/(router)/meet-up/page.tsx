@@ -1,7 +1,6 @@
 import { getNotionData } from "@/app/_domain/databases";
 import { Board } from "@/app/_ui/_atomics/Board";
 import { NOTION } from "@/app/utils/consts";
-import { Page as IPage } from "@/app/utils/types/notion/page";
 
 export default async function Page({}) {
   const id = NOTION.DATABASE_ID.MEET_UP;

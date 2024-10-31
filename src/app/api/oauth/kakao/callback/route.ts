@@ -1,9 +1,10 @@
-import { createClient } from "@/app/utils/supabase/supabase";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+import { createServer } from "@/app/utils/supabase";
 
 export async function GET(request: Request) {
+  const cookie = await cookies();
   const url = new URL(request.url);
 
   // * kakao access token
@@ -29,7 +30,7 @@ export async function GET(request: Request) {
     })
   ).json();
 
-  cookies().set("_kt", access_token, {
+  cookie.set("_kt", access_token, {
     httpOnly: true,
     maxAge: expires_in,
     sameSite: "strict",
@@ -41,7 +42,7 @@ export async function GET(request: Request) {
   const emailJwtToken = jwt.sign({ email }, process.env.PRIVATE_TOKEN_KEY!, {
     expiresIn: expires_in,
   });
-  cookies().set("_ui", emailJwtToken, {
+  cookie.set("_ui", emailJwtToken, {
     httpOnly: true,
     maxAge: expires_in,
     sameSite: "strict",
@@ -58,7 +59,7 @@ export async function GET(request: Request) {
    */
 
   //* supabase
-  const supabase = createClient();
+  const supabase = await createServer();
 
   const { data, error } = await supabase
     .from("user")

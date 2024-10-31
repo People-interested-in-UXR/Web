@@ -69,7 +69,8 @@ const Sponser = ({ children }: HTMLAttributes<HTMLElement>) => {
 };
 
 export default async function Home() {
-  const isLogin = cookies().has("_ui");
+  const cookie = await cookies();
+  const isLogin = cookie.has("_ui");
 
   return (
     <Section>

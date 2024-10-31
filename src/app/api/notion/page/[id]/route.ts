@@ -1,11 +1,14 @@
 import { Client } from "@notionhq/client";
-import { NextApiRequest } from "next";
+
 import { NextRequest } from "next/server";
 
-export async function PATCH(
-  request: NextRequest,
-  { params: { id } }: { params: { id: string } }
-) {
+export async function PATCH(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   const {
     type,
     modal: {

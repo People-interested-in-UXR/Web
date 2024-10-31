@@ -1,4 +1,4 @@
-import { createClient } from "@/app/utils/supabase/supabase";
+import { createServer } from "@/app/utils/supabase";
 import { NextResponse } from "next/server";
 import { v4 as uuid } from "uuid";
 
@@ -7,7 +7,7 @@ export async function POST(request: Request) {
   const formData = await request.formData();
   const file = formData.get("cover") as File;
 
-  const supabase = createClient();
+  const supabase = await createServer();
   const { data, error } = await supabase.storage
     .from("image")
     .upload(`notion_cover/${uuidImageName}`, file);

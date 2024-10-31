@@ -1,19 +1,20 @@
-import { createClient } from "@/app/utils/supabase/supabase";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidateTag } from "next/cache";
+import { createServer } from "@/app/utils/supabase";
 
 export async function GET(request: NextRequest) {
-  const cookie = cookies().get("_ui");
-  const isLogOut = cookie?.value === "undefined";
+  const cookie = await cookies();
+  const userCookie = cookie.get("_ui");
+  const isLogOut = userCookie?.value === "undefined";
 
   if (isLogOut)
     return NextResponse.json({ message: "have not cookie" }, { status: 401 });
 
-  const { email } = jwt.decode(cookie?.value as string) as JwtPayload;
+  const { email } = jwt.decode(userCookie?.value as string) as JwtPayload;
 
-  const supabase = createClient();
+  const supabase = await createServer();
   const { data, error } = await supabase
     .from("user")
     .select("*")
@@ -25,14 +26,15 @@ export async function GET(request: NextRequest) {
 
 export async function PATCH(request: Request) {
   const json = await request.json();
-  const cookie = cookies().get("_ui");
-  const isLogOut = cookie?.value === "undefined";
+  const cookie = await cookies();
+  const userCookie = cookie.get("_ui");
+  const isLogOut = userCookie?.value === "undefined";
 
   if (isLogOut)
     return NextResponse.json({ message: "have not cookie" }, { status: 401 });
-  const { email } = jwt.decode(cookie?.value as string) as JwtPayload;
+  const { email } = jwt.decode(userCookie?.value as string) as JwtPayload;
 
-  const supabase = createClient();
+  const supabase = await createServer();
   const { data, error } = await supabase
     .from("user")
     .update({ ...json })
