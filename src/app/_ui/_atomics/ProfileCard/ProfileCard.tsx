@@ -51,6 +51,7 @@ const ProfileCard = ({
             fill
             className="rounded-xl object-cover"
             sizes="100%"
+            loading="lazy"
           />
         </div>
       ) : (
@@ -61,6 +62,7 @@ const ProfileCard = ({
           height={320}
           className="rounded-3xl"
           style={{ width: "364px", height: "320px" }}
+          loading="lazy"
         />
       )}
       <div className="p-4 text-sub w-full">

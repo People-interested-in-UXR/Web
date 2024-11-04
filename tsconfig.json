@@ -2,7 +2,10 @@
   "compilerOptions": {
     "types": [
       // ... your other types
-      "node"
+      "node",
+      "react",
+      "react-dom",
+      "next"
     ],
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
