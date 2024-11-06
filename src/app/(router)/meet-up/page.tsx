@@ -1,6 +1,7 @@
 import { getNotionData } from "@/app/_domain/databases";
 import { Board } from "@/app/_ui/_atomics/Board";
 import { NOTION } from "@/app/utils/consts";
+import { h } from "@fullcalendar/core/preact";
 
 export default async function Page({}) {
   const id = NOTION.DATABASE_ID.MEET_UP;
@@ -20,13 +21,13 @@ export default async function Page({}) {
       <Board
         title="오프라인 모임"
         description="우리 모임에서 진행한 다양한 오프라인 모임 / 행사에 대한 스케치에요. 함께 참여해요."
-        database={{ pages: offline }}
+        database={{ pages: offline, has_more: meetUpData?.has_more }}
         breadcrumb={[]}
       />
       <Board
         title="컨퍼런스"
         description="우리 모임에서 진행한 다양한 오프라인 모임 / 행사에 대한 스케치에요. 함께 참여해요."
-        database={{ pages: conferences }}
+        database={{ pages: conferences, has_more: meetUpData?.has_more }}
         breadcrumb={[]}
       />
     </section>

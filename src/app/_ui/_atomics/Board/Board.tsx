@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { SyncLoader } from "react-spinners";
 
 import { Description } from "../Description";
 
@@ -11,7 +12,7 @@ import ChipContainer from "./ChipContainer";
 import CardContainer from "./CardContainer";
 import PostCardList from "./PostCardList";
 import ProfileCardList from "./ProfileCardList";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export interface IChip<K> {
   category: K;
@@ -59,15 +60,63 @@ const Board = <T extends {}>({
   database,
   loggedInUser,
 }: IBoard<T | "전체">) => {
+  const [_, param] = usePathname().split("/");
+
   const query: T | "전체" =
     (useSearchParams().get("chip") as T | "전체") || "전체";
 
   const [selectedChip, setSelectedChip] = useState<T | "전체">(query);
   const [toastMessage, setToastMessage] = useToastMessage<ToastMessageType>("");
 
+  const [pagenation, setPagenation] = useState({ start: 7, end: 12 }); // 페이지 상태 추가
+  const [data, setData] = useState(database?.pages); // 초
+
   //* 내 게시글 토글
   const [isMyPostCard, setIsMyPostCard] = useState(false);
   const toggle = () => setIsMyPostCard(!isMyPostCard);
+
+  const [isLoading, setIsLoading] = useState(false); // 로딩 상태
+  const [hasMore, setHasMore] = useState(database?.has_more);
+  const observerRef = useRef<HTMLDivElement | null>(null);
+
+  const fetchMoreData = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/${param}/${database?.id}/?start=${pagenation?.start}&end=${pagenation?.end}`
+      );
+      const newPages = await res.json();
+
+      setHasMore(newPages?.has_more);
+      setData((prevData: any) => [...prevData, ...newPages?.pages]);
+      setPagenation(({ start, end }) => ({ start: start + 6, end: end + 6 }));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [pagenation, setPagenation]);
+
+  useEffect(() => {
+    //TODO: meet-up 페이지는 버튼형 페이지네이션
+    if (param === "meet-up") return;
+    if (isLoading || !hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !isLoading && hasMore) {
+          fetchMoreData();
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    if (observerRef.current) observer.observe(observerRef.current);
+
+    return () => {
+      if (observerRef.current) observer.unobserve(observerRef.current);
+    };
+  }, [isLoading, fetchMoreData]);
 
   // cover는 type을 넣으면 됨 cover[cover.type]
   return (
@@ -90,7 +139,7 @@ const Board = <T extends {}>({
           )}
 
           <PostCardList
-            database={database}
+            database={{ ...database, pages: data }}
             selectedChip={selectedChip}
             breadcrumb={breadcrumb}
             loggedInUser={loggedInUser}
@@ -107,6 +156,15 @@ const Board = <T extends {}>({
           />
         </CardContainer>
       )}
+      {/* //TODO: meet-up 페이지는 버튼형 페이지네이션 */}
+      {isLoading && param !== "meet-up" && (
+        <div className="w-full flex justify-between items-center flex-col  gap-6">
+          <p className="b2-600-16 text-title">잠시만 기다려주세요.</p>
+          <SyncLoader loading={isLoading} speedMultiplier={0.5} />
+        </div>
+      )}
+      {/* //TODO: meet-up 페이지는 버튼형 페이지네이션 */}
+      {param !== "meet-up" && <div ref={observerRef} className="h-1" />}
       {toastMessage && (
         <div className="fixed bottom-20">
           <Toast>

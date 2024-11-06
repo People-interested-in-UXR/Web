@@ -1,5 +1,6 @@
 import { IChip } from "@/app/_ui/_atomics/Board/Board";
 import { IPageProperty, ISelect, Page } from "@/app/utils/types/notion/page";
+import { start } from "repl";
 
 type NotionFetcherTag = "board" | "archive" | "meet-up" | "member";
 
@@ -23,18 +24,21 @@ export const getDatabaseProp: GetDatabaseProp = async (
 
   return props;
 };
-
+type V = {
+  pages: Page[];
+  has_more: boolean;
+};
 type GetAllPages = (
   url: string,
   cache: RequestCache,
   tag: NotionFetcherTag
-) => Promise<Page[]>;
+) => Promise<V>;
 export const getAllPages: GetAllPages = async (
   url: string,
   cache: RequestCache = "default",
   tag
 ) => {
-  const { pages }: { pages: Page[] } = await (
+  const { pages, has_more }: { pages: Page[]; has_more: boolean } = await (
     await fetch(url, {
       cache,
       headers: { "Content-Type": "application/json" },
@@ -42,17 +46,21 @@ export const getAllPages: GetAllPages = async (
     })
   ).json();
 
-  return pages;
+  return { pages, has_more };
 };
 
-export const getNotionData = async (id: string, tag: NotionFetcherTag) => {
+export const getNotionData = async (
+  id: string,
+  tag: NotionFetcherTag,
+  pagenation?: { start: number; end: number }
+) => {
   const props = await getDatabaseProp(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/prop/?database_id=${id}`,
     "no-cache",
     tag
   );
-  const pages = await getAllPages(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/${tag}/${id}`,
+  const { pages, has_more } = await getAllPages(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/${tag}/${id}/?start=${pagenation?.start || 1}&end=${pagenation?.end || 6}`,
     "no-cache",
     tag
   );
@@ -60,6 +68,7 @@ export const getNotionData = async (id: string, tag: NotionFetcherTag) => {
   return {
     props,
     pages,
+    has_more,
     id,
   };
 };

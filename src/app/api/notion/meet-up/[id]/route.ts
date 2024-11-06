@@ -11,6 +11,7 @@ export async function GET(
 
   const { id } = params;
 
+  //TODO: meet-up 페이지는 버튼형 페이지네이션
   const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
   const { results } = await notion.databases.query({

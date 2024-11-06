@@ -19,7 +19,10 @@ export default async function Page({}) {
   const loggedInUser = await getUserInfo();
   const id = NOTION.DATABASE_ID.ARCHIVE;
 
-  const archiveData = await getNotionData(id, NOTION.KEY.ARCHIVE);
+  const archiveData = await getNotionData(id, NOTION.KEY.ARCHIVE, {
+    start: 1,
+    end: 6,
+  });
   const database = {
     ...archiveData,
     pages: archiveData.pages.filter(
