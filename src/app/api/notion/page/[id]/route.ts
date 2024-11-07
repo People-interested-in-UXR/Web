@@ -1,13 +1,15 @@
 import { Client } from "@notionhq/client";
+import { revalidateTag } from "next/cache";
 
 import { NextRequest } from "next/server";
 
-export async function PATCH(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+export async function PATCH(
+  request: NextRequest,
+  props: { params: Promise<{ id: string }> }
+) {
   const params = await props.params;
 
-  const {
-    id
-  } = params;
+  const { id } = params;
 
   const {
     type,
@@ -85,6 +87,8 @@ export async function PATCH(request: NextRequest, props: { params: Promise<{ id:
           color: "default",
         },
       }));
+
+    revalidateTag(type);
 
     return Response.json({ ok: true });
   } catch (error) {

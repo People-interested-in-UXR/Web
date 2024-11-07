@@ -120,7 +120,6 @@ const Form = () => {
         event.preventDefault();
         await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/term`, {
           method: "POST",
-          cache: "no-cache",
           headers: {
             "Content-Type": "application/json",
           },

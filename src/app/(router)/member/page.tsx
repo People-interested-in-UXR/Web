@@ -1,5 +1,3 @@
-import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
-
 import { Board } from "@/app/_ui/_atomics/Board";
 import { IChip } from "@/app/_ui/_atomics/Board/Board";
 
@@ -18,9 +16,9 @@ type MemberCategory =
   | "ETC";
 
 export default async function Page({}) {
-  //! 일어나서 이거 수정할 것 ( build 시 JSON.stringpy 에러 나옴)
   const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user`, {
-    cache: "no-cache",
+    cache: "force-cache",
+    next: { tags: ["members"] },
   });
 
   const { users }: { users: User[] } = await data.json();
