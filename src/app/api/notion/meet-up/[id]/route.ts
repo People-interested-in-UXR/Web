@@ -5,12 +5,34 @@ import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 //? MEMO: 새로운 명세 기반으로 수정할 것
 export async function GET(
   request: Request,
-  { params: { id } }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ) {
+  const params = await props.params;
+
+  const { id } = params;
+
+  //TODO: meet-up 페이지는 버튼형 페이지네이션
   const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
   const { results } = await notion.databases.query({
     database_id: id,
+
+    filter: {
+      or: [
+        {
+          property: "모임유형",
+          select: {
+            equals: "오프라인",
+          },
+        },
+        {
+          property: "모임유형",
+          select: {
+            equals: "컨퍼런스",
+          },
+        },
+      ],
+    },
   });
 
   //* Block Contents 추츨

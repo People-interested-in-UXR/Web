@@ -3,10 +3,13 @@ import { getBlocks } from "@/app/_domain/blocks";
 import { Client } from "@notionhq/client";
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 
-export async function POST(
-  request: Request,
-  { params: { id } }: { params: { id: string } }
-) {
+export async function POST(request: Request, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
   const { results }: QueryDatabaseResponse = await notion.databases.query({

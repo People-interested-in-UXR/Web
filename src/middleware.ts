@@ -6,14 +6,15 @@ export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith("/sign-in")) {
     await updateSession(request);
 
-    if (cookies().has("_ui"))
+    const hasUser = (await cookies()).has("_ui");
+    if (hasUser)
       return NextResponse.redirect(
         new URL(`${process.env.NEXT_PUBLIC_BASE_URL}`)
       );
     return NextResponse.next();
   }
 
-  return NextResponse.next();
+  return await updateSession(request);
 }
 export const config = {
   matcher: [

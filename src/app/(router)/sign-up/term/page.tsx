@@ -1,4 +1,3 @@
-import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
 import { Form } from "@/app/_ui";
 
 export default function Page() {

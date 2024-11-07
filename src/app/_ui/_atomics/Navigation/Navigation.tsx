@@ -150,7 +150,7 @@ const Navigation = ({ user }: INavigation) => {
                 height={40}
                 className="rounded-full object-cover w-10 h-10"
               />
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-center">
                 <div>마이페이지</div>
                 <Image
                   src={"/icon/common/navigation_profile_arrow.svg"}

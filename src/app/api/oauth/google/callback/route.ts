@@ -1,10 +1,11 @@
-import { createClient } from "@/app/utils/supabase/supabase";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+import { createServer } from "@/app/utils/supabase";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
+  const cookie = await cookies();
 
   // * Google access token
   const { access_token, expires_in } = await (
@@ -30,7 +31,7 @@ export async function GET(request: Request) {
     )
   ).json();
 
-  cookies().set("_gt", access_token, {
+  cookie.set("_gt", access_token, {
     httpOnly: true,
     maxAge: expires_in,
     sameSite: "strict",
@@ -42,7 +43,7 @@ export async function GET(request: Request) {
     expiresIn: expires_in,
   });
 
-  cookies().set("_ui", emailJwtToken, {
+  cookie.set("_ui", emailJwtToken, {
     httpOnly: true,
     maxAge: expires_in,
     sameSite: "strict",
@@ -51,7 +52,7 @@ export async function GET(request: Request) {
   });
 
   // * Supabase
-  const supabase = createClient();
+  const supabase = await createServer();
 
   const { data, error } = await supabase
     .from("user")

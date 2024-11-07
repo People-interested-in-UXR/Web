@@ -52,6 +52,7 @@ const PostCard = ({
             alt={"card cover image"}
             width={149}
             height={68}
+            loading="lazy"
             style={{ width: 149, height: 68 }}
           />
           {(loggedInUser?.email !== undefined && loggedInUser?.email) ===
@@ -69,6 +70,7 @@ const PostCard = ({
             alt={"card cover image"}
             fill
             onClick={openModal}
+            loading="lazy"
             sizes="100%"
           />
           {(loggedInUser?.email !== undefined && loggedInUser?.email) ===
