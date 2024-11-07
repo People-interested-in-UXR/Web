@@ -16,6 +16,23 @@ export async function GET(
 
   const { results } = await notion.databases.query({
     database_id: id,
+
+    filter: {
+      or: [
+        {
+          property: "모임유형",
+          select: {
+            equals: "오프라인",
+          },
+        },
+        {
+          property: "모임유형",
+          select: {
+            equals: "컨퍼런스",
+          },
+        },
+      ],
+    },
   });
 
   //* Block Contents 추츨

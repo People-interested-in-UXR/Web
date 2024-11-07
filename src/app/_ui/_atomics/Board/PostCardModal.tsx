@@ -5,6 +5,8 @@ import { ChangeEvent, Fragment, useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import debounce from "@/app/utils/debounce";
 import Image from "next/image";
+import Link from "next/link";
+import { IPageProperty, Page } from "@/app/utils/types/notion/page";
 
 export interface IPostCardModalContent {
   page: string;
@@ -21,7 +23,12 @@ export interface IPostCardModalContent {
 interface IPostCardModal {
   mode: "create" | "edit" | "read";
   breadcrumb: string[];
-  database: any;
+  database: {
+    props: IPageProperty[];
+    pages: Page[];
+    has_more: boolean;
+    id: string;
+  };
   page: any;
   closeModal: () => void;
   loggedInUser?: User;
@@ -160,6 +167,10 @@ const PostCardModal = ({
     router.refresh();
   };
 
+  console.log(modal?.content?.text);
+
+  //TODO : 자유게시판은 글 작성
+  //TODO : 나머지는 링크로 연결 시키기
   return (
     <div
       className="top-0 fixed w-full h-full bg-brown-800 bg-opacity-60"
@@ -299,7 +310,20 @@ const PostCardModal = ({
               </div>
               <div className="w-full my-[45px] h-full ">
                 <div className="p-6 rounded-3xl bg-default w-full outline-none b1-400-20 text-sub h-full text-pretty break-words">
-                  {pageTextParser(page)}
+                  {/* TODO: text parser 구현하기 */}
+
+                  {pathname === "board" ? (
+                    pageTextParser(page)
+                  ) : (
+                    <p>
+                      <Link
+                        target="_blank"
+                        href={`${process.env.NEXT_PUBLIC_ORIGIN_NOTION_URL}/${page?.id.replaceAll("-", "")}`}
+                      >
+                        노션으로 이동 (임시)
+                      </Link>
+                    </p>
+                  )}
                 </div>
               </div>
             </>

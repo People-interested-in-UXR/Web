@@ -1,6 +1,5 @@
 import { IChip } from "@/app/_ui/_atomics/Board/Board";
 import { IPageProperty, ISelect, Page } from "@/app/utils/types/notion/page";
-import { start } from "repl";
 
 type NotionFetcherTag = "board" | "archive" | "meet-up" | "member";
 
@@ -28,7 +27,7 @@ type V = {
   pages: Page[];
   has_more: boolean;
 };
-type GetAllPages = (
+export type GetAllPages = (
   url: string,
   cache: RequestCache,
   tag: NotionFetcherTag
