@@ -11,7 +11,7 @@ const getUserInfo = async () => {
             Cookie: `_ui=${userCookie}`,
           },
           next: {
-            tags: ["user-info"],
+            tags: ["members"],
           },
         })
       )?.json()

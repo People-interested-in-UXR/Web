@@ -164,10 +164,8 @@ const PostCardModal = ({
     setFile(null);
     closeModal();
 
-    router.refresh();
+    window && window.location.reload();
   };
-
-  console.log(modal?.content?.text);
 
   //TODO : 자유게시판은 글 작성
   //TODO : 나머지는 링크로 연결 시키기

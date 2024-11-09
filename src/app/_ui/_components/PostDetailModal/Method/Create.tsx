@@ -111,7 +111,6 @@ const Create = ({
       await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/s3/notion/cover`, {
         method: "POST",
         cache: "no-cache",
-
         body: image,
       })
     ).json();
@@ -154,7 +153,7 @@ const Create = ({
     setFile(undefined);
     closeModal();
     localStorage.removeItem(pathname);
-    router.refresh();
+    window && window.location.reload();
   };
 
   return (

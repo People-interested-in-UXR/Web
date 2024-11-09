@@ -55,12 +55,12 @@ export const getNotionData = async (
 ) => {
   const props = await getDatabaseProp(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/prop/?database_id=${id}`,
-    "no-cache",
+    "force-cache",
     tag
   );
   const { pages, has_more } = await getAllPages(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/${tag}/${id}/?start=${pagenation?.start || 1}&end=${pagenation?.end || 6}`,
-    "no-cache",
+    "force-cache",
     tag
   );
 
@@ -78,7 +78,7 @@ export const getChips = async <T>(
 ): Promise<Array<IChip<T | "전체">>> => {
   const props = await getDatabaseProp(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/prop/?database_id=${id}`,
-    "no-cache",
+    "force-cache",
     tag
   );
 

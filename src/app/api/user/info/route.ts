@@ -43,7 +43,7 @@ export async function PATCH(request: Request) {
 
   if (error?.message) console.log(error);
 
-  revalidateTag("user-info");
+  revalidateTag("members");
 
   return NextResponse.json(
     { url: `${process.env.NEXT_PUBLIC_BASE_URL}` },

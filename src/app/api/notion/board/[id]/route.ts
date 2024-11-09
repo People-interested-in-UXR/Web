@@ -1,6 +1,8 @@
 import { getBlocks } from "@/app/_domain/blocks";
+import { NOTION } from "@/app/utils/consts";
 import { Client } from "@notionhq/client";
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
+import { revalidateTag } from "next/cache";
 
 //? MEMO: 새로운 명세 기반으로 수정할 것
 export async function GET(
@@ -155,6 +157,8 @@ export async function POST(
         },
       ],
     });
+
+    revalidateTag(NOTION.KEY.BOARD);
     return Response.json({ ok: true });
   } catch (error) {
     console.error(error);

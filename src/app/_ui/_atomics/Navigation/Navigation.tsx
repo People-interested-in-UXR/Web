@@ -80,9 +80,7 @@ const Navigation = ({ user }: INavigation) => {
 
   const handleSignOutClick = async () => {
     closeModal();
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/sign-out`, {
-      cache: "no-store",
-    });
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/sign-out`);
 
     setTimeout(async () => {
       window.location.reload();
