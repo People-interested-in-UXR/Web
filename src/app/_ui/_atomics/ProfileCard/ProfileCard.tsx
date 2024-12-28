@@ -49,7 +49,7 @@ const ProfileCard = ({
             src={profile}
             alt={"profile image"}
             fill
-            className="rounded-xl object-cover"
+            className="rounded-2xl object-cover "
             sizes="100%"
             loading="lazy"
           />
