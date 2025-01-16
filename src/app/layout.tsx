@@ -92,6 +92,10 @@ export default function RootLayout({
           href="/favicons/favicon-16x16.png"
         />
         <link rel="manifest" href="/favicons/manifest.json" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        />
       </head>
       <body className={pretandard.className + " relative"}>
         <Container className="h-full bg-default flex flex-col w-full min-h-screen">
