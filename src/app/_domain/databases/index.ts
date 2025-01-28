@@ -59,7 +59,9 @@ export const getNotionData = async (
     tag
   );
   const { pages, has_more } = await getAllPages(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/${tag}/${id}/?start=${pagenation?.start || 1}&end=${pagenation?.end || 6}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/${tag}/${id}/?start=${
+      pagenation?.start || 1
+    }&end=${pagenation?.end || 6}`,
     "force-cache",
     tag
   );
@@ -88,7 +90,7 @@ export const getChips = async <T>(
 
   const chips: IChip<T | "전체">[] = [
     { category: "전체" },
-    ...(filterdProps.select.options ?? []).map((option) => ({
+    ...(filterdProps?.select?.options ?? []).map((option) => ({
       category: option.name as T,
     })),
   ];
