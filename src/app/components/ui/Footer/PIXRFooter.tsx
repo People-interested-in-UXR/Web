@@ -2,7 +2,8 @@ import Link from "next/link";
 
 import { NAV } from "../../../utils/consts";
 import Footer from "./Footer";
-import { Icon, Logo } from "../Icon";
+import { Logo } from "../Logo/Logo";
+import { Icon } from "../Icon/Icon";
 
 export default function PIXRFooter({}) {
   return (

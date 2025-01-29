@@ -1,6 +1,9 @@
 "use client";
+import RegisterButton from "@/app/components/ui/Button/RegisterButton";
+import { Icon } from "@/app/components/ui/Icon/Icon";
+import { Toast } from "@/app/components/ui/Toast/Toast";
 import { Fragment, ReactNode, useState } from "react";
-import { Icon, RegisterButton, Toast } from "../../../../_ui/_atomics";
+
 import { createPortal } from "react-dom";
 
 interface IProperty {
@@ -38,7 +41,7 @@ const Chip = ({ value, active }: IChip) => {
       className={`${
         active
           ? "bg-icon-default text-accent "
-          : "bg-muted text-sub hover:border-icon-default active:bg-icon-default active:text-accent"
+          : "bg-background-muted text-sub hover:border-icon-default active:bg-icon-default active:text-accent"
       } px-2 py-1 b2-600-16 flex items-center justify-center rounded-lg border-2 border-transparent`}
     >
       {value}
@@ -49,7 +52,7 @@ const Chip = ({ value, active }: IChip) => {
 interface IFixedSection {
   breadcrumb: string[];
 }
-export default function FixedSection({ breadcrumb }: IFixedSection) {
+export function FixedSection({ breadcrumb }: IFixedSection) {
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => setShowModal(true);
@@ -175,7 +178,7 @@ export default function FixedSection({ breadcrumb }: IFixedSection) {
                     <textarea
                       name=""
                       id=""
-                      className="p-6 rounded-3xl bg-default w-full outline-none b1-400-20 text-sub h-full"
+                      className="p-6 rounded-3xl bg-background-default w-full outline-hidden b1-400-20 text-sub h-full"
                     ></textarea>
                   </div>
                   <div>

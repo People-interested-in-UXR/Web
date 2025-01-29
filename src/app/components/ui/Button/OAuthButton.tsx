@@ -1,7 +1,7 @@
 "use client";
 
-import { Icon } from "../Icon";
 import { redirect, useRouter } from "next/navigation";
+import { Icon } from "../Icon/Icon";
 
 interface IOAuthButton {
   OAuthURL: string;
@@ -24,7 +24,9 @@ export default function OAuthButton({
 
   return (
     <button
-      className={`${social === "kakao" ? "bg-[#FEE500]" : "bg-white"} h-[45px] w-full rounded-[7px] px-4 py-3 flex items-center gap-[77px]`}
+      className={`${
+        social === "kakao" ? "bg-[#FEE500]" : "bg-white"
+      } h-[45px] w-full rounded-[7px] px-4 py-3 flex items-center gap-[77px]`}
       onClick={handleClick}
     >
       <Icon width={20} height={20} src={iconSrc} alt={iconAlt} />

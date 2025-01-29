@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Toast } from "../../../../_ui/_atomics";
+import { Toast } from "../../Toast/Toast";
 
 interface ISignUpToast {
   children: ReactNode;

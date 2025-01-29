@@ -1,9 +1,10 @@
 "use client";
 import Image from "next/image";
-import { Icon } from "../../../../_ui/_atomics/Icon";
-import { User } from "@/app/utils/types/user/user";
 
-const ProfileCard = ({
+import { User } from "@/app/utils/types/user/user";
+import { Icon } from "@/app/components/ui/Icon/Icon";
+
+export const ProfileCard = ({
   email,
   introduce,
   name,
@@ -81,5 +82,3 @@ const ProfileCard = ({
     </div>
   );
 };
-
-export default ProfileCard;

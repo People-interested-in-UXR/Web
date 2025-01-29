@@ -1,12 +1,14 @@
 import { User } from "@/app/utils/types/user/user";
-import { Icon } from "../Icon";
-import { Property, PropertyChip } from "../Propperty";
+
 import { ChangeEvent, Fragment, useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import debounce from "@/app/utils/debounce";
 import Image from "next/image";
 import Link from "next/link";
 import { IPageProperty, Page } from "@/app/utils/types/notion/page";
+import { Icon } from "@/app/components/ui/Icon/Icon";
+import { Property } from "./Property/Property";
+import { PropertyChip } from "./Property/PropertyChip";
 
 export interface IPostCardModalContent {
   page: string;
@@ -34,7 +36,7 @@ interface IPostCardModal {
   loggedInUser?: User;
 }
 
-const PostCardModal = ({
+export const PostCardModal = ({
   mode,
   closeModal,
   database,
@@ -307,7 +309,7 @@ const PostCardModal = ({
                 </div>
               </div>
               <div className="w-full my-[45px] h-full ">
-                <div className="p-6 rounded-3xl bg-default w-full outline-none b1-400-20 text-sub h-full text-pretty break-words">
+                <div className="p-6 rounded-3xl bg-background-default w-full outline-hidden b1-400-20 text-sub h-full text-pretty break-words">
                   {/* TODO: text parser 구현하기 */}
 
                   {pathname === "board" ? (
@@ -316,7 +318,9 @@ const PostCardModal = ({
                     <p>
                       <Link
                         target="_blank"
-                        href={`${process.env.NEXT_PUBLIC_ORIGIN_NOTION_URL}/${page?.id.replaceAll("-", "")}`}
+                        href={`${
+                          process.env.NEXT_PUBLIC_ORIGIN_NOTION_URL
+                        }/${page?.id.replaceAll("-", "")}`}
                       >
                         노션으로 이동 (임시)
                       </Link>
@@ -591,7 +595,7 @@ const PostCardModal = ({
                   name=""
                   id="textarea"
                   defaultValue={modal?.content?.text}
-                  className="p-6 rounded-3xl bg-default w-full outline-none b1-400-20 text-sub min-h-full "
+                  className="p-6 rounded-3xl bg-background-default w-full outline-hidden b1-400-20 text-sub min-h-full "
                   placeholder="내용을 작성해주세요"
                   onChange={debouncedOnChange}
                 />
@@ -617,5 +621,3 @@ const PostCardModal = ({
     </div>
   );
 };
-
-export default PostCardModal;

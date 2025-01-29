@@ -1,8 +1,8 @@
 import { getChips, getNotionData } from "@/app/_domain/databases";
 import { getUserInfo } from "@/app/_domain/user";
-import { Board } from "@/app/_ui/_atomics/Board";
 
 import { PostDetailModal } from "@/app/_ui/_components";
+import { Board } from "@/app/components/features/Board/Board";
 import { NAV, NOTION } from "@/app/utils/consts";
 
 type ArchiveChip =

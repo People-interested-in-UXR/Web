@@ -1,8 +1,8 @@
 import { HTMLAttributes } from "react";
 
-export default function Section({
+export const Section = ({
   children,
   className,
-}: HTMLAttributes<HTMLElement>) {
+}: HTMLAttributes<HTMLElement>) => {
   return <section className={className}>{children}</section>;
-}
+};

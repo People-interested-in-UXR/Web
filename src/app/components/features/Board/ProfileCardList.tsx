@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { ProfileCard } from "../Profile/ProfileCard";
+import { ProfileCard } from "../Profile/ProfileCard/ProfileCard";
 
 const ProfileCardList = ({
   users,

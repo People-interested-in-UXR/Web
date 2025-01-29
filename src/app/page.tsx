@@ -5,13 +5,13 @@ import { HTMLAttributes, ReactNode } from "react";
 
 import { cookies } from "next/headers";
 
-import Section from "./components/ui/Section/Section";
 import Button from "./components/ui/Button/Button";
-import { Icon } from "./components/ui/Icon";
+import { Icon } from "./components/ui/Icon/Icon";
+import { Section } from "./components/ui/Section/Section";
 
 const Banner = ({ children }: HTMLAttributes<HTMLElement>) => {
   return (
-    <div className="py-20 flex justify-center items-center bg-default">
+    <div className="py-20 flex justify-center items-center bg-background-default">
       {children}
     </div>
   );
@@ -35,7 +35,7 @@ const Grid = ({ imageSrc, imageAlt, href, children }: IGrid) => {
   return (
     <div className="w-full h-full ">
       <Link
-        className="rounded-3xl bg-white text-default h-fit flex flex-col items-center gap-2 p-6 max-sm:p-4 group hover:bg-muted hover:border-primary-red hover:border-2 border-2 border-white"
+        className="rounded-3xl bg-white text-default h-fit flex flex-col items-center gap-2 p-6 max-sm:p-4 group hover:bg-background-muted hover:border-primary-red hover:border-2 border-2 border-white"
         href={href || "#"}
         prefetch={true}
       >
@@ -65,7 +65,7 @@ const Grid = ({ imageSrc, imageAlt, href, children }: IGrid) => {
 
 const Sponser = ({ children }: HTMLAttributes<HTMLElement>) => {
   return (
-    <div className="flex flex-col gap-10 bg-default items-center sm:py-20 py-10">
+    <div className="flex flex-col gap-10 bg-background-default items-center sm:py-20 py-10">
       {children}
     </div>
   );
@@ -101,13 +101,17 @@ export default async function Home() {
               </ul>
             </div>
             {isLogin ? (
-              <Link href={"/member"}>
-                <Button>멤버 소개</Button>
-              </Link>
+              <div className="w-fit">
+                <Link href={"/member"}>
+                  <Button>멤버 소개</Button>
+                </Link>
+              </div>
             ) : (
-              <Link href={"/sign-in"}>
-                <Button>모임 참여하기</Button>
-              </Link>
+              <div className="w-fit">
+                <Link href={"/sign-in"}>
+                  <Button>모임 참여하기</Button>
+                </Link>
+              </div>
             )}
           </div>
           <div className="flex items-center">

@@ -34,7 +34,7 @@ const CustomCheckBox = forwardRef(
           <input
             ref={ref}
             type="checkbox"
-            className={`before:content[''] peer relative h-6 w-6 cursor-pointer appearance-none rounded-[4px] border-2 border-secondary bg-default transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-brown-600 before:opacity-0 before:transition-opacity checked:border-primary-red checked:bg-primary-red checked:before:bg-primary-red hover:border-brown-600 hover:before:opacity-0`}
+            className={`before:content[''] peer relative h-6 w-6 cursor-pointer appearance-none rounded-[4px] border-2 border-secondary bg-background-default transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-brown-600 before:opacity-0 before:transition-opacity checked:border-primary-red checked:bg-primary-red checked:before:bg-primary-red hover:border-brown-600 hover:before:opacity-0`}
             id={id}
             onChange={(event) => handleCheckBox(event)}
             checked={getCheckBoxs.includes(id)}
@@ -133,7 +133,7 @@ const Form = () => {
       className="flex flex-col gap-10"
     >
       <div>
-        <div className="w-full flex bg-muted rounded-lg h-14">
+        <div className="w-full flex bg-background-muted rounded-lg h-14">
           <CustomCheckBox
             ref={allRef}
             id={`all`}

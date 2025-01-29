@@ -4,7 +4,7 @@ interface IProperty {
   propKey: Array<ReactNode>;
   propValue?: Array<ReactNode> | string;
 }
-const Property = ({ propKey, propValue }: IProperty) => {
+export const Property = ({ propKey, propValue }: IProperty) => {
   return (
     <div className="flex flex-wrap w-full">
       <div className="flex gap-2 px-4 py-2 b1-500-20 text-muted w-[180px] flex-wrap">
@@ -27,5 +27,3 @@ const Property = ({ propKey, propValue }: IProperty) => {
     </div>
   );
 };
-
-export default Property;

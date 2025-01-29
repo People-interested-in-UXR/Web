@@ -1,11 +1,11 @@
 import { getUserInfo } from "@/app/_domain/user";
-import { SignUpForm } from "@/app/_ui";
+import { SignUpForm } from "@/app/_ui/_components";
 
 export default async function Page({}) {
   const user = await getUserInfo();
 
   return (
-    <div className="w-full  bg-default flex justify-center h-full min-h-calc-header">
+    <div className="w-full  bg-background-default flex justify-center h-full min-h-calc-header">
       <div className="flex flex-col justify-center text-center gap-8 my-12 ">
         <h1 className="text-brown-900 h1-700-32 break-keep text-pretty px-[84px]">
           프로필을 수정해주세요

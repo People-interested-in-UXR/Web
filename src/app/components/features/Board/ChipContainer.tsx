@@ -1,6 +1,6 @@
 import { Dispatch, Fragment, MouseEventHandler, SetStateAction } from "react";
-import Chip from "../../../_ui/_atomics/Board/Chip";
 import { IChip } from "./Board";
+import Chip from "./Chip";
 
 interface IChipContainer<T> {
   chips: Array<IChip<T>>;

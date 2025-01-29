@@ -1,10 +1,11 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { Icon } from "../../../../_ui/_atomics";
+
 import Image from "next/image";
 import { User } from "@/app/utils/types/user/user";
 import { revalidateTag } from "next/cache";
+import { Icon } from "../../Icon/Icon";
 
 interface ISignUpForm {
   user?: User;
@@ -212,7 +213,9 @@ const SignUpForm = ({ user }: ISignUpForm) => {
             <label
               htmlFor="photo"
               className={`${
-                file ? "text-default bg-secondary" : "text-sub bg-muted"
+                file
+                  ? "text-default bg-secondary"
+                  : "text-sub bg-background-muted"
               } w-24 h-[34px] c1-400-12 flex items-center justify-center cursor-pointer p-2 rounded-lg`}
             >
               사진 가져오기
@@ -237,7 +240,7 @@ const SignUpForm = ({ user }: ISignUpForm) => {
             type="text"
             className={`${
               name ? "border-teriary" : "border-secondary"
-            } b2-400-16 w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center h-[58px] outline-none placeholder:text-muted`}
+            } b2-400-16 w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center h-[58px] outline-hidden placeholder:text-muted`}
             placeholder="홍길동"
             onChange={(event) => {
               setName(event.currentTarget.value);
@@ -290,7 +293,7 @@ const SignUpForm = ({ user }: ISignUpForm) => {
                 {positions.map((el, index) => (
                   <button
                     key={index}
-                    className="p-4 text-start w-full hover:bg-muted hover:text-sub active:bg-brown-800 active:text-accent b2-400-16 active:rounded-lg"
+                    className="p-4 text-start w-full hover:bg-background-muted hover:text-sub active:bg-brown-800 active:text-accent b2-400-16 active:rounded-lg"
                     onClick={() => {
                       setPosition(el);
                       setPositionToggle((prev) => !prev);
@@ -303,7 +306,7 @@ const SignUpForm = ({ user }: ISignUpForm) => {
             )}
             {/* <select
                   id={"job"}
-                  className={`${job ? "border-teriary" : "border-secondary text-muted"} b2-400-16 w-full border rounded-lg px-4 py-[11px]  h-[58px] outline-none appearance-none relative`}
+                  className={`${job ? "border-teriary" : "border-secondary text-muted"} b2-400-16 w-full border rounded-lg px-4 py-[11px]  h-[58px] outline-hidden appearance-none relative`}
                   onChange={(event) => setJob(event.currentTarget.value)}
                 >
                   <option className="text-muted" value="">
@@ -343,7 +346,7 @@ const SignUpForm = ({ user }: ISignUpForm) => {
             ref={introduceRef}
             className={`${
               introduce ? "border-teriary" : "border-secondary"
-            } b2-400-16 w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center h-[104px] outline-none resize-none placeholder:text-muted ${
+            } b2-400-16 w-full border rounded-lg px-4 py-[11px] bg-white flex justify-between items-center h-[104px] outline-hidden resize-none placeholder:text-muted ${
               introduce.length >= INTRODUCE_MAX_LENGTH
                 ? "border-primary-red"
                 : ""
@@ -387,7 +390,7 @@ const SignUpForm = ({ user }: ISignUpForm) => {
               type="email"
               className={`${
                 email ? "border-teriary pl-4" : "border-secondary pl-12"
-              } b2-400-16 w-full border rounded-lg pr-4 py-[11px] bg-white flex justify-between items-center h-[58px] outline-none placeholder:text-muted`}
+              } b2-400-16 w-full border rounded-lg pr-4 py-[11px] bg-white flex justify-between items-center h-[58px] outline-hidden placeholder:text-muted`}
               placeholder="piiuxr.official@gmail.com"
               onChange={(event) => setEmail(event.currentTarget.value)}
             />
@@ -416,7 +419,7 @@ const SignUpForm = ({ user }: ISignUpForm) => {
               type="sns"
               className={`${
                 sns ? "border-teriary pl-4" : "border-secondary pl-12"
-              } b2-400-16 w-full border rounded-lg pr-4 py-[11px] bg-white flex justify-between items-center h-[58px] outline-none placeholder:text-muted`}
+              } b2-400-16 w-full border rounded-lg pr-4 py-[11px] bg-white flex justify-between items-center h-[58px] outline-hidden placeholder:text-muted`}
               placeholder="링크드인, 브런치, 페이스북 등 기타 SNS 주소"
               onChange={(event) => setSns(event.currentTarget.value)}
             />

@@ -1,7 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "tailwindcss";
 /*
   /schedule view 내에 fullcalendar 라이브러리 사용 시, today의 배경색 override
 */
@@ -85,4 +82,60 @@
   .c1-400-12 {
     @apply font-normal text-[12px] leading-[150%];
   }
+}
+
+@theme {
+  /* Colors */
+  --color-primary-brown: #d9d2ce;
+  --color-primary-red: #e65656;
+  --color-btn-default: #e65656;
+  --color-btn-disabled: #ada8a4;
+  --color-btn-hover: #eb7777;
+  --color-btn-unselected: #e8e4e1;
+  --color-icon-default: #827e7b;
+  --color-icon-unselect: #ada8a4;
+  --color-icon-selected: #575452;
+  --color-muted: #d9d2ce;
+  --color-background-muted: #f0edeb;
+  --color-accent: #ffffff;
+  --color-default: #575452;
+  --color-background-default: #f7f6f5;
+  --color-secondary: #d9d2ce;
+  --color-tertiary: #575452;
+  --color-title: #2b2a29;
+  --color-sub: #827e7b;
+
+  /* Shadows */
+  --shadow-s: 0 2px 4px rgba(224, 219, 215, 1);
+  --shadow-m: 0 4px 8px rgba(224, 219, 215, 1);
+  --shadow-lg: 0 8px 16px rgba(224, 219, 215, 1);
+  --shadow-xl: 0 16px 24px rgba(224, 219, 215, 1);
+}
+
+/* Animation */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-fadeOut {
+  animation: fadeOut 4s ease-in-out;
+}
+
+/* Screen sizes */
+@custom-media --mobile (min-width: 375px);
+
+/* Heights */
+.h-calc-header {
+  height: calc(100vh - 95px);
+}
+.min-h-calc-header {
+  min-height: calc(100vh - 95px);
+}
+.max-h-calc-header {
+  max-height: calc(100vh - 95px);
 }

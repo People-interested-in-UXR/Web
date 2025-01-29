@@ -1,9 +1,8 @@
+import { Board } from "@/app/components/features/Board/Board";
+import Description from "@/app/components/ui/Description/Description";
 import Image from "next/image";
 
 import { ReactNode } from "react";
-
-import { Description } from "@/app/_ui/_atomics";
-import { Board } from "@/app/_ui/_atomics/Board";
 
 const Card = ({
   imagePosition,
@@ -34,13 +33,13 @@ const Card = ({
 export default async function Page({}) {
   const users = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/manager`,
-    { method: 'GET', cache: "force-cache", next: { tags: ["members"] }}
+    { method: "GET", cache: "force-cache", next: { tags: ["members"] } }
   ).then((res) => res.json());
 
   return (
     <>
       {/* 모임 소개 */}
-      <div className="flex flex-col items-center w-full sm:py-20 py-8 gap-16 bg-muted sm:px-10 px-8">
+      <div className="flex flex-col items-center w-full sm:py-20 py-8 gap-16 bg-background-muted sm:px-10 px-8">
         <Card
           imagePosition="right"
           Image={

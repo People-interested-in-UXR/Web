@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Create } from "./Method";
+
 import { IDatabase } from "@/app/utils/types/notion/database";
-import { useBodyScrollLock } from "@/app/_hooks/useBodyScrollLock";
+
 import { User } from "@/app/utils/types/user/user";
-import PostCardModal from "../../_atomics/Board/PostCardModal";
+
+import { useBodyScrollLock } from "@/app/hooks/useBodyScrollLock";
+import { PostCardModal } from "./PostCardModal";
+import { Create } from "./Method/Create";
 
 interface IPostDetailModal {
   mode: "create" | "edit" | "read";
@@ -13,7 +16,7 @@ interface IPostDetailModal {
   database: IDatabase;
   loggedInUser?: User;
 }
-const PostDetailModal = ({
+export const PostDetailModal = ({
   mode,
   breadcrumb,
   database,
@@ -222,7 +225,7 @@ const PostDetailModal = ({
   //                     <textarea
   //                       name=""
   //                       id=""
-  //                       className="p-6 rounded-3xl bg-default w-full outline-none b1-400-20 text-sub h-full"
+  //                       className="p-6 rounded-3xl bg-background-default w-full outline-hidden b1-400-20 text-sub h-full"
   //                     ></textarea>
   //                   </div>
   //                   <div>
@@ -238,5 +241,3 @@ const PostDetailModal = ({
   //   );
   // }
 };
-
-export default PostDetailModal;

@@ -100,7 +100,7 @@ export default function RootLayout({
         />
       </head>
       <body className={pretandard.className + " relative"}>
-        <Container className="h-full bg-default flex flex-col w-full min-h-screen">
+        <Container className="h-full bg-background-default flex flex-col w-full min-h-screen">
           <PIXRHeader />
           {children}
           <PIXRFooter />

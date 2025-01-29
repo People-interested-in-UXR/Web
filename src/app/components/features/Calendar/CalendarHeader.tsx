@@ -3,7 +3,7 @@ import { CustomRendering } from "@fullcalendar/core/internal";
 import { CalendarApi, ViewApi } from "@fullcalendar/core/index.js";
 import { CalendarImpl } from "@fullcalendar/core/internal";
 import FullCalendar from "@fullcalendar/react";
-import { Icon } from "../../../_ui/_atomics";
+import { Icon } from "../../ui/Icon/Icon";
 
 const formater = (day: number | Date | undefined) => {
   if (!day) return "";

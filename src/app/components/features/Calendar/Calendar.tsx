@@ -86,7 +86,7 @@ const Calendar = ({ pages }: { pages: any }) => {
     backgroundColor: "#51BAFF",
     borderColor: "#51BAFF",
     className:
-      "cursor-pointer  bg-[#51BAFF] hover:bg-[#51BAFF] border-none rounded",
+      "cursor-pointer  bg-[#51BAFF] hover:bg-[#51BAFF] border-none rounded-sm",
   }));
 
   useEffect(() => {

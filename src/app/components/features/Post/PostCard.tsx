@@ -1,10 +1,12 @@
 "use client";
-import { useBodyScrollLock } from "@/app/_hooks/useBodyScrollLock";
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import PostCardModal from "../../../_ui/_atomics/Board/PostCardModal";
+
 import { User } from "@/app/utils/types/user/user";
+import { useBodyScrollLock } from "@/app/hooks/useBodyScrollLock";
+import { PostCardModal } from "./PostModal/PostCardModal";
 
 const PostCard = ({
   database,
@@ -40,7 +42,7 @@ const PostCard = ({
   }, [showModal]);
 
   return (
-    <div className="bg-muted rounded-3xl shadow-md flex flex-col cursor-pointer sm:w-[480px] w-[288px]">
+    <div className="bg-background-muted rounded-3xl shadow-md flex flex-col cursor-pointer sm:w-[480px] w-[288px]">
       {!page?.cover?.external?.url && !page?.cover?.file?.url ? (
         <div
           className="flex justify-center items-center w-full rounded-tl-3xl rounded-tr-3xl sm:h-[252px] h-[136px] relative"

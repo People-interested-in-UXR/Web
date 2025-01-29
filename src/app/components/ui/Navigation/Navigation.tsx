@@ -10,7 +10,7 @@ import { createPortal } from "react-dom";
 import { useModalToggle } from "../../../hooks";
 import { User } from "@/app/utils/types/user/user";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Icon } from "../Icon";
+import { Icon } from "../Icon/Icon";
 
 interface IPIXRHeaderNavList {
   type: "common" | "auth";
@@ -55,7 +55,7 @@ const PIXRHeaderNavList = ({
 interface INavigation {
   user: User;
 }
-const Navigation = ({ user }: INavigation) => {
+export const Navigation = ({ user }: INavigation) => {
   const { showModal, openModal, closeModal } = useModalToggle();
   const [showProfile, setShowProfile] = useState(false);
 
@@ -358,5 +358,3 @@ const Navigation = ({ user }: INavigation) => {
     </>
   );
 };
-
-export default Navigation;

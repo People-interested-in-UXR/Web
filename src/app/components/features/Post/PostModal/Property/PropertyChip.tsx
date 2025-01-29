@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { IPostCardModalContent } from "../Board/PostCardModal";
+import { IPostCardModalContent } from "../PostCardModal";
 
 interface IChip {
   value: string;
@@ -7,7 +7,7 @@ interface IChip {
   type: string;
   setModal: Dispatch<SetStateAction<IPostCardModalContent>>;
 }
-const PropertyChip = ({ value, type, active, setModal }: IChip) => {
+export const PropertyChip = ({ value, type, active, setModal }: IChip) => {
   const handleModal = () => {
     if (type === "모임유형") {
       setModal((prev) => ({
@@ -56,11 +56,13 @@ const PropertyChip = ({ value, type, active, setModal }: IChip) => {
   return (
     <button
       onClick={handleModal}
-      className={`${active ? "bg-icon-default text-accent " : "bg-muted text-sub hover:border-icon-default active:bg-icon-default active:text-accent"} px-2 py-1 sm:b2-600-16 b3-600-14 flex items-center justify-center rounded-lg border-2 border-transparent`}
+      className={`${
+        active
+          ? "bg-icon-default text-accent "
+          : "bg-background-muted text-sub hover:border-icon-default active:bg-icon-default active:text-accent"
+      } px-2 py-1 sm:b2-600-16 b3-600-14 flex items-center justify-center rounded-lg border-2 border-transparent`}
     >
       {value}
     </button>
   );
 };
-
-export default PropertyChip;

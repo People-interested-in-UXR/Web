@@ -1,6 +1,7 @@
 import { getUserInfo } from "../../../_domain/user";
-import { Logo } from "../Icon";
-import { Navigation } from "../Navigation";
+import { Logo } from "../Logo/Logo";
+import { Navigation } from "../Navigation/Navigation";
+
 import Header from "./Header";
 
 const PIXRHeader = async () => {

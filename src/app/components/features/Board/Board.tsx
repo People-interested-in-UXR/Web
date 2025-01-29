@@ -2,17 +2,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { SyncLoader } from "react-spinners";
 
-import { Description } from "../../../_ui/_atomics/Description";
-
 import { User } from "@/app/utils/types/user/user";
-import { Toast } from "../../ui/Toast";
+
 import { TOAST, ToastMessageType } from "@/app/utils/consts";
 import useToastMessage from "../../../hooks/useToastMessage";
 import ChipContainer from "./ChipContainer";
-import CardContainer from "../../../_ui/_atomics/Board/CardContainer";
+
 import PostCardList from "./PostCardList";
 import ProfileCardList from "./ProfileCardList";
 import { usePathname, useSearchParams } from "next/navigation";
+import Description from "../../ui/Description/Description";
+import { Toast } from "../../ui/Toast/Toast";
+import CardContainer from "./CardContainer";
 
 export interface IChip<K> {
   category: K;
@@ -51,7 +52,7 @@ const ToggleButton = ({
   );
 };
 
-const Board = <T extends {}>({
+export const Board = <T extends {}>({
   title,
   description,
   breadcrumb,
@@ -180,5 +181,3 @@ const Board = <T extends {}>({
     </div>
   );
 };
-
-export default Board;

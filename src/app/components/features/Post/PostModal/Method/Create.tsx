@@ -1,11 +1,3 @@
-import {
-  Icon,
-  Property,
-  PropertyChip,
-  RegisterButton,
-  Toast,
-} from "@/app/_ui/_atomics";
-import { IPostCardModalContent } from "@/app/_ui/_atomics/Board/PostCardModal";
 import debounce from "@/app/utils/debounce";
 import { IDatabase } from "@/app/utils/types/notion/database";
 import { User } from "@/app/utils/types/user/user";
@@ -14,6 +6,12 @@ import { usePathname, useRouter } from "next/navigation";
 
 import { ChangeEvent, Fragment, useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { IPostCardModalContent } from "../PostCardModal";
+import { Toast } from "@/app/components/ui/Toast/Toast";
+import RegisterButton from "@/app/components/ui/Button/RegisterButton";
+import { Icon } from "@/app/components/ui/Icon/Icon";
+import { Property } from "../Property/Property";
+import { PropertyChip } from "../Property/PropertyChip";
 
 interface ICreate {
   breadcrumb: Array<string>;
@@ -24,7 +22,7 @@ interface ICreate {
   loggedInUser?: User;
 }
 
-const Create = ({
+export const Create = ({
   breadcrumb,
   showModal,
   openModal,
@@ -502,7 +500,7 @@ const Create = ({
                   <textarea
                     name=""
                     id="textarea"
-                    className="p-6 rounded-3xl bg-default w-full outline-none b1-400-20 text-sub min-h-full "
+                    className="p-6 rounded-3xl bg-background-default w-full outline-hidden b1-400-20 text-sub min-h-full "
                     placeholder="내용을 작성해주세요"
                     onChange={debouncedOnChange}
                   />
@@ -530,5 +528,3 @@ const Create = ({
     </div>
   );
 };
-
-export default Create;
