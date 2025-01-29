@@ -10,7 +10,7 @@ import { Icon } from "../../Icon/Icon";
 interface ISignUpForm {
   user?: User;
 }
-const SignUpForm = ({ user }: ISignUpForm) => {
+export const SignUpForm = ({ user }: ISignUpForm) => {
   const [profile, setProfile] = useState(user?.profile || "");
   const [file, setFile] = useState<File>();
   const [name, setName] = useState(user?.name || "");
@@ -442,5 +442,3 @@ const SignUpForm = ({ user }: ISignUpForm) => {
     </>
   );
 };
-
-export default SignUpForm;

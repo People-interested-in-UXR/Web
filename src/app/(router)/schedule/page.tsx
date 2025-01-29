@@ -1,4 +1,4 @@
-import { Calendar } from "@/app/_ui";
+import { Calendar } from "@/app/components/features/Calendar/Calendar";
 import { NOTION } from "@/app/utils/consts";
 
 export default async function Page({}) {

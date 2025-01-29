@@ -71,7 +71,7 @@ interface ICalenderEvents {
   };
 }
 
-const Calendar = ({ pages }: { pages: any }) => {
+export const Calendar = ({ pages }: { pages: any }) => {
   const calendarRef = useRef<FullCalendar>(null);
   const [screenSize, setScreenSize] = useState({ x: 0, y: 0 });
   const events = [...pages].map((page: ICalenderEvents) => ({
@@ -198,5 +198,3 @@ const Calendar = ({ pages }: { pages: any }) => {
     </div>
   );
 };
-
-export default Calendar;

@@ -70,7 +70,7 @@ type Inputs = {
   marketing: string;
 };
 
-const Form = () => {
+export const PrivacyConsentForm = () => {
   const allRef = useRef<HTMLInputElement>(null);
   const [getCheckBoxs, setCheckBoxs] = useState<Array<keyof Inputs>>([]);
   const router = useRouter();
@@ -226,5 +226,3 @@ const Form = () => {
     </form>
   );
 };
-
-export default Form;

@@ -5,7 +5,7 @@ interface ISignUpToast {
   children: ReactNode;
 }
 
-const SignUpToast = ({ children }: ISignUpToast) => {
+export const SignUpToast = ({ children }: ISignUpToast) => {
   return (
     <div className="w-full flex justify-center px-4">
       {/* TODO: 동적으로 어떻게 할당하지..? */}
@@ -13,5 +13,3 @@ const SignUpToast = ({ children }: ISignUpToast) => {
     </div>
   );
 };
-
-export default SignUpToast;

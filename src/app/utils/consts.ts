@@ -13,7 +13,7 @@ export const NAV = {
   HEADER_HEIGHT: "95px",
 
   URL: {
-    HOME: "/home",
+    HOME: "/",
     ABOUT_US: "/about-us",
     MEMBERS: "/member",
     SCHEDULE: "/schedule",

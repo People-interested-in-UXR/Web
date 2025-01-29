@@ -1,4 +1,4 @@
-import { Form } from "@/app/_ui";
+import { PrivacyConsentForm } from "@/app/components/ui/Form/PrivacyConsent/PrivacyConsentForm";
 
 export default function Page() {
   return (
@@ -7,7 +7,7 @@ export default function Page() {
         <h1 className="text-brown-900 h1-700-32 break-keep text-pretty">
           약관에 동의가 필요해요
         </h1>
-        <Form />
+        <PrivacyConsentForm />
       </div>
     </div>
   );

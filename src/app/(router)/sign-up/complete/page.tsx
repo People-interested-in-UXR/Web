@@ -1,6 +1,10 @@
-import { Section } from "@/app/_containers";
 import { getUserInfo } from "@/app/_domain/user";
-import { Fireworks, Icon, ProfileCard, SignUpToast } from "@/app/_ui";
+import { ProfileCard } from "@/app/components/features/Profile/ProfileCard/ProfileCard";
+import Fireworks from "@/app/components/ui/Fireworks/Fireworks";
+import { SignUpToast } from "@/app/components/ui/Form/SignUp/SignUpToast";
+import { Icon } from "@/app/components/ui/Icon/Icon";
+
+import { Section } from "@/app/components/ui/Section/Section";
 
 import Link from "next/link";
 

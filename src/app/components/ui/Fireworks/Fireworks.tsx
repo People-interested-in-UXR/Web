@@ -2,7 +2,7 @@
 
 import confetti from "canvas-confetti";
 import { useEffect } from "react";
-import { Icon } from "@/app/_ui";
+import { Icon } from "../Icon/Icon";
 
 const Fireworks = ({}) => {
   useEffect(() => {

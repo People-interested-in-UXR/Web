@@ -1,4 +1,4 @@
-import Board, { IChip } from "@/app/components/features/Board/Board";
+import { Board, IChip } from "@/app/components/features/Board/Board";
 
 import { User } from "@/app/utils/types/user/user";
 

@@ -81,9 +81,9 @@ export default async function Home() {
         <div className="flex items-center justify-between max-lg:flex-col-reverse md:px-10 px-8 lg:gap-[154px] ">
           <div className="flex flex-col max-lg:items-center">
             <div className="">
-              <h1 className="h0-700-40 mb-10  md:flex md:flex-col max-md:break-keep text-pretty max-sm:h3-700-20">
-                <span>우리 모임은 UX리서치에 </span>
-                <span>관심 있는 사람 누구나 환영입니다.</span>
+              <h1 className="h0-700-40 max-sm:h3-700-20 mb-10 md:flex md:flex-col max-md:break-keep text-pretty ">
+                <span>우리 모임은 UX리서치에 관심 있는 사람</span>
+                <span>누구나 환영입니다.</span>
               </h1>
               <ul className="list-disc b1-500-20 text-sub mb-14 lg:pl-7 pl-4  break-words text-pretty max-sm:b1-500-12">
                 <li>
@@ -130,7 +130,7 @@ export default async function Home() {
             <h2 className="sm:h1-700-32 h1-700-20 text-title">
               우리 모임 운영 방식
             </h2>
-            <div className="sm:b1-500-20 b1-500-12 text-sub flex flex-col text-start">
+            <div className="b1-500-12 sm:b1-500-20  text-sub flex flex-col text-start">
               <p>
                 온라인에서 주기적으로 북스터디 / 아티클 스터디 / 자유 토론
                 세션을 열고있어요.

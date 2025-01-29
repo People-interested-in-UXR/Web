@@ -1,5 +1,5 @@
 import { getUserInfo } from "@/app/_domain/user";
-import { SignUpForm } from "@/app/_ui/_components";
+import { SignUpForm } from "@/app/components/ui/Form/SignUp/SignUpForm";
 
 export default async function Page({}) {
   const user = await getUserInfo();

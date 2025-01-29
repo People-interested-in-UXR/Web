@@ -96,7 +96,7 @@ export const Board = <T extends {}>({
     } finally {
       setIsLoading(false);
     }
-  }, [pagenation, setPagenation]);
+  }, [pagenation, setPagenation, database?.id, param]);
 
   useEffect(() => {
     //TODO: meet-up 페이지는 버튼형 페이지네이션
@@ -117,7 +117,7 @@ export const Board = <T extends {}>({
     return () => {
       if (observerRef.current) observer.unobserve(observerRef.current);
     };
-  }, [isLoading, fetchMoreData]);
+  }, [isLoading, fetchMoreData, observerRef?.current]);
 
   // cover는 type을 넣으면 됨 cover[cover.type]
   return (

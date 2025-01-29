@@ -9,7 +9,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useModalToggle } from "../../../hooks";
 import { User } from "@/app/utils/types/user/user";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Icon } from "../Icon/Icon";
 
 interface IPIXRHeaderNavList {
@@ -59,6 +59,7 @@ export const Navigation = ({ user }: INavigation) => {
   const { showModal, openModal, closeModal } = useModalToggle();
   const [showProfile, setShowProfile] = useState(false);
 
+  const path = usePathname();
   const searchParams = useSearchParams();
   const refresh = searchParams.has("refresh");
   const router = useRouter();
@@ -100,36 +101,74 @@ export const Navigation = ({ user }: INavigation) => {
       <nav className="w-full flex items-center max-md:hidden">
         {/* Desktop */}
         <ul className="flex justify-between w-full b2-400-16 items-center max-xl:hidden">
-          <li className="hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold">
+          <li
+            className={`${
+              path === NAV.URL.HOME && "b2-700-16 text-default"
+            } hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
+          >
             <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}`}>{NAV.HOME}</Link>
           </li>
-          <li className="hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold">
-            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/about-us`}>
+          <li
+            className={`${
+              path.startsWith(NAV.URL.ABOUT_US) && "b2-700-16 text-default"
+            } hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
+          >
+            <Link
+              href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.ABOUT_US}`}
+            >
               {NAV.ABOUT_US}
             </Link>
           </li>
-          <li className="hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold">
-            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/member`}>
+          <li
+            className={`${
+              path.startsWith(NAV.URL.MEMBERS) && "b2-700-16 text-default"
+            } hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
+          >
+            <Link
+              href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.MEMBERS}`}
+            >
               {NAV.MEMBERS}
             </Link>
           </li>
-          <li className="hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold">
-            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/schedule`}>
+          <li
+            className={`${
+              path.startsWith(NAV.URL.SCHEDULE) && "b2-700-16 text-default"
+            } hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
+          >
+            <Link
+              href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.SCHEDULE}`}
+            >
               {NAV.SCHEDULE}
             </Link>
           </li>
-          <li className="hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold">
-            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/meet-up`}>
+          <li
+            className={`${
+              path.startsWith(NAV.URL.MEETUPS) && "b2-700-16 text-default"
+            } hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
+          >
+            <Link
+              href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.MEETUPS}`}
+            >
               {NAV.MEETUPS}
             </Link>
           </li>
-          <li className="hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold">
-            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/archive`}>
+          <li
+            className={`${
+              path.startsWith(NAV.URL.ARCHIVE) && "b2-700-16 text-default"
+            } hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
+          >
+            <Link
+              href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.ARCHIVE}`}
+            >
               {NAV.ARCHIVE}
             </Link>
           </li>
-          <li className="hover:text-muted active:text-default focus:font-bold active:font-bold focus:text-default">
-            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/board`}>
+          <li
+            className={`${
+              path.startsWith(NAV.URL.BOARD) && "b2-700-16 text-default"
+            } hover:text-muted active:text-default focus:font-bold active:font-bold focus:text-default`}
+          >
+            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.BOARD}`}>
               {NAV.BOARD}
             </Link>
           </li>
@@ -142,7 +181,7 @@ export const Navigation = ({ user }: INavigation) => {
           )}
           {user?.id ? (
             <li
-              className="flex items-center gap-2 hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold cursor-pointer"
+              className={`flex items-center gap-2 hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold cursor-pointer`}
               onClick={handleProfileClick}
             >
               <Image

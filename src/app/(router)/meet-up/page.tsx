@@ -1,7 +1,7 @@
 import { getNotionData } from "@/app/_domain/databases";
-import { Board } from "@/app/_ui/_atomics/Board";
+import { Board } from "@/app/components/features/Board/Board";
+
 import { NOTION } from "@/app/utils/consts";
-import { h } from "@fullcalendar/core/preact";
 
 export default async function Page({}) {
   const id = NOTION.DATABASE_ID.MEET_UP;

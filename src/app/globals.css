@@ -82,9 +82,42 @@
   .c1-400-12 {
     @apply font-normal text-[12px] leading-[150%];
   }
+
+  /*MEMO: Tailwind Version 4로 업데이트 되어
+    @layer component가 후행으로 반응형이 되는 상황
+    이를 해결하기 위해 @apply를 사용하지 않고, 직접 클래스를 지정
+  */
+
+  @media (min-width: 768px) {
+    .md\:h3-700-20 {
+      @apply font-bold text-[20px] leading-[140%];
+    }
+  }
+
+  @media (max-width: 640px) {
+    .max-sm\:h3-700-20 {
+      @apply font-bold text-[20px] leading-[140%];
+    }
+
+    .max-sm\:b1-500-12 {
+      @apply font-medium text-[12px] leading-[150%];
+    }
+  }
+
+  @media (min-width: 640px) {
+    .sm\:h1-700-32 {
+      @apply font-bold text-[32px] leading-[140%];
+    }
+
+    .sm\:b1-500-20 {
+      @apply font-medium text-[20px] leading-[150%];
+    }
+  }
 }
 
 @theme {
+  /* Screen sizes */
+  --breakpoint-mobile: (min-width: 375px);
   /* Colors */
   --color-primary-brown: #d9d2ce;
   --color-primary-red: #e65656;
@@ -125,9 +158,6 @@
 .animate-fadeOut {
   animation: fadeOut 4s ease-in-out;
 }
-
-/* Screen sizes */
-@custom-media --mobile (min-width: 375px);
 
 /* Heights */
 .h-calc-header {
