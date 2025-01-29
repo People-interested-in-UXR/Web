@@ -1,5 +1,5 @@
 import { Board } from "@/app/_ui/_atomics/Board";
-import { IChip } from "@/app/_ui/_atomics/Board/Board";
+import { IChip } from "@/app/components/features/Board/Board";
 
 import { User } from "@/app/utils/types/user/user";
 

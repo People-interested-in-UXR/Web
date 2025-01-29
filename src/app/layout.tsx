@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Container, PIXRFooter, PIXRHeader } from "./_containers";
+import Container from "./components/ui/Container/Container";
+import PIXRHeader from "./components/ui/Header/PIXRHeader";
+import PIXRFooter from "./components/ui/Footer/PIXRFooter";
 
 const pretandard = localFont({
-  src: "./_fonts/PretendardVariable.woff2",
+  src: "/fonts/PretendardVariable.woff2",
   variable: "--font-pretandard",
   display: "swap",
 });

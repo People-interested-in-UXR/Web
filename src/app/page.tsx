@@ -2,9 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { HTMLAttributes, ReactNode } from "react";
-import { Section } from "./_containers";
-import { Button, Icon } from "./_ui";
+
 import { cookies } from "next/headers";
+
+import Section from "./components/ui/Section/Section";
+import Button from "./components/ui/Button/Button";
+import { Icon } from "./components/ui/Icon";
 
 const Banner = ({ children }: HTMLAttributes<HTMLElement>) => {
   return (

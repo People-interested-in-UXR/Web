@@ -1,0 +1,60 @@
+//* Today 배경색
+
+.calendar {
+  margin-top: 16px;
+  border: 0 !important;
+
+  @media (max-width: 768px) {
+    margin-top: 8px;
+  }
+
+  table {
+    border-top: none !important;
+    border-right: none !important;
+    border-left: none !important;
+  }
+
+  th,
+  tbody {
+    border: none !important;
+    text-align: left !important;
+  }
+}
+
+.dayHeader {
+  padding-left: 8px !important;
+  text-align: left !important;
+  border: none !important ;
+
+  @media (max-width: 768px) {
+    padding-left: 4px !important;
+    font-size: 14px !important;
+  }
+}
+
+.dayCell {
+  background-color: white !important;
+  border: #d9d2ce;
+
+  @media (max-width: 768px) {
+    min-height: 80px !important;
+  }
+
+  div {
+    flex-direction: row !important;
+    // margin-left: 4px !important;
+    // dayCell 내의 이벤트
+    // opacity: 1 !important;
+    // z-index: 1000 !important;
+  }
+}
+
+.event {
+  margin-top: 4px !important;
+  border-radius: 4px !important;
+
+  @media (max-width: 768px) {
+    margin-top: 2px !important;
+    font-size: 12px !important;
+  }
+}

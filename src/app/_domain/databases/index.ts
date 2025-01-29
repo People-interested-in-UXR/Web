@@ -1,4 +1,4 @@
-import { IChip } from "@/app/_ui/_atomics/Board/Board";
+import { IChip } from "@/app/components/features/Board/Board";
 import { IPageProperty, ISelect, Page } from "@/app/utils/types/notion/page";
 
 type NotionFetcherTag = "board" | "archive" | "meet-up" | "member";
@@ -53,6 +53,7 @@ export const getNotionData = async (
   tag: NotionFetcherTag,
   pagenation?: { start: number; end: number }
 ) => {
+  // TODO: Notion 마이그레이션
   const props = await getDatabaseProp(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/prop/?database_id=${id}`,
     "force-cache",
