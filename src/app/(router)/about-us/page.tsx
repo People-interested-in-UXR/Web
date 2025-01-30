@@ -119,11 +119,10 @@ export default async function Page({}) {
         />
       </div>
       {/* 운영진 */}
-      <section className="flex flex-col items-center my-10 gap-16 min-h-calc-header">
+      <section className="flex flex-col items-center my-20 gap-16 min-h-calc-header">
         <Board
-          title={"우리 모임 멤버"}
-          description={`우리 모임과 함께하는 사람들은 어떤 사람들 일까요?
-          네트워킹을 통해 즐거운 모임을 만들고 서로 서로 도와요.`}
+          title={"운영진"}
+          description={`우리 모임을 함께 만들어가는 사람들`}
           users={users}
           database={undefined}
           breadcrumb={[]}

@@ -1,18 +1,9 @@
 import { Board, IChip } from "@/app/components/features/Board/Board";
+import { MemberCategory, POSITIONS } from "@/app/utils/consts";
 
 import { User } from "@/app/utils/types/user/user";
 
 export const dynamic = "force-dynamic";
-type MemberCategory =
-  | "전체"
-  | "UX Researcher"
-  | "Product Designer"
-  | "PO/PM"
-  | "Data Analyst"
-  | "Developer"
-  | "Maketer"
-  | "Student"
-  | "ETC";
 
 export default async function Page({}) {
   const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user`, {
@@ -24,14 +15,7 @@ export default async function Page({}) {
 
   const chipSamples: IChip<MemberCategory>[] = [
     { category: "전체" },
-    { category: "UX Researcher" },
-    { category: "Product Designer" },
-    { category: "PO/PM" },
-    { category: "Data Analyst" },
-    { category: "Developer" },
-    { category: "Maketer" },
-    { category: "Student" },
-    { category: "ETC" },
+    ...POSITIONS.map((position) => ({ category: position })),
   ];
 
   return (

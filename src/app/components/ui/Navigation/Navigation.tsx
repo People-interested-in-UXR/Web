@@ -24,18 +24,21 @@ const PIXRHeaderNavList = ({
   children,
   onClick,
 }: IPIXRHeaderNavList) => {
+  const path = usePathname();
+
   return (
     <>
       {type === "common" || children !== NAV.SIGN_OUT ? (
         <Link
           href={`${process.env.NEXT_PUBLIC_BASE_URL}${href}`}
           onClick={onClick}
+          className={`${path === href && "b2-700-16 text-default"}`}
         >
           <li
             className={`${
               children === NAV.SIGN_UP
                 ? "text-primary-red b2-700-16 hover:bg-primary-red hover:text-white p-2 rounded-lg text-start"
-                : "p-2 rounded-lg hover:bg-secondary hover:text-accent"
+                : "p-2 rounded-lg hover:bg-secondary hover:text-accent "
             }`}
           >
             {children}
@@ -208,7 +211,7 @@ export const Navigation = ({ user }: INavigation) => {
         </ul>
         {showProfile && (
           <div
-            className="w-[300px]  absolute right-10 bg-white rounded-2xl p-6 top-[100px] animate-fade-down drop-shadow-m z-10"
+            className="w-[300px] absolute right-10 bg-white rounded-2xl p-6 top-[100px] animate-fade-down drop-shadow-m z-10"
             onMouseLeave={() => setShowProfile(false)}
           >
             <div className="border-b border-muted flex gap-4 pb-6">

@@ -73,17 +73,9 @@ const CalendarHeader = forwardRef<FullCalendar>(function Calc(prop, ref) {
   };
 
   return (
-    <div className="flex gap-6 items-center">
-      <div className="flex items-center">
-        <button
-          id="today"
-          className="text-default bg-white border border-btn-unselected px-4 py-2 h3-700-20 rounded-[22px]"
-        >
-          오늘
-        </button>
-      </div>
+    <div className="flex justify-between items-center w-full max-md:px-4 max-md:py-2">
       <div className="flex gap-4 items-center">
-        <button id="prev">
+        <button id="prev" className="max-md:hidden cursor-pointer">
           <Icon
             src={"/icon/common/calendar_arrow_left.svg"}
             alt={"previous month button"}
@@ -94,7 +86,7 @@ const CalendarHeader = forwardRef<FullCalendar>(function Calc(prop, ref) {
         <div id="day" className="text-default h3-700-20">
           {day}
         </div>
-        <button id="next">
+        <button id="next" className="max-md:hidden cursor-pointer">
           <Icon
             src={"/icon/common/calendar_arrow_right.svg"}
             alt={"previous month button"}
@@ -103,6 +95,12 @@ const CalendarHeader = forwardRef<FullCalendar>(function Calc(prop, ref) {
           />
         </button>
       </div>
+      <button
+        id="today"
+        className="text-default bg-white border border-btn-unselected px-4 py-2 h3-700-20 rounded-[22px] max-md:text-sm max-md:px-3 max-md:py-1.5 cursor-pointer"
+      >
+        오늘
+      </button>
     </div>
   );
 });

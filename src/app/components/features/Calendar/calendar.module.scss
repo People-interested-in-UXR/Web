@@ -35,6 +35,7 @@
 .dayCell {
   background-color: white !important;
   border: #d9d2ce;
+  min-height: 100px !important;
 
   @media (max-width: 768px) {
     min-height: 80px !important;

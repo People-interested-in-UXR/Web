@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -8,6 +9,7 @@ import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClic
 import styles from "./calendar.module.scss";
 import CalendarHeader from "./CalendarHeader";
 import tippy from "tippy.js";
+import { MobileEventModal } from "./MobileEventModal";
 
 interface ICalenderEvents {
   "Note Taking": {
@@ -74,6 +76,7 @@ interface ICalenderEvents {
 export const Calendar = ({ pages }: { pages: any }) => {
   const calendarRef = useRef<FullCalendar>(null);
   const [screenSize, setScreenSize] = useState({ x: 0, y: 0 });
+  const [selectedEvent, setSelectedEvent] = useState<any>(null);
   const events = [...pages].map((page: ICalenderEvents) => ({
     title: page["주제"].title[0].plain_text,
     note: page["Note Taking"]?.select?.name,
@@ -90,17 +93,28 @@ export const Calendar = ({ pages }: { pages: any }) => {
   }));
 
   useEffect(() => {
-    if (window) {
+    const handleResize = () => {
       setScreenSize({
         x: window.innerWidth,
         y: window.innerHeight,
       });
-    }
-  }, [setScreenSize]);
+    };
+
+    // 초기 사이즈 설정
+    handleResize();
+
+    // resize 이벤트 리스너 등록
+    window.addEventListener("resize", handleResize);
+
+    // cleanup 함수
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div
-      className={`${styles.full} w-full max-h-screen h-full z-0 md:px-48 px-0 `}
+      className={`${styles.full} w-full max-h-screen h-full z-0 md:px-48 px-0 md:mt-16 mt-0`}
     >
       <div className="">
         <CalendarHeader ref={calendarRef} />
@@ -108,7 +122,7 @@ export const Calendar = ({ pages }: { pages: any }) => {
           ref={calendarRef}
           dayMaxEvents={true}
           eventMaxStack={4}
-          height={screenSize.y - (screenSize.x <= 768 ? 100 : 200)}
+          height={screenSize.x <= 375 ? screenSize.y - 180 : screenSize.y - 380}
           viewClassNames={`${styles.calendar}`}
           dayHeaderClassNames={`${styles.dayHeader} text-default b2-400-16 first-of-type:text-primary-red `}
           dayCellClassNames={`${styles.dayCell}  b2-700-16 first-of-type:text-primary-red `}
@@ -119,8 +133,15 @@ export const Calendar = ({ pages }: { pages: any }) => {
           headerToolbar={false}
           events={events}
           eventDidMount={function (arg) {
-            const content = String.raw`
-            <div class="w-[280px] h-[180px]  bg-white drop-shadow-lg p-4 rounded-lg text-default">
+            if (screenSize?.x <= 375) {
+              arg.el.addEventListener("click", () => {
+                setSelectedEvent(arg.event);
+              });
+            } else {
+              const content =
+                screenSize?.x > 375
+                  ? String.raw`
+            <div class="w-[280px] h-[180px]  bg-white drop-shadow-lg p-4 rounded-lg text-default ">
               <h1 class=" b2-700-16 font-bold">${arg?.event?.title}</h1>
               <div class="mt-4 w-full flex flex-col gap-2">
                 <div class="w-full flex gap-2.5">
@@ -128,10 +149,12 @@ export const Calendar = ({ pages }: { pages: any }) => {
                   <p class=" c1-400-12 inline ">${Intl.DateTimeFormat(
                     "ko-KR"
                   ).format(new Date(arg.event.startStr))}${
-              arg.event.endStr &&
-              " ~ " +
-                Intl.DateTimeFormat("ko-KR").format(new Date(arg.event.endStr))
-            } </p>
+                      arg.event.endStr &&
+                      " ~ " +
+                        Intl.DateTimeFormat("ko-KR").format(
+                          new Date(arg.event.endStr)
+                        )
+                    } </p>
                 </div>
                 <div class="w-full flex gap-2.5">
                   <Image src="/icon/writingProp/note_taking.svg" alt="Notetaking icon" className="" width="16" height="16" />
@@ -153,20 +176,24 @@ export const Calendar = ({ pages }: { pages: any }) => {
                 </div>
               </div>
             </div>  
-          `;
+          `
+                  : String.raw``;
 
-            tippy(arg.el, {
-              duration: 0,
-              arrow:
-                '<div class="w-0 h-0 border-solid border-r-[15px] border-r-transparent border-l-[15px] border-l-transparent border-t-[10px] border-t-white border-b-0 rounded-b-xl"></div>',
-              allowHTML: true,
-              content,
-              trigger: "click",
-            });
+              tippy(arg.el, {
+                duration: 0,
+                arrow:
+                  screenSize?.x > 375
+                    ? '<div class="w-0 h-0 border-solid border-r-[10px] border-r-transparent border-l-[10px] border-l-transparent border-t-[15px] border-t-white border-b-0 rounded-b-xl"></div>'
+                    : "",
+                allowHTML: true,
+                content,
+                trigger: "click",
+              });
+            }
           }}
           eventContent={function (arg) {
             return (
-              <div className="w-full h-full text-accent b3-500-12">
+              <div className="w-full h-full text-accent b3-500-12 ">
                 {arg.event.title}
               </div>
             );
@@ -195,6 +222,15 @@ export const Calendar = ({ pages }: { pages: any }) => {
           }}
         />
       </div>
+      {selectedEvent &&
+        screenSize?.x <= 375 &&
+        createPortal(
+          <MobileEventModal
+            event={selectedEvent}
+            onClose={() => setSelectedEvent(null)}
+          />,
+          document.body
+        )}
     </div>
   );
 };

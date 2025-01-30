@@ -16,7 +16,6 @@ export const Logo = ({ theme = "system" }: { theme: Theme }) => {
         }`}
         alt={"pixr 로고입니다."}
         priority
-        style={{ width: "auto", height: "auto" }}
       ></Image>
     </Link>
   );

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { User } from "@/app/utils/types/user/user";
 import { revalidateTag } from "next/cache";
 import { Icon } from "../../Icon/Icon";
+import { POSITIONS } from "@/app/utils/consts";
 
 interface ISignUpForm {
   user?: User;
@@ -27,17 +28,6 @@ export const SignUpForm = ({ user }: ISignUpForm) => {
   const router = useRouter();
 
   const INTRODUCE_MAX_LENGTH = 55;
-
-  const positions = [
-    "UX Researcher",
-    "Product Designer",
-    "PO/PM",
-    "Data Analyst",
-    "Developer",
-    "Maketer",
-    "Student",
-    "ETC",
-  ];
 
   useEffect(() => {
     if (
@@ -290,7 +280,7 @@ export const SignUpForm = ({ user }: ISignUpForm) => {
             </div>
             {positionToggle && (
               <ul className="w-full rounded-lg bg-white grid grid-cols-1 divide-y divide-muted mt-2 border border-muted">
-                {positions.map((el, index) => (
+                {POSITIONS.map((el, index) => (
                   <button
                     key={index}
                     className="p-4 text-start w-full hover:bg-background-muted hover:text-sub active:bg-brown-800 active:text-accent b2-400-16 active:rounded-lg"

@@ -9,9 +9,11 @@ const PIXRHeader = async () => {
 
   return (
     <Header>
-      <div className="flex items-center gap-4 w-full">
+      <div className="flex items-center gap-2 md:gap-4  w-full">
         <Logo theme="light" />
-        <p className="b3-500-14 md:h3-700-20">UX 리서치에 관심 있는 사람</p>
+        <p className="b3-500-14 md:h3-700-20 w-full">
+          UX 리서치에 관심 있는 사람
+        </p>
       </div>
 
       <Navigation user={user} />

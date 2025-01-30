@@ -35,6 +35,10 @@
     @apply font-semibold text-[18px] leading-[140%];
   }
 
+  .h5-700-14 {
+    @apply font-bold text-[14px] leading-[140%];
+  }
+
   .b1-500-20 {
     @apply font-medium text-[20px] leading-[150%];
   }
@@ -102,6 +106,10 @@
     .max-sm\:b1-500-12 {
       @apply font-medium text-[12px] leading-[150%];
     }
+
+    .max-sm\:h5-700-14 {
+      @apply font-bold text-[14px] leading-[140%];
+    }
   }
 
   @media (min-width: 640px) {
@@ -119,6 +127,7 @@
   /* Screen sizes */
   --breakpoint-mobile: (min-width: 375px);
   /* Colors */
+  --color-brown-900: #2b2a29;
   --color-primary-brown: #d9d2ce;
   --color-primary-red: #e65656;
   --color-btn-default: #e65656;

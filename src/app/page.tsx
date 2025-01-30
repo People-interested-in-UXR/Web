@@ -1,13 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
+import { cookies } from "next/headers";
 
 import { HTMLAttributes, ReactNode } from "react";
-
-import { cookies } from "next/headers";
 
 import Button from "./components/ui/Button/Button";
 import { Icon } from "./components/ui/Icon/Icon";
 import { Section } from "./components/ui/Section/Section";
+import { NAV } from "./utils/consts";
 
 const Banner = ({ children }: HTMLAttributes<HTMLElement>) => {
   return (
@@ -19,7 +19,7 @@ const Banner = ({ children }: HTMLAttributes<HTMLElement>) => {
 
 const OrganizationRule = ({ children }: HTMLAttributes<HTMLElement>) => {
   return (
-    <div className="sm:py-20 py-8 flex justify-center items-center max-sm:px-8 bg-secondary ">
+    <div className="sm:py-20 py-8 flex justify-center items-center max-sm:px-8 bg-secondary">
       {children}
     </div>
   );
@@ -47,7 +47,7 @@ const Grid = ({ imageSrc, imageAlt, href, children }: IGrid) => {
           className="group-hover:scale-[1.2]"
         />
         <div className="flex justify-between w-[223.5px]">
-          <p className="text-default h3-700-20 ">{children}</p>
+          <p className="text-default h3-700-20 max-sm:h5-700-14 ">{children}</p>
           <button className="text-btn-default text-xl hover:text-btn-hover ">
             <Icon
               src={"/icon/common/right_arrow.svg"}
@@ -102,13 +102,13 @@ export default async function Home() {
             </div>
             {isLogin ? (
               <div className="w-fit">
-                <Link href={"/member"}>
+                <Link href={NAV.URL.MEMBERS}>
                   <Button>멤버 소개</Button>
                 </Link>
               </div>
             ) : (
               <div className="w-fit">
-                <Link href={"/sign-in"}>
+                <Link href={NAV.URL.SIGN_UP}>
                   <Button>모임 참여하기</Button>
                 </Link>
               </div>
@@ -144,14 +144,14 @@ export default async function Home() {
           <div className="xl:flex sm:gap-8 gap-2 grid grid-cols-1">
             <div className="sm:flex sm:gap-8 gap-2 grid grid-cols-1">
               <Grid
-                href={"/archive?chip=북스터디"}
+                href={`${NAV.URL.ARCHIVE}?chip=북스터디`}
                 imageSrc={"/home/book.png"}
                 imageAlt={"북 스터디 이미지"}
               >
                 북 스터디
               </Grid>
               <Grid
-                href={"/archive?chip=아티클"}
+                href={`${NAV.URL.ARCHIVE}?chip=아티클`}
                 imageSrc={"/home/article.png"}
                 imageAlt={"아티클 스터디 이미지"}
               >
@@ -160,14 +160,14 @@ export default async function Home() {
             </div>
             <div className="sm:flex sm:gap-8 gap-2 grid grid-cols-1">
               <Grid
-                href={"/meet-up"}
+                href={NAV.URL.MEETUPS}
                 imageSrc={"/home/meeting.png"}
                 imageAlt={"오프라인 정기모임 이미지"}
               >
                 오프라인 / 컨퍼런스
               </Grid>
               <Grid
-                href={"/archive"}
+                href={NAV.URL.ARCHIVE}
                 imageSrc={"/home/archive.png"}
                 imageAlt={"컨퍼런스 / 세미나 이미지"}
               >

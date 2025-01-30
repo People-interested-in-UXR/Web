@@ -26,7 +26,7 @@ export default function OAuthButton({
     <button
       className={`${
         social === "kakao" ? "bg-[#FEE500]" : "bg-white"
-      } h-[45px] w-full rounded-[7px] px-4 py-3 flex items-center gap-[77px]`}
+      } h-[45px] w-full rounded-[7px] px-4 py-3 flex items-center gap-[77px] pointer-cursor`}
       onClick={handleClick}
     >
       <Icon width={20} height={20} src={iconSrc} alt={iconAlt} />
