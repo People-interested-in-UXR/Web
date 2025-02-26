@@ -9,13 +9,18 @@ const getUserInfo = async () => {
           method: "GET",
           headers: {
             Cookie: `_ui=${userCookie}`,
+            "Cache-Control": "no-store",
           },
+          cache: "no-store",
           next: {
+            revalidate: 0,
             tags: ["members"],
           },
         })
       )?.json()
     : null;
+
+  console.log("User : ", user);
 
   return user;
 };

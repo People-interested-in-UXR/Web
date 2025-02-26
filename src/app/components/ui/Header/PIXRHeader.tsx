@@ -7,6 +7,8 @@ import Header from "./Header";
 const PIXRHeader = async () => {
   const user = await getUserInfo();
 
+  console.log("Server : ", user);
+
   return (
     <Header>
       <div className="flex items-center gap-2 md:gap-4  w-full">

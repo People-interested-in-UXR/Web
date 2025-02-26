@@ -33,9 +33,7 @@ export default async function Page({}) {
         <SignUpToast>
           <div>회원가입이 완료!</div>
           <button className="flex text-btn-default cursor-pointer">
-            <Link
-              href={`${process.env.NEXT_PUBLIC_BASE_URL}/member?refresh=true`}
-            >
+            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/member`}>
               맴버 소개 바로가기
             </Link>
             <Icon

@@ -26,7 +26,6 @@ export const Read = ({
   database,
 }: ICreate) => {
   const [_, pathname] = usePathname().split("/");
-  const router = useRouter();
 
   const [modal, setModal] = useState({
     page: pathname,
@@ -97,7 +96,7 @@ export const Read = ({
 
     closeModal();
     localStorage.removeItem(pathname);
-    router.refresh();
+    window.location.reload();
   };
 
   return (

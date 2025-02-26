@@ -63,18 +63,6 @@ export const Navigation = ({ user }: INavigation) => {
   const [showProfile, setShowProfile] = useState(false);
 
   const path = usePathname();
-  const searchParams = useSearchParams();
-  const refresh = searchParams.has("refresh");
-  const router = useRouter();
-
-  useEffect(() => {
-    //* Profile 수정 후 User데이터 최신화
-    if (refresh) {
-      setTimeout(() => {
-        window.location.reload();
-      }, 0);
-    }
-  }, [router, refresh, user]);
 
   useEffect(() => {
     const handleResize = (event: UIEvent) => {
@@ -111,14 +99,14 @@ export const Navigation = ({ user }: INavigation) => {
           <li
             className={`${
               path === NAV.URL.HOME && "b2-700-16 text-default"
-            } hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
+            } cursor-pointer hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
           >
             <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}`}>{NAV.HOME}</Link>
           </li>
           <li
             className={`${
               path.startsWith(NAV.URL.ABOUT_US) && "b2-700-16 text-default"
-            } hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
+            } cursor-pointer hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
           >
             <Link
               href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.ABOUT_US}`}
@@ -129,7 +117,7 @@ export const Navigation = ({ user }: INavigation) => {
           <li
             className={`${
               path.startsWith(NAV.URL.MEMBERS) && "b2-700-16 text-default"
-            } hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
+            } cursor-pointer hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
           >
             <Link
               href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.MEMBERS}`}
@@ -140,7 +128,7 @@ export const Navigation = ({ user }: INavigation) => {
           <li
             className={`${
               path.startsWith(NAV.URL.SCHEDULE) && "b2-700-16 text-default"
-            } hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
+            } cursor-pointer hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
           >
             <Link
               href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.SCHEDULE}`}
@@ -151,7 +139,7 @@ export const Navigation = ({ user }: INavigation) => {
           <li
             className={`${
               path.startsWith(NAV.URL.MEETUPS) && "b2-700-16 text-default"
-            } hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
+            } cursor-pointer hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
           >
             <Link
               href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.MEETUPS}`}
@@ -162,7 +150,7 @@ export const Navigation = ({ user }: INavigation) => {
           <li
             className={`${
               path.startsWith(NAV.URL.ARCHIVE) && "b2-700-16 text-default"
-            } hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
+            } cursor-pointer hover:text-muted active:text-default focus:b2-700-16 focus:text-default focus:font-bold active:font-bold`}
           >
             <Link
               href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.ARCHIVE}`}
@@ -173,14 +161,14 @@ export const Navigation = ({ user }: INavigation) => {
           <li
             className={`${
               path.startsWith(NAV.URL.BOARD) && "b2-700-16 text-default"
-            } hover:text-muted active:text-default focus:font-bold active:font-bold focus:text-default`}
+            } cursor-pointer hover:text-muted active:text-default focus:font-bold active:font-bold focus:text-default`}
           >
             <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}${NAV.URL.BOARD}`}>
               {NAV.BOARD}
             </Link>
           </li>
           {user?.id ? null : (
-            <li className="text-primary-red hover:text-btn-hover b2-600-16">
+            <li className="text-primary-red hover:text-btn-hover b2-600-16 cursor-pointer">
               <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/sign-in`}>
                 {NAV.SIGN_UP}
               </Link>

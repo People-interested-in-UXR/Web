@@ -7,6 +7,7 @@ import { createServer } from "@/app/utils/supabase";
 export async function GET(request: NextRequest) {
   const cookie = await cookies();
   const userCookie = cookie.get("_ui");
+
   const isLogOut = userCookie?.value === "undefined";
 
   if (isLogOut)
