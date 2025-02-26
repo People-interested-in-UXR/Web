@@ -13,7 +13,7 @@ export default async function Page({}) {
   const { pages } = await data.json();
 
   return (
-    <section className="w-full sm:px-4 pb-10  md:py-10 h-full flex items-center flex-col">
+    <section className="w-full sm:px-4 md:py-10 md:pb-10 h-dvh flex items-center flex-col">
       <div className="max-md:hidden">
         <Description
           title="우리 모임 일정"

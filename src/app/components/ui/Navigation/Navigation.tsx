@@ -67,10 +67,14 @@ export const Navigation = ({ user }: INavigation) => {
   const refresh = searchParams.has("refresh");
   const router = useRouter();
 
-  //* Profile 수정 후 User데이터 최신화
   useEffect(() => {
-    if (refresh) router.refresh();
-  }, [router, refresh]);
+    //* Profile 수정 후 User데이터 최신화
+    if (refresh) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 0);
+    }
+  }, [router, refresh, user]);
 
   useEffect(() => {
     const handleResize = (event: UIEvent) => {
@@ -92,7 +96,7 @@ export const Navigation = ({ user }: INavigation) => {
 
     setTimeout(async () => {
       window.location.reload();
-    }, 200);
+    }, 0);
   };
 
   const handleProfileClick = () => {
