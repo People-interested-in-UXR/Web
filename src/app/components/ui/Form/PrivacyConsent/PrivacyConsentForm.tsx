@@ -213,7 +213,7 @@ export const PrivacyConsentForm = () => {
           )
             ? "w-full bg-primary-red rounded-2xl flex items-center justify-center text-accent h4-600-18 py-4"
             : "w-full bg-brown-600 rounded-2xl flex items-center justify-center text-muted h4-600-18 py-4"
-        }`}
+        } cursor-pointer`}
         type="submit"
         disabled={
           !["terms", "personal-information", "age"].every((value) =>

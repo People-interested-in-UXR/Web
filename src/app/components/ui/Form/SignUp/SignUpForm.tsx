@@ -169,12 +169,10 @@ export const SignUpForm = ({ user }: ISignUpForm) => {
           await uploadUserProfile(file);
           await insertUserInfo();
 
-          // * Router
-          //! <주의> 현재 server revalidateTag user-info(/api/user/info에서 실행)를 사용 중
-          //! Front간 데이터 차이가 있어 query를 붙여 강제로 useEffect를 이용해 refresh (구현은 현재 PIXRHeader 쪽에)
-          user?.id
-            ? router.push("/?refresh=true")
-            : router.push("/sign-up/complete/?refresh=true");
+          router.refresh(); // 최신 데이터 반영을 위해 캐시 새로고침
+
+          // 변경: router.push 호출 전 새로고침 후 페이지 이동
+          user?.id ? router.push("/") : router.push("/sign-up/complete");
         }}
       >
         {/* 프로필 사진 */}
@@ -416,7 +414,7 @@ export const SignUpForm = ({ user }: ISignUpForm) => {
           </div>
         </div>
         <button
-          className={`mt-16 w-full p-4 text-muted bg-brown-600 rounded-2xl h4-600-18 ${
+          className={`mt-16 w-full p-4 text-muted bg-brown-600 rounded-2xl h4-600-18 cursor-pointer ${
             ![file?.name, name, position, introduce].every((value) => value)
               ? "text-muted bg-brown-600"
               : "text-white bg-btn-default"

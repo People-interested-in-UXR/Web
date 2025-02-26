@@ -3,8 +3,11 @@
 import confetti from "canvas-confetti";
 import { useEffect } from "react";
 import { Icon } from "../Icon/Icon";
+import { useRouter } from "next/navigation";
 
 const Fireworks = ({}) => {
+  const router = useRouter();
+
   useEffect(() => {
     const count = 100;
     const defaults = {
@@ -46,6 +49,8 @@ const Fireworks = ({}) => {
       startVelocity: 45,
       gravity: 2,
     });
+
+    router.refresh();
   }, []);
 
   return (
