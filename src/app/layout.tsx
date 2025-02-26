@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Container, PIXRFooter, PIXRHeader } from "./_containers";
+import Container from "./components/ui/Container/Container";
+import PIXRHeader from "./components/ui/Header/PIXRHeader";
+import PIXRFooter from "./components/ui/Footer/PIXRFooter";
 
 const pretandard = localFont({
-  src: "./_fonts/PretendardVariable.woff2",
+  src: "/fonts/PretendardVariable.woff2",
   variable: "--font-pretandard",
   display: "swap",
 });
@@ -92,9 +94,13 @@ export default function RootLayout({
           href="/favicons/favicon-16x16.png"
         />
         <link rel="manifest" href="/favicons/manifest.json" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        />
       </head>
       <body className={pretandard.className + " relative"}>
-        <Container className="h-full bg-default flex flex-col w-full min-h-screen">
+        <Container className="h-full bg-background-default flex flex-col w-full min-h-screen">
           <PIXRHeader />
           {children}
           <PIXRFooter />

@@ -1,14 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
+import { cookies } from "next/headers";
 
 import { HTMLAttributes, ReactNode } from "react";
-import { Section } from "./_containers";
-import { Button, Icon } from "./_ui";
-import { cookies } from "next/headers";
+
+import Button from "./components/ui/Button/Button";
+import { Icon } from "./components/ui/Icon/Icon";
+import { Section } from "./components/ui/Section/Section";
+import { NAV } from "./utils/consts";
 
 const Banner = ({ children }: HTMLAttributes<HTMLElement>) => {
   return (
-    <div className="py-20 flex justify-center items-center bg-default">
+    <div className="py-20 flex justify-center items-center bg-background-default">
       {children}
     </div>
   );
@@ -16,7 +19,7 @@ const Banner = ({ children }: HTMLAttributes<HTMLElement>) => {
 
 const OrganizationRule = ({ children }: HTMLAttributes<HTMLElement>) => {
   return (
-    <div className="sm:py-20 py-8 flex justify-center items-center max-sm:px-8 bg-secondary ">
+    <div className="sm:py-20 py-8 flex justify-center items-center max-sm:px-8 bg-secondary">
       {children}
     </div>
   );
@@ -32,7 +35,7 @@ const Grid = ({ imageSrc, imageAlt, href, children }: IGrid) => {
   return (
     <div className="w-full h-full ">
       <Link
-        className="rounded-3xl bg-white text-default h-fit flex flex-col items-center gap-2 p-6 max-sm:p-4 group hover:bg-muted hover:border-primary-red hover:border-2 border-2 border-white"
+        className="rounded-3xl bg-white text-default h-fit flex flex-col items-center gap-2 p-6 max-sm:p-4 group hover:bg-background-muted hover:border-primary-red hover:border-2 border-2 border-white"
         href={href || "#"}
         prefetch={true}
       >
@@ -44,7 +47,7 @@ const Grid = ({ imageSrc, imageAlt, href, children }: IGrid) => {
           className="group-hover:scale-[1.2]"
         />
         <div className="flex justify-between w-[223.5px]">
-          <p className="text-default h3-700-20 ">{children}</p>
+          <p className="text-default h3-700-20 max-sm:h5-700-14 ">{children}</p>
           <button className="text-btn-default text-xl hover:text-btn-hover ">
             <Icon
               src={"/icon/common/right_arrow.svg"}
@@ -62,7 +65,7 @@ const Grid = ({ imageSrc, imageAlt, href, children }: IGrid) => {
 
 const Sponser = ({ children }: HTMLAttributes<HTMLElement>) => {
   return (
-    <div className="flex flex-col gap-10 bg-default items-center sm:py-20 py-10">
+    <div className="flex flex-col gap-10 bg-background-default items-center sm:py-20 py-10">
       {children}
     </div>
   );
@@ -78,9 +81,9 @@ export default async function Home() {
         <div className="flex items-center justify-between max-lg:flex-col-reverse md:px-10 px-8 lg:gap-[154px] ">
           <div className="flex flex-col max-lg:items-center">
             <div className="">
-              <h1 className="h0-700-40 mb-10  md:flex md:flex-col max-md:break-keep text-pretty max-sm:h3-700-20">
-                <span>우리 모임은 UX리서치에 </span>
-                <span>관심 있는 사람 누구나 환영입니다.</span>
+              <h1 className="h0-700-40 max-sm:h3-700-20 mb-10 md:flex md:flex-col max-md:break-keep text-pretty ">
+                <span>우리 모임은 UX리서치에 관심 있는 사람</span>
+                <span>누구나 환영입니다.</span>
               </h1>
               <ul className="list-disc b1-500-20 text-sub mb-14 lg:pl-7 pl-4  break-words text-pretty max-sm:b1-500-12">
                 <li>
@@ -98,13 +101,17 @@ export default async function Home() {
               </ul>
             </div>
             {isLogin ? (
-              <Link href={"/member"}>
-                <Button>멤버 소개</Button>
-              </Link>
+              <div className="w-fit">
+                <Link href={NAV.URL.MEMBERS}>
+                  <Button>멤버 소개</Button>
+                </Link>
+              </div>
             ) : (
-              <Link href={"/sign-in"}>
-                <Button>모임 참여하기</Button>
-              </Link>
+              <div className="w-fit">
+                <Link href={NAV.URL.SIGN_UP}>
+                  <Button>모임 참여하기</Button>
+                </Link>
+              </div>
             )}
           </div>
           <div className="flex items-center">
@@ -123,7 +130,7 @@ export default async function Home() {
             <h2 className="sm:h1-700-32 h1-700-20 text-title">
               우리 모임 운영 방식
             </h2>
-            <div className="sm:b1-500-20 b1-500-12 text-sub flex flex-col text-start">
+            <div className="b1-500-12 sm:b1-500-20  text-sub flex flex-col text-start">
               <p>
                 온라인에서 주기적으로 북스터디 / 아티클 스터디 / 자유 토론
                 세션을 열고있어요.
@@ -137,14 +144,14 @@ export default async function Home() {
           <div className="xl:flex sm:gap-8 gap-2 grid grid-cols-1">
             <div className="sm:flex sm:gap-8 gap-2 grid grid-cols-1">
               <Grid
-                href={"/archive?chip=북스터디"}
+                href={`${NAV.URL.ARCHIVE}?chip=북스터디`}
                 imageSrc={"/home/book.png"}
                 imageAlt={"북 스터디 이미지"}
               >
                 북 스터디
               </Grid>
               <Grid
-                href={"/archive?chip=아티클"}
+                href={`${NAV.URL.ARCHIVE}?chip=아티클`}
                 imageSrc={"/home/article.png"}
                 imageAlt={"아티클 스터디 이미지"}
               >
@@ -153,14 +160,14 @@ export default async function Home() {
             </div>
             <div className="sm:flex sm:gap-8 gap-2 grid grid-cols-1">
               <Grid
-                href={"/meet-up"}
+                href={NAV.URL.MEETUPS}
                 imageSrc={"/home/meeting.png"}
                 imageAlt={"오프라인 정기모임 이미지"}
               >
                 오프라인 / 컨퍼런스
               </Grid>
               <Grid
-                href={"/archive"}
+                href={NAV.URL.ARCHIVE}
                 imageSrc={"/home/archive.png"}
                 imageAlt={"컨퍼런스 / 세미나 이미지"}
               >

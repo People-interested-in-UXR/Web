@@ -28,6 +28,7 @@ export async function GET(
     page_size: start && start - 1,
   });
 
+
   //* 필요한 부분만 가져오기
   const { results, has_more, next_cursor }: QueryDatabaseResponse =
     await notion.databases.query({
@@ -35,6 +36,7 @@ export async function GET(
       page_size: end && start && end - start + 1,
       start_cursor: init?.next_cursor ? init?.next_cursor : undefined,
     });
+
 
   //* Block Contents 추츨
   //! 평균 5초 정도 소요

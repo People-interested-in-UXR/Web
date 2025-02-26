@@ -1,4 +1,5 @@
-import { Calendar } from "@/app/_ui";
+import { Calendar } from "@/app/components/features/Calendar/Calendar";
+import Description from "@/app/components/ui/Description/Description";
 import { NOTION } from "@/app/utils/consts";
 
 export default async function Page({}) {
@@ -12,7 +13,15 @@ export default async function Page({}) {
   const { pages } = await data.json();
 
   return (
-    <section className="w-full px-4 max-h-calc-header py-10 h-full flex justify-center items-center">
+    <section className="w-full sm:px-4 md:py-10 md:pb-10 h-dvh flex items-center flex-col">
+      <div className="max-md:hidden">
+        <Description
+          title="우리 모임 일정"
+          description={`모임에서 진행되는 다양한 이벤트 일정을 알 수 있어요.
+다음 스터디는 언제인지 바로 확인해보세요.`}
+          position="center"
+        />
+      </div>
       <Calendar pages={pages} />
     </section>
   );

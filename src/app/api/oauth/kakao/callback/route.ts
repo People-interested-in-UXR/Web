@@ -5,7 +5,7 @@ import { createServer } from "@/app/utils/supabase";
 
 export async function GET(request: Request) {
   const cookie = await cookies();
-  const url = new URL(request.url);
+  const url = new URL(request?.url);
 
   // * kakao access token
   const { access_token, expires_in } = await (
@@ -14,7 +14,11 @@ export async function GET(request: Request) {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: `code=${url.searchParams.get("code")}&client_id=${process.env.KAKAO_CLIENT_ID}&client_secret=${process.env.KAKAO_CLIENT_SECRET}&redirect_uri=${`${process.env.NEXT_PUBLIC_BASE_URL}/api/oauth/kakao/callback`}&grant_type=authorization_code`,
+      body: `code=${url.searchParams.get("code")}&client_id=${
+        process.env.KAKAO_CLIENT_ID
+      }&client_secret=${
+        process.env.KAKAO_CLIENT_SECRET
+      }&redirect_uri=${`${process.env.NEXT_PUBLIC_BASE_URL}/api/oauth/kakao/callback`}&grant_type=authorization_code`,
     })
   ).json();
 

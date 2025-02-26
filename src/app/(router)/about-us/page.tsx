@@ -1,9 +1,8 @@
+import { Board } from "@/app/components/features/Board/Board";
+import Description from "@/app/components/ui/Description/Description";
 import Image from "next/image";
 
-import { ReactNode, SetStateAction } from "react";
-
-import { Container, PIXRFooter, PIXRHeader } from "@/app/_containers";
-import { Description, ProfileCard } from "@/app/_ui/_atomics";
+import { ReactNode } from "react";
 
 const Card = ({
   imagePosition,
@@ -32,10 +31,15 @@ const Card = ({
 };
 
 export default async function Page({}) {
+  const users = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/manager`,
+    { method: "GET", cache: "force-cache", next: { tags: ["members"] } }
+  ).then((res) => res.json());
+
   return (
     <>
       {/* 모임 소개 */}
-      <div className="flex flex-col items-center w-full sm:py-20 py-8 gap-16 bg-muted sm:px-10 px-8">
+      <div className="flex flex-col items-center w-full sm:py-20 py-8 gap-16 bg-background-muted sm:px-10 px-8">
         <Card
           imagePosition="right"
           Image={
@@ -115,105 +119,15 @@ export default async function Page({}) {
         />
       </div>
       {/* 운영진 */}
-      <div className="sm:py-20 py-8 flex flex-col items-center w-full gap-4">
-        <Description
-          title="운영진"
-          description="우리 모임을 함께 만들어가는 사람들"
-          position="center"
+      <section className="flex flex-col items-center my-20 gap-16 min-h-calc-header">
+        <Board
+          title={"운영진"}
+          description={`우리 모임을 함께 만들어가는 사람들`}
+          users={users}
+          database={undefined}
+          breadcrumb={[]}
         />
-        <div className="grid xl:grid-cols-3 lg:grid-cols-2 justify-center sm:gap-6 gap-4 mt-8">
-          <ProfileCard
-            name={"홍길동"}
-            position={"UX Researcher"}
-            introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
-          더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
-            email={""}
-            profile={""}
-            secondary_email={""}
-            sns={""}
-            id={0}
-            created_at={""}
-            updated_at={""}
-            platform={"google"}
-            is_marketing={true}
-          />
-          <ProfileCard
-            name={"홍길동"}
-            position={"UX Researcher"}
-            introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
-          더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
-            email={""}
-            profile={""}
-            secondary_email={""}
-            sns={""}
-            id={0}
-            created_at={""}
-            updated_at={""}
-            platform={"google"}
-            is_marketing={true}
-          />
-          <ProfileCard
-            name={"홍길동"}
-            position={"UX Researcher"}
-            introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
-          더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
-            email={""}
-            profile={""}
-            secondary_email={""}
-            sns={""}
-            id={0}
-            created_at={""}
-            updated_at={""}
-            platform={"google"}
-            is_marketing={true}
-          />
-          <ProfileCard
-            name={"홍길동"}
-            position={"UX Researcher"}
-            introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
-          더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
-            email={""}
-            profile={""}
-            secondary_email={""}
-            sns={""}
-            id={0}
-            created_at={""}
-            updated_at={""}
-            platform={"google"}
-            is_marketing={true}
-          />
-          <ProfileCard
-            name={"홍길동"}
-            position={"UX Researcher"}
-            introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
-          더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
-            email={""}
-            profile={""}
-            secondary_email={""}
-            sns={""}
-            id={0}
-            created_at={""}
-            updated_at={""}
-            platform={"google"}
-            is_marketing={true}
-          />
-          <ProfileCard
-            name={"홍길동"}
-            position={"UX Researcher"}
-            introduce={`안녕하세요! 3년 차 스타트업에서 1인 리서처로 있는 정윤경 입니다.만약에
-          더 작성하게 되면 ... 처리로 줄여야 할 것 같은데 몇자까지?`}
-            email={""}
-            profile={""}
-            secondary_email={""}
-            sns={""}
-            id={0}
-            created_at={""}
-            updated_at={""}
-            platform={"google"}
-            is_marketing={true}
-          />
-        </div>
-      </div>
+      </section>
     </>
   );
 }

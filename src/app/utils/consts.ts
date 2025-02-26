@@ -13,7 +13,7 @@ export const NAV = {
   HEADER_HEIGHT: "95px",
 
   URL: {
-    HOME: "/home",
+    HOME: "/",
     ABOUT_US: "/about-us",
     MEMBERS: "/member",
     SCHEDULE: "/schedule",
@@ -24,6 +24,26 @@ export const NAV = {
     // SIGN_OUT: "/",
   },
 };
+export type MemberCategory =
+  | "전체"
+  | "UX Researcher"
+  | "Product Designer"
+  | "PO/PM"
+  | "Data Analyst"
+  | "Developer"
+  | "Maketer"
+  | "Student"
+  | "기타";
+export const POSITIONS: Array<MemberCategory> = [
+  "UX Researcher",
+  "Product Designer",
+  "PO/PM",
+  "Data Analyst",
+  "Developer",
+  "Maketer",
+  "Student",
+  "기타",
+];
 
 export const COOKIE = {
   USER: "_ui",

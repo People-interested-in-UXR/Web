@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { createServer } from "@/app/utils/supabase";
 
 export async function GET(request: Request) {
-  const url = new URL(request.url);
+  const url = new URL(request?.url);
   const cookie = await cookies();
 
   // * Google access token
@@ -14,7 +14,11 @@ export async function GET(request: Request) {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: `code=${url.searchParams.get("code")}&client_id=${process.env.GOOGLE_CLIENT_ID}&client_secret=${process.env.GOOGLE_CLIENT_SECRET}&redirect_uri=${`${process.env.NEXT_PUBLIC_BASE_URL}/api/oauth/google/callback`}&grant_type=authorization_code`,
+      body: `code=${url.searchParams.get("code")}&client_id=${
+        process.env.GOOGLE_CLIENT_ID
+      }&client_secret=${
+        process.env.GOOGLE_CLIENT_SECRET
+      }&redirect_uri=${`${process.env.NEXT_PUBLIC_BASE_URL}/api/oauth/google/callback`}&grant_type=authorization_code`,
     })
   ).json();
 

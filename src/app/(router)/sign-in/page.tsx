@@ -1,8 +1,8 @@
+import OAuthButton from "@/app/components/ui/Button/OAuthButton";
 import { google } from "googleapis";
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { OAuthButton } from "@/app/_ui/_atomics";
 
 export default async function Page({}) {
   const loginInfo = (await cookies()).getAll();
@@ -33,7 +33,7 @@ export default async function Page({}) {
   if (isGoogleLogin) return redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`);
 
   return (
-    <div className="w-full h-calc-header bg-default flex justify-center items-center">
+    <div className="w-full h-calc-header bg-background-default flex justify-center items-center">
       <div className="flex flex-col justify-center text-center gap-10">
         <h1 className="text-brown-900 h1-700-32">가입하고 스터디 참여하기</h1>
         <div className="flex flex-col gap-[11px] mx-2">

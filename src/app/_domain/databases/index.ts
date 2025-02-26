@@ -1,4 +1,4 @@
-import { IChip } from "@/app/_ui/_atomics/Board/Board";
+import { IChip } from "@/app/components/features/Board/Board";
 import { IPageProperty, ISelect, Page } from "@/app/utils/types/notion/page";
 
 type NotionFetcherTag = "board" | "archive" | "meet-up" | "member";
@@ -53,13 +53,16 @@ export const getNotionData = async (
   tag: NotionFetcherTag,
   pagenation?: { start: number; end: number }
 ) => {
+  // TODO: Notion 마이그레이션
   const props = await getDatabaseProp(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/prop/?database_id=${id}`,
     "force-cache",
     tag
   );
   const { pages, has_more } = await getAllPages(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/${tag}/${id}/?start=${pagenation?.start || 1}&end=${pagenation?.end || 6}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion/${tag}/${id}/?start=${
+      pagenation?.start || 1
+    }&end=${pagenation?.end || 6}`,
     "force-cache",
     tag
   );
@@ -88,7 +91,7 @@ export const getChips = async <T>(
 
   const chips: IChip<T | "전체">[] = [
     { category: "전체" },
-    ...(filterdProps.select.options ?? []).map((option) => ({
+    ...(filterdProps?.select?.options ?? []).map((option) => ({
       category: option.name as T,
     })),
   ];
