@@ -159,7 +159,7 @@ export const SignUpForm = ({ user }: ISignUpForm) => {
         </div>
       )}
       <form
-        className="flex flex-col w-full px-[84px] gap-6 mt-2"
+        className="flex flex-col w-full md:px-[84px] px-4 gap-6 mt-2"
         onSubmit={async (event) => {
           //TODO: SeverAction으로 리팩토링
           event.preventDefault();
@@ -188,7 +188,7 @@ export const SignUpForm = ({ user }: ISignUpForm) => {
             <div
               className={`${
                 file || user?.id ? "text-default" : "text-muted"
-              } b2-400-16 flex w-[260px]`}
+              } b2-400-16 flex max-w-[260px]`}
             >
               <p className="truncate">
                 {file
