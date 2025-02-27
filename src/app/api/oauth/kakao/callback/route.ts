@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { createServer } from "@/app/utils/supabase";
+import { isEnvTrue } from "@/app/utils/helpers/isEnvTrue";
 
 export async function GET(request: Request) {
   const cookie = await cookies();
@@ -37,8 +38,8 @@ export async function GET(request: Request) {
   cookie.set("_kt", access_token, {
     httpOnly: true,
     maxAge: expires_in,
-    sameSite: "strict",
-    secure: true,
+    sameSite: "none",
+    secure: isEnvTrue({ env: process.env.COOKIE_SECURE }),
     path: "/",
   });
 
@@ -49,8 +50,8 @@ export async function GET(request: Request) {
   cookie.set("_ui", emailJwtToken, {
     httpOnly: true,
     maxAge: expires_in,
-    sameSite: "strict",
-    secure: true,
+    sameSite: "none",
+    secure: isEnvTrue({ env: process.env.COOKIE_SECURE }),
     path: "/",
   });
 
