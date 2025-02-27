@@ -120,9 +120,10 @@ export const Calendar = ({ pages }: { pages: any }) => {
         <CalendarHeader ref={calendarRef} />
         <FullCalendar
           ref={calendarRef}
-          dayMaxEvents={true}
-          eventMaxStack={4}
-          height={screenSize.x <= 375 ? screenSize.y - 180 : screenSize.y - 380}
+          dayMaxEvents={false} // 모든 이벤트를 표시하도록 변경
+          eventMaxStack={999} // 이벤트 최대 표시 수 증가
+          dayMaxEventRows={false} // "more" 링크 제거
+          height={screenSize.x <= 475 ? screenSize.y - 180 : screenSize.y - 380}
           viewClassNames={`${styles.calendar}`}
           dayHeaderClassNames={`${styles.dayHeader} text-default b2-400-16 first-of-type:text-primary-red `}
           dayCellClassNames={`${styles.dayCell}  b2-700-16 first-of-type:text-primary-red `}
@@ -133,58 +134,59 @@ export const Calendar = ({ pages }: { pages: any }) => {
           headerToolbar={false}
           events={events}
           eventDidMount={function (arg) {
-            if (screenSize?.x <= 375) {
+            if (screenSize?.x <= 475) {
+              // 모바일: 포털 모달을 띄우도록 처리
+
               arg.el.addEventListener("click", () => {
                 setSelectedEvent(arg.event);
               });
             } else {
-              const content =
-                screenSize?.x > 375
-                  ? String.raw`
-            <div class="w-[280px] h-[180px]  bg-white drop-shadow-lg p-4 rounded-lg text-default ">
-              <h1 class=" b2-700-16 font-bold">${arg?.event?.title}</h1>
-              <div class="mt-4 w-full flex flex-col gap-2">
-                <div class="w-full flex gap-2.5">
-                  <Image src="/icon/writingProp/date.svg" alt="Date icon" className="inline" width="16" height="16" />
-                  <p class=" c1-400-12 inline ">${Intl.DateTimeFormat(
-                    "ko-KR"
-                  ).format(new Date(arg.event.startStr))}${
-                      arg.event.endStr &&
-                      " ~ " +
-                        Intl.DateTimeFormat("ko-KR").format(
-                          new Date(arg.event.endStr)
-                        )
-                    } </p>
+              // 데스크탑: 기존 tippy 팝오버 사용
+              const content = String.raw`
+                <div class="w-[280px] h-[180px] bg-white drop-shadow-lg p-4 rounded-lg text-default">
+                  <h1 class="b2-700-16 font-bold">${arg?.event?.title}</h1>
+                  <div class="mt-4 w-full flex flex-col gap-2">
+                    <div class="w-full flex gap-2.5">
+                      <Image src="/icon/writingProp/date.svg" alt="Date icon" className="inline" width="16" height="16" />
+                      <p class="c1-400-12 inline">
+                        ${Intl.DateTimeFormat("ko-KR").format(
+                          new Date(arg.event.startStr)
+                        )}
+                        ${
+                          arg.event.endStr
+                            ? " ~ " +
+                              Intl.DateTimeFormat("ko-KR").format(
+                                new Date(arg.event.endStr)
+                              )
+                            : ""
+                        }
+                      </p>
+                    </div>
+                    <div class="w-full flex gap-2.5">
+                      <Image src="/icon/writingProp/note_taking.svg" alt="Notetaking icon" className="inline" width="16" height="16" />
+                      <p class="c1-400-12">노트테이킹 ${
+                        arg.event._def.extendedProps?.note ? "가능" : "불가능"
+                      }</p>
+                    </div>
+                    <div class="w-full flex gap-2.5">
+                      <Image src="/icon/writingProp/category.svg" alt="Category icon" className="inline" width="16" height="16" />
+                      <p class="c1-400-12">${
+                        arg.event._def.extendedProps?.category || "미정"
+                      }</p>
+                    </div>
+                    <div class="w-full flex gap-2.5">
+                      <Image src="/icon/writingProp/progress.svg" alt="Progress icon" className="inline" width="16" height="16" />
+                      <p class="c1-400-12">${
+                        arg.event._def.extendedProps?.progress || "시작 전"
+                      }</p>
+                    </div>
+                  </div>
                 </div>
-                <div class="w-full flex gap-2.5">
-                  <Image src="/icon/writingProp/note_taking.svg" alt="Notetaking icon" className="" width="16" height="16" />
-                  <p class=" c1-400-12">노트테이킹 ${
-                    arg.event._def.extendedProps?.note ? "가능" : "불가능"
-                  }</p>
-                </div>
-                <div class="w-full flex gap-2.5">
-                  <Image src="/icon/writingProp/category.svg" alt="Category icon" className="" width="16" height="16" />
-                  <p class=" c1-400-12">${
-                    arg.event._def.extendedProps?.category || "미정"
-                  }</p>
-                </div>
-                <div class="w-full flex gap-2.5">
-                  <Image src="/icon/writingProp/progress.svg" alt="Progress icon" className="" width="16" height="16" />
-                  <p class=" c1-400-12">${
-                    arg.event._def.extendedProps?.progress || "시작 전"
-                  }</p>
-                </div>
-              </div>
-            </div>  
-          `
-                  : String.raw``;
-
+              `;
               tippy(arg.el, {
                 duration: 0,
                 arrow:
-                  screenSize?.x > 375
-                    ? '<div class="w-0 h-0 border-solid border-r-[10px] border-r-transparent border-l-[10px] border-l-transparent border-t-[15px] border-t-white border-b-0 rounded-b-xl"></div>'
-                    : "",
+                  '<div class="w-0 h-0 border-solid border-r-[10px] border-r-transparent border-l-[10px] border-l-transparent border-t-[15px] border-t-white border-b-0 rounded-b-xl"></div>',
                 allowHTML: true,
                 content,
                 trigger: "click",
@@ -223,7 +225,7 @@ export const Calendar = ({ pages }: { pages: any }) => {
         />
       </div>
       {selectedEvent &&
-        screenSize?.x <= 375 &&
+        screenSize?.x <= 475 &&
         createPortal(
           <MobileEventModal
             event={selectedEvent}

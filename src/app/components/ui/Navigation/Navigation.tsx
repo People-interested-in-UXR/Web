@@ -83,7 +83,7 @@ export const Navigation = ({ user }: INavigation) => {
     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/sign-out`);
 
     setTimeout(async () => {
-      window.location.reload();
+      window.location.href = "/";
     }, 0);
   };
 
@@ -212,7 +212,7 @@ export const Navigation = ({ user }: INavigation) => {
                 alt={"user profile image"}
                 width={56}
                 height={56}
-                className="rounded-full"
+                className="rounded-full w-14 h-14 object-cover"
               />
               <div>
                 <h3 className="text-default h3-700-20">

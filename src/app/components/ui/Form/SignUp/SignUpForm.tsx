@@ -4,7 +4,6 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 import { User } from "@/app/utils/types/user/user";
-import { revalidateTag } from "next/cache";
 import { Icon } from "../../Icon/Icon";
 import { POSITIONS } from "@/app/utils/consts";
 
@@ -42,11 +41,14 @@ export const SignUpForm = ({ user }: ISignUpForm) => {
       snsRef.current.value = user?.sns || "";
 
       (async () => {
-        const response = await fetch(profile);
-        const blob = await response.blob();
-        const file = new File([blob], "업로드 이미지", { type: blob.type });
+        if (user) {
+          const response = await fetch(profile);
 
-        setFile(file);
+          const blob = await response.blob();
+          const file = new File([blob], "업로드 이미지", { type: blob.type });
+
+          setFile(file);
+        }
       })();
     }
   }, [
@@ -159,20 +161,26 @@ export const SignUpForm = ({ user }: ISignUpForm) => {
         </div>
       )}
       <form
-        className="flex flex-col w-full md:px-[84px] px-4 gap-6 mt-2"
+        className="flex flex-col w-full  px-4 gap-6 mt-2"
         onSubmit={async (event) => {
           //TODO: SeverAction으로 리팩토링
           event.preventDefault();
+
+          console.log(file);
 
           if (!file) return alert("파일을 업로드해주세요.");
 
           await uploadUserProfile(file);
           await insertUserInfo();
 
-          router.refresh(); // 최신 데이터 반영을 위해 캐시 새로고침
+          // 페이지 새로고침 및 캐시 무효화를 명확히 함
+          router.refresh();
 
-          // 변경: router.push 호출 전 새로고침 후 페이지 이동
-          user?.id ? router.push("/") : router.push("/sign-up/complete");
+          // 페이지 이동 전에 캐시가 완전히 무효화되도록 작은 지연 추가
+
+          user?.id
+            ? (window.location.href = "/")
+            : (window.location.href = "/sign-up/complete");
         }}
       >
         {/* 프로필 사진 */}
@@ -408,7 +416,7 @@ export const SignUpForm = ({ user }: ISignUpForm) => {
               className={`${
                 sns ? "border-teriary pl-4" : "border-secondary pl-12"
               } b2-400-16 w-full border rounded-lg pr-4 py-[11px] bg-white flex justify-between items-center h-[58px] outline-hidden placeholder:text-muted`}
-              placeholder="링크드인, 브런치, 페이스북 등 기타 SNS 주소"
+              placeholder="링크드인, 브런치 등 기타 SNS 주소"
               onChange={(event) => setSns(event.currentTarget.value)}
             />
           </div>
