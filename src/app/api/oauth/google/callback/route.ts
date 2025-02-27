@@ -5,7 +5,7 @@ import { createServer } from "@/app/utils/supabase";
 import { isEnvTrue } from "@/app/utils/helpers/cookie/isEnvTrue";
 import { sameSiteHandler } from "@/app/utils/helpers/cookie/sameSiteHandler";
 
-export async function GET(request: Request, response: Response) {
+export async function GET(request: Request) {
   const url = new URL(request?.url);
   const cookie = await cookies();
 
