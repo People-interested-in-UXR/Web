@@ -20,8 +20,6 @@ const getUserInfo = async () => {
       )?.json()
     : null;
 
-  console.log("User : ", user);
-
   return user;
 };
 

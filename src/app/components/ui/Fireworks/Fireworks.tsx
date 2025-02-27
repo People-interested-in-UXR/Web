@@ -51,7 +51,7 @@ const Fireworks = ({}) => {
     });
 
     router.refresh();
-  }, []);
+  }, [router]);
 
   return (
     <Icon

@@ -283,19 +283,21 @@ export const Navigation = ({ user }: INavigation) => {
             >
               <ul className="p-4 gap-4 flex flex-col text-sub b2-400-16 ">
                 {user?.id ? (
-                  <div className="flex gap-2 w-full items-center">
+                  <div className="flex  w-full items-center gap-2">
                     <Link
                       href={`${process.env.NEXT_PUBLIC_BASE_URL}/${user?.id}`}
-                      className="rounded-full cursor-pointer w-12 h-12 items-center flex"
+                      className="rounded-full cursor-pointer items-center flex"
                     >
-                      <Image
-                        src={user?.profile || "/sample.png"}
-                        alt={""}
-                        className="rounded-full"
-                        width={48}
-                        height={48}
-                        onClick={closeModal}
-                      />
+                      <div className="w-12 h-12">
+                        <Image
+                          src={user?.profile || "/sample.png"}
+                          alt={"profile Image"}
+                          className="rounded-full w-12 h-12 object-cover"
+                          width={48}
+                          height={48}
+                          onClick={closeModal}
+                        />
+                      </div>
                     </Link>
                     <PIXRHeaderNavList type="auth" onClick={handleSignOutClick}>
                       {NAV.SIGN_OUT}

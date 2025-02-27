@@ -2,7 +2,9 @@ import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "./app/utils/supabase/middleware";
 import { cookies } from "next/headers";
 
-export async function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest, response: NextResponse) {
+  request.headers.set("Access-Control-Allow-Credentials", "true");
+
   if (request.nextUrl.pathname.startsWith("/sign-in")) {
     await updateSession(request);
 
