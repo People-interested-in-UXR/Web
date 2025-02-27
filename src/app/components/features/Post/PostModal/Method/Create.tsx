@@ -182,7 +182,7 @@ export const Create = ({
       {showModal &&
         createPortal(
           <div
-            className="top-0 fixed w-full h-full bg-brown-800 bg-opacity-60 z-10"
+            className="top-0 fixed w-full h-full  bg-brown-800 z-10"
             onClick={closeModal}
           >
             {/* Modal Menu */}
@@ -211,7 +211,7 @@ export const Create = ({
                   <input
                     id="title"
                     type="text"
-                    className="mt-[45px] h0-700-40 placeholder:text-muted text-title outline-1 outline-zinc-500 w-full"
+                    className="mt-[45px] h0-700-40 placeholder:text-muted text-title w-full focus:outline-none "
                     placeholder="제목을 작성해주세요"
                     maxLength={30}
                     onChange={(event) =>
@@ -392,7 +392,7 @@ export const Create = ({
                                   id="date"
                                   key={index}
                                   type="date"
-                                  className="outline-1 outline-zinc-500"
+                                  className=""
                                   onChange={(event) =>
                                     setModal((prev) => ({
                                       ...prev,

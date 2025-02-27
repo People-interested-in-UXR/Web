@@ -201,7 +201,7 @@ export const PostCardModal = ({
                 <div className="b1-500-20 text-muted">
                   {breadcrumb.join(" > ")}
                 </div>
-                <h1 className="mt-[45px] h0-700-40 placeholder:text-muted text-title outline-1 outline-zinc-500 w-full">
+                <h1 className="mt-[45px] h0-700-40 placeholder:text-muted text-title  w-full">
                   {page?.properties?.["제목"]
                     ? page?.properties?.["제목"]?.title[0]?.plain_text
                     : page?.properties?.["주제"]?.title[0]?.plain_text}
@@ -294,7 +294,7 @@ export const PostCardModal = ({
                                 <div
                                   id={page?.properties["날짜"]?.id}
                                   key={page?.properties["날짜"]?.id}
-                                  className="outline-1 outline-zinc-500 flex items-center"
+                                  className=" flex items-center"
                                 >
                                   {page?.properties["날짜"]?.date?.start ||
                                     "미정"}

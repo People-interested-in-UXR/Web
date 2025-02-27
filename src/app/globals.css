@@ -128,6 +128,7 @@
   --breakpoint-mobile: (min-width: 375px);
   /* Colors */
   --color-brown-900: #2b2a29;
+  --color-brown-800: #57545299;
   --color-primary-brown: #d9d2ce;
   --color-primary-red: #e65656;
   --color-btn-default: #e65656;
