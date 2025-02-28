@@ -8,11 +8,11 @@ export async function POST(request: Request) {
   const formData = await request.formData();
   const file = formData.get("file") as File;
 
-  const buffer = await file.arrayBuffer();
+  const buffer = await file?.arrayBuffer();
   const optimizedImageBuffer = await sharp(Buffer.from(buffer))
-    .resize(760, 920) //* 2배수
-    .webp({ quality: 90 })
-    .toBuffer();
+    ?.resize(760, 920) //* 2배수
+    ?.webp({ quality: 90 })
+    ?.toBuffer();
   const optimizedImageFile = new File([optimizedImageBuffer], file.name, {
     type: "image/webp",
   });

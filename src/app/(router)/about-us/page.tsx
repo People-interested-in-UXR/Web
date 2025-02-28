@@ -119,7 +119,7 @@ export default async function Page({}) {
         />
       </div>
       {/* 운영진 */}
-      <section className="flex flex-col items-center my-20 gap-16 min-h-calc-header">
+      <section className="flex flex-col items-center my-20 gap-16 h-full">
         <Board
           title={"운영진"}
           description={`우리 모임을 함께 만들어가는 사람들`}
